@@ -18,8 +18,8 @@ desired_fps = 3
 frame_interval = int(original_fps / desired_fps)
 
 # Initialize the video writer
-output_file = f"badapple-small-{desired_fps}fps.mov"
-writer = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*"mp4v"), desired_fps, (width, height))
+output_file = f"badapple-small-{desired_fps}fps.mp4"  # Changed extension to .mp4
+writer = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'H264'), desired_fps, (width, height))
 
 # Process the video
 frame_idx = 0

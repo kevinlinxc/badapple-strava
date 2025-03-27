@@ -165,7 +165,6 @@ def export_to_gpx(gps_points, output_file="track.gpx", name="Generated Track", d
     with open(output_file, 'w') as f:
         f.write('\n'.join(gpx_content))
     
-    print(f"GPX file saved to: {os.path.abspath(output_file)}")
     return output_file
 
 def create_track_from_points(points, width, height, **kwargs):

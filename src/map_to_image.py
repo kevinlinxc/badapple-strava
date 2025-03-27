@@ -18,13 +18,13 @@ def calculate_bounding_box(coordinates):
     return min_lat, max_lat, min_lon, max_lon
 
 
-def get_map_image(coordinates, width, height):
+def get_map_image(coordinates, width, height, zoom=15):
     """Generate a map image using Folium and Selenium."""
     min_lat, max_lat, min_lon, max_lon = calculate_bounding_box(coordinates)
     center_lat = (min_lat + max_lat) / 2
     center_lon = (min_lon + max_lon) / 2
 
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=15)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=zoom)
     folium.PolyLine(coordinates, color="red", weight=2.5, opacity=0.8).add_to(m)
 
     # Save map to a temporary file
@@ -39,10 +39,11 @@ def get_map_image(coordinates, width, height):
     driver.set_window_size(width, height)
     driver.get(f"file://{tmp_name}")
     time.sleep(2)  # Wait for the map to load
-    driver.save_screenshot("map.png")
+    temp_folder = tempfile.mkdtemp()
+    file_name = f"{temp_folder}/map.png"
+    driver.save_screenshot(file_name)
     driver.quit()
-
-    return Image.open("map.png")
+    return file_name
 
 
 if __name__ == "__main__":
