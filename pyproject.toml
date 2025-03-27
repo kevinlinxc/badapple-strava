@@ -1,0 +1,12 @@
+[project]
+name = "badapple-strava"
+version = "0.1.0"
+description = "Making bad apple with strava runs"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "opencv-python>=4.10.0.84",
+    "selenium>=4.27.1",
+    "streamlit-folium>=0.24.0",
+    "utm>=0.7.0",
+]
