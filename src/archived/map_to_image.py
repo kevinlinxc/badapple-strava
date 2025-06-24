@@ -1,7 +1,4 @@
-import streamlit as st
-from PIL import Image, ImageDraw, ImageEnhance
 import folium
-from streamlit_folium import folium_static
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time

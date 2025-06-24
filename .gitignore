@@ -3,3 +3,7 @@
 **.mov
 *.mp4
 *.pyc
+**.gpx
+**.png
+.env
+**.json

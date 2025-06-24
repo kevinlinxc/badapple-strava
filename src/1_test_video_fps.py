@@ -12,7 +12,7 @@ print(f"Video properties: {width}x{height}")
 
 print(f"Original FPS: {original_fps}, Frame Count: {frame_count}")
 # Desired FPS
-desired_fps = 3
+desired_fps = 2
 
 # Calculate the frame interval to achieve the desired FPS
 frame_interval = int(original_fps / desired_fps)

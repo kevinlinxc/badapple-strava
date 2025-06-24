@@ -1,9 +1,15 @@
+# streamlit app to generate a GPX file from a single frame of a video
+# used this for my Toronto trip
+# streamlit run src/single_frame_gpx.py
 from gps import x_y_to_gps, export_to_gpx
-from map_to_image import get_map_image
+from archived.map_to_image import get_map_image
 import cv2
 import numpy as np
 import streamlit as st
 import tempfile
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # make a list of x, y that make a rectangle from 0,0 to 480x360
 cap = cv2.VideoCapture("badapple-small.mp4")
@@ -15,10 +21,8 @@ frame_rate = cap.get(cv2.CAP_PROP_FPS)
 print(f"Total number of frames: {total_frames}")
 print(f"Framerate: {frame_rate} FPS")
 
-# toronto
-default_bottom_left_lat_long = "43.644057, -79.418834"
-default_top_right_lat_long = "43.670315, -79.386814"
-
+default_bottom_left_lat_long = os.environ["BOTTOM_LEFT_LAT_LONG"]
+default_top_right_lat_long = os.environ["TOP_RIGHT_LAT_LONG"]
 
 def bad_apple_contour_xy_list(frame_number):
 
@@ -76,12 +80,12 @@ col1, col2 = st.columns([1, 3])
 with col1:
     with st.form("badapple-strava-form"):
         st.number_input("Frame Number", min_value=0, max_value=frame_count - 1, value=235, key="frame_number")
-        st.slider("Angle", -180.0, 180.0, 20.0, step=0.1, key="angle")
-        st.slider("Skew Y", -10.0, 10.0, -5.1, step=0.1, key="skew_y")
+        st.slider("Angle", -180.0, 180.0, 0.0, step=0.1, key="angle")
+        st.slider("Skew Y", -10.0, 10.0, 0.0, step=0.1, key="skew_y")
         st.slider("Skew X", -10.0, 10.0, 0.0, step=0.1, key="skew_x")
-        st.slider("X Scale", 0.1, 2.0, 1.3, step=0.1, key="x_scale")
-        st.slider("Y Scale", 0.1, 2.0, 0.70, step=0.1, key="y_scale")
-        st.slider("Map zoom", 1, 20, 15, key="zoom")
+        st.slider("X Scale", 0.1, 2.0, 1.0, step=0.1, key="x_scale")
+        st.slider("Y Scale", 0.1, 2.0, 0.9, step=0.1, key="y_scale")
+        st.slider("Map zoom", 1, 20, 20, key="zoom")
         
         bottom_left = st.text_input("Bottom Left Lat, Long", default_bottom_left_lat_long)
         top_right = st.text_input("Top Right Lat, Long", default_top_right_lat_long)
