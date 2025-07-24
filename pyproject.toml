@@ -3,11 +3,13 @@ name = "badapple-strava"
 version = "0.1.0"
 description = "Making bad apple with strava runs"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "opencv-python>=4.10.0.84",
+    "polars>=1.31.0",
     "python-dotenv>=1.1.0",
     "selenium>=4.27.1",
+    "strava-client>=1.0.5",
     "streamlit-folium>=0.24.0",
     "utm>=0.7.0",
 ]
