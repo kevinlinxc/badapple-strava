@@ -4,7 +4,7 @@ Making Bad Apple using Strava GPS maps
 
 The core technical challenge is to convert the video into a GPX file.
 
-**I did this by using OpenCV to find the points on the contour(s) of each frame, and then doing (x,y) -> UTM, which is like GPS but cartesian, to GPS conversion.**
+**I did this by using OpenCV to find the points on the contour(s) of each frame, and then doing (x,y) -> UTM, which is latitiude/longitude but cartesian, and then converting to GPS conversion.**
 
 The resulting GPX files can't actually be imported into Strava well, because their tech sucks and is too restrictive (I filed a support ticket and they did not bend). I imported the files into Gaia GPS instead, and walked watching that while tracking on Strava.
 
@@ -17,7 +17,7 @@ Rough order of reading the files if interested:
 the contours are not always proper (they don't always outline the correct shape, or enough shapes), so I instead took the results from that, stored it in a 
 json file as a first guess for every frame.
 4. I then used the streamlit app [`4_contour_editor.py`](src/4_contour_editor.py) to edit the contours one by one, adjusting the opencv
-contour detection parameters so that the selected route for each frame was heuristically correct (optimizing appearance, distance, vibes), and saved those back to the json file to cache that work.
+contour detection parameters so that the selected route for each frame was heuristically correct (optimizing appearance, distance, vibes), and saved those back to the json file to cache that work. There was basically always an opencv contour mode + method that resulted in a pretty good looking contour that minimized the amount of walking I would have to do, and this UI just let me quickly iterate through the frames and find those parameters.
 5. Using the json and the parameters from step 2, I used [`5_json_to_gpx.py`](src/5_json_to_gpx.py) to convert the json to a gpx file. I imported these into Gaia GPS and walked them while tracking on Strava.
 6. I used ['6_strava_scraper.py`](src/6_strava_scraper.py) to scrape the Strava API to get the data for the walks.
 

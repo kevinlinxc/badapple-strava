@@ -1,4 +1,6 @@
+#  to run: delete .strava.secrets, run again, authorize in the browser, paste the url
 from strava_client.client import StravaClient
+from strava_client.models.api import StravaActivity
 from datetime import datetime
 import polars
 
@@ -8,7 +10,7 @@ load_dotenv()
 
 client = StravaClient(scopes=["activity:read_all", "profile:read_all", "read_all"])
 
-activities = client.get_activities(after=datetime(2025, 5, 18), per_page=100) # I started on May 18th
+activities: list[StravaActivity] = client.get_activities(after=datetime(2025, 5, 18), per_page=100) # I started on May 18th
 
 print(f"Found {len(activities)} activities.")
 
