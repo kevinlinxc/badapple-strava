@@ -12,13 +12,16 @@ load_dotenv()
 skip_frames = 15
 out_dir = f"gpx-{skip_frames}"
 points_dir = f"points-{skip_frames}"
+frames_dir = f"frames-{skip_frames}"
 
 # delete old files
 shutil.rmtree(out_dir, ignore_errors=True)
 shutil.rmtree(points_dir, ignore_errors=True)
+shutil.rmtree(frames_dir, ignore_errors=True)
 
 os.makedirs(out_dir, exist_ok=True)
 os.makedirs(points_dir, exist_ok=True)
+os.makedirs(frames_dir, exist_ok=True)
 
 # park coordinates from app.py
 bottom_left_lat_long = [float(x) for x in os.environ["BOTTOM_LEFT_LAT_LONG"].split(",")]
@@ -75,7 +78,7 @@ def bad_apple_contour_xy_list(frame_number):
     best_contour_list = max(contour_lists, key=len, default=[])
     print(f"Frame {frame_number}: Found {len(best_contour_list)} points")
     
-    return best_contour_list
+    return best_contour_list, frame
 
 def render_points(xy_list):
     # Create a white background image
@@ -90,9 +93,11 @@ all_contours = {}
 
 # Process frames in increments of skip_frames
 for frame in range(0, total_frames, skip_frames):
-    xy_list = bad_apple_contour_xy_list(frame)
-    # convert numpy int to int    
+    xy_list, frame_img = bad_apple_contour_xy_list(frame)
+    # convert numpy int to int
+    frame_img = cv2.cvtColor(frame_img, cv2.COLOR_BGR2RGB)
     # Render and save visualization
+    cv2.imwrite(f"{frames_dir}/{frame}.png", frame_img)
     img = render_points(xy_list)
     cv2.imwrite(f"{points_dir}/{frame}.png", img)
     
