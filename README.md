@@ -19,7 +19,8 @@ json file as a first guess for every frame.
 4. I then used the streamlit app [`4_contour_editor.py`](src/4_contour_editor.py) to edit the contours one by one, adjusting the opencv
 contour detection parameters so that the selected route for each frame was heuristically correct (optimizing appearance, distance, vibes), and saved those back to the json file to cache that work. There was basically always an opencv contour mode + method that resulted in a pretty good looking contour that minimized the amount of walking I would have to do, and this UI just let me quickly iterate through the frames and find those parameters.
 5. Using the json and the parameters from step 2, I used [`5_json_to_gpx.py`](src/5_json_to_gpx.py) to convert the json to a gpx file. I imported these into Gaia GPS and walked them while tracking on Strava.
-6. I used ['6_strava_scraper.py`](src/6_strava_scraper.py) to scrape the Strava API to get the data for the walks.
+6. I used ['6_strava_scraper.py`](src/6_strava_scraper.py) to scrape the Strava API to get the data for the walks, including the polyline, which is the GPS data of the walk. I stored this all into a CSV file
+
 
 
 P.S. I don't name my files this horridly at work, this is just scrappy personal project code and numbering the files is probably the clearest to a reader.
