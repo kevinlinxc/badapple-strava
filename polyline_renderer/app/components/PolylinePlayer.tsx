@@ -17,6 +17,7 @@ export type PolylinePlayerSettings = {
   dotSize: number;
   dotGlowRadius: number;
   showDot: boolean;
+  showStreetNames: boolean;
 };
 
 export const defaultPlayerSettings: PolylinePlayerSettings = {
@@ -29,7 +30,8 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
   "trailMode": "progress",
   "dotSize": 2,
   "dotGlowRadius": 5,
-  "showDot": true
+  "showDot": true,
+  "showStreetNames": true
 };
 
 type Coord = [number, number];
@@ -160,6 +162,8 @@ export default function PolylinePlayer() {
 
   const [showDot, setShowDot] = useState(defaultPlayerSettings.showDot);
   const [settingsError, setSettingsError] = useState<string | null>(null);
+  const [showStreetNames, setShowStreetNames] = useState(defaultPlayerSettings.showStreetNames);
+  const [mapStyle, setMapStyle] = useState<any>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -194,6 +198,32 @@ export default function PolylinePlayer() {
     return path;
   }, [path, progress, trailMode]);
 
+  useEffect(() => {
+    const fetchAndModifyStyle = async () => {
+      try {
+        const response = await fetch("https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json");
+        const style = await response.json();
+
+        if (!showStreetNames) {
+          // Hide label layers by setting visibility to "none"
+          style.layers = style.layers.map((layer: any) => {
+            if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road"))) {
+              return { ...layer, layout: { ...layer.layout, visibility: "none" } };
+            }
+            return layer;
+          });
+        }
+
+        setMapStyle(style);
+      } catch (error) {
+        console.error("Failed to load map style:", error);
+        setMapStyle("https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json");
+      }
+    };
+
+    fetchAndModifyStyle();
+  }, [showStreetNames]);
+
   const applySettings = (settings: PolylinePlayerSettings) => {
     setPolylineText(settings.polylineText);
     setProgress(settings.progress);
@@ -205,6 +235,7 @@ export default function PolylinePlayer() {
     setDotSize(settings.dotSize);
     setDotGlowRadius(settings.dotGlowRadius);
     setShowDot(settings.showDot);
+    setShowStreetNames(settings.showStreetNames);
   };
 
   const isValidSettings = (value: any): value is PolylinePlayerSettings => {
@@ -221,7 +252,8 @@ export default function PolylinePlayer() {
         value.trailMode === "none") &&
       typeof value.dotSize === "number" &&
       typeof value.dotGlowRadius === "number" &&
-      typeof value.showDot === "boolean"
+      typeof value.showDot === "boolean" &&
+      typeof value.showStreetNames === "boolean"
     );
   };
 
@@ -237,6 +269,7 @@ export default function PolylinePlayer() {
       dotSize,
       dotGlowRadius,
       showDot,
+      showStreetNames,
     };
 
     const blob = new Blob([JSON.stringify(settings, null, 2)], {
@@ -594,6 +627,15 @@ export default function PolylinePlayer() {
             />
             Show Orange Dot
           </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={showStreetNames}
+              onChange={(e) => setShowStreetNames(e.target.checked)}
+            />
+            Show Street Names
+          </label>
         </div>
 
         <div className="mt-6">
@@ -620,7 +662,7 @@ export default function PolylinePlayer() {
           viewState={viewState}
         >
           <Map
-            mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+            mapStyle={mapStyle || "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"}
           />
         </DeckGL>
       </div>
