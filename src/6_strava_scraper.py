@@ -45,6 +45,8 @@ for activity in activities:
     df = df.vstack(polars.DataFrame(data, orient="row"))
 
 # include current date in 
-df.write_csv(f"activities-{latest_date}.csv")
+output_folder = Path("strava_data")
+output_folder.mkdir(exist_ok=True)
+df.write_csv(str(output_folder / f"activities-{latest_date}.csv"))
 
 

@@ -1,4 +1,5 @@
 import cv2
+from pathlib import Path
 
 # Open the input video
 cap = cv2.VideoCapture("badapple-small.mp4")
@@ -18,7 +19,9 @@ desired_fps = 2
 frame_interval = int(original_fps / desired_fps)
 
 # Initialize the video writer
-output_file = f"badapple-small-{desired_fps}fps.mp4"  # Changed extension to .mp4
+output_folder = Path("fps_videos")
+output_folder.mkdir(exist_ok=True)
+output_file = output_folder / f"badapple-small-{desired_fps}fps.mp4"  # Changed extension to .mp4
 writer = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'H264'), desired_fps, (width, height))
 
 # Process the video

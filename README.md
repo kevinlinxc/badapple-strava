@@ -14,8 +14,7 @@ Rough order of reading the files if interested:
 1. [`1_test_video_fps.py`](src/1_test_video_fps.py) to test what FPS would be good for the video. 2 fps was a good balance between continuity and number of frames to walk.
 2. [`2_single_frame_gpx.py`](src/2_single_frame_gpx.py) helps to find the right parameters to place a rectangle at a park near me
 3. Attempted to use [`3_bad_apple_to_gpx.py`](src/3_bad_apple_to_gpx.py) to one-shot the bad apple to GPX conversion, but
-the contours are not always proper (they don't always outline the correct shape, or enough shapes), so I instead took the results from that, stored it in a 
-json file as a first guess for every frame.
+the contours are not always proper (they don't always outline the correct shape, or enough shapes), so I instead took the results from that, stored it in a json file as a first guess for every frame.
 4. I then used the streamlit app [`4_contour_editor.py`](src/4_contour_editor.py) to edit the contours one by one, adjusting the opencv
 contour detection parameters so that the selected route for each frame was heuristically correct (optimizing appearance, distance, vibes), and saved those back to the json file to cache that work. There was basically always an opencv contour mode + method that resulted in a pretty good looking contour that minimized the amount of walking I would have to do, and this UI just let me quickly iterate through the frames and find those parameters.
 5. Using the json and the parameters from step 2, I used [`5_json_to_gpx.py`](src/5_json_to_gpx.py) to convert the json to a gpx file. I imported these into Gaia GPS and walked them while tracking on Strava.
