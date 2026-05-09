@@ -5,6 +5,7 @@ import DeckGL from "@deck.gl/react";
 import { PathLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { Map } from "react-map-gl/maplibre";
 import polyline from "@mapbox/polyline";
+import KeyframeSlider from "./KeyframeSlider";
 
 export type PolylinePlayerSettings = {
   polylineText: string;
@@ -177,6 +178,10 @@ export default function PolylinePlayer() {
   const [showDot, setShowDot] = useState(defaultPlayerSettings.showDot);
   const [settingsError, setSettingsError] = useState<string | null>(null);
   const [showStreetNames, setShowStreetNames] = useState(defaultPlayerSettings.showStreetNames);
+  const [zoomKf, setZoomKf] = useState<number | null>(null);
+  const [pitchKf, setPitchKf] = useState<number | null>(null);
+  const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
+  const [bearingStrengthKf, setBearingStrengthKf] = useState<number | null>(null);
   const [mapStyle, setMapStyle] = useState<any>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -375,6 +380,18 @@ export default function PolylinePlayer() {
     };
   }, [playing, speed]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === " ") {
+        e.preventDefault();
+        setPlaying((p) => !p);
+        setProgress((pr) => (pr >= 1 ? 0 : pr));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const layers = [
     trailMode !== "none" &&
     new PathLayer({
@@ -440,7 +457,9 @@ export default function PolylinePlayer() {
     }),
   ].filter(Boolean);
 
-  const followFactor = followCamera ? followStrength / 100 : 0;
+  const followFactor = followCamera
+    ? (followStrengthKf ?? followStrength) / 100
+    : 0;
 
   const viewState = {
     longitude: lerp(
@@ -455,11 +474,13 @@ export default function PolylinePlayer() {
       followFactor
     ),
 
-    zoom: zoom + 1,
+    zoom: (zoomKf ?? zoom) + 1,
 
-    pitch,
+    pitch: pitchKf ?? pitch,
 
-    bearing: rotateCamera ? currentBearing * (bearingStrength / 100) : 0,
+    bearing: rotateCamera
+      ? currentBearing * ((bearingStrengthKf ?? bearingStrength) / 100)
+      : 0,
   };
 
   return (
@@ -469,15 +490,19 @@ export default function PolylinePlayer() {
           deck.gl Polyline Animator
         </h1>
 
-        <div className="mb-4">
-          <label className="block mb-2 text-sm text-zinc-300">
-            Encoded Polyline
+        <div className="mt-6">
+          <label className="block mb-2">
+            Timeline: {(progress * 100).toFixed(1)}%
           </label>
 
-          <textarea
-            value={polylineText}
-            onChange={(e) => setPolylineText(e.target.value)}
-            className="w-full h-32 bg-zinc-800 rounded-lg p-3 text-sm font-mono"
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.001}
+            value={progress}
+            onChange={(e) => setProgress(Number(e.target.value))}
+            className="w-full"
           />
         </div>
 
@@ -570,69 +595,57 @@ export default function PolylinePlayer() {
           />
         </div>
 
-        <div className="mb-5">
-          <label className="block mb-2">
-            Zoom: {zoom.toFixed(1)}
-          </label>
+        <KeyframeSlider
+          label="Zoom"
+          value={zoom}
+          onChange={setZoom}
+          min={3}
+          max={20}
+          step={0.1}
+          formatValue={(v) => v.toFixed(1)}
+          progress={progress}
+          onProgressChange={setProgress}
+          onKeyframeValueChange={setZoomKf}
+        />
 
-          <input
-            type="range"
-            min={3}
-            max={20}
-            step={0.1}
-            value={zoom}
-            onChange={(e) => setZoom(Number(e.target.value))}
-            className="w-full"
-          />
-        </div>
+        <KeyframeSlider
+          label="Pitch"
+          value={pitch}
+          onChange={setPitch}
+          min={0}
+          max={65}
+          step={1}
+          formatValue={(v) => `${v.toFixed(0)}°`}
+          progress={progress}
+          onProgressChange={setProgress}
+          onKeyframeValueChange={setPitchKf}
+        />
 
-        <div className="mb-5">
-          <label className="block mb-2">
-            Pitch: {pitch.toFixed(0)}°
-          </label>
+        <KeyframeSlider
+          label="Follow Strength"
+          value={followStrength}
+          onChange={setFollowStrength}
+          min={0}
+          max={100}
+          step={1}
+          formatValue={(v) => `${v.toFixed(0)}%`}
+          progress={progress}
+          onProgressChange={setProgress}
+          onKeyframeValueChange={setFollowStrengthKf}
+        />
 
-          <input
-            type="range"
-            min={0}
-            max={65}
-            step={1}
-            value={pitch}
-            onChange={(e) => setPitch(Number(e.target.value))}
-            className="w-full"
-          />
-        </div>
-
-        <div className="mb-5">
-          <label className="block mb-2">
-            Follow Strength: {followStrength.toFixed(0)}%
-          </label>
-
-          <input
-            type="range"
-            min={0}
-            max={100}
-            step={1}
-            value={followStrength}
-            onChange={(e) => setFollowStrength(Number(e.target.value))}
-            className="w-full"
-          />
-        </div>
-
-        <div className="mb-5">
-          <label className="block mb-2">
-            Bearing Strength: {bearingStrength.toFixed(0)}%
-          </label>
-
-          <input
-            type="range"
-            min={0}
-            max={100}
-            step={1}
-            value={bearingStrength}
-            onChange={(e) => setBearingStrength(Number(e.target.value))}
-            className="w-full"
-          />
-        </div>
+        <KeyframeSlider
+          label="Bearing Strength"
+          value={bearingStrength}
+          onChange={setBearingStrength}
+          min={0}
+          max={100}
+          step={1}
+          formatValue={(v) => `${v.toFixed(0)}%`}
+          progress={progress}
+          onProgressChange={setProgress}
+          onKeyframeValueChange={setBearingStrengthKf}
+        />
 
         <div className="space-y-3">
           <label className="flex items-center gap-2">
@@ -719,21 +732,18 @@ export default function PolylinePlayer() {
           </label>
         </div>
 
-        <div className="mt-6">
-          <label className="block mb-2">
-            Timeline: {(progress * 100).toFixed(1)}%
+        <div className="mb-4">
+          <label className="block mb-2 text-sm text-zinc-300">
+            Encoded Polyline
           </label>
 
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.001}
-            value={progress}
-            onChange={(e) => setProgress(Number(e.target.value))}
-            className="w-full"
+          <textarea
+            value={polylineText}
+            onChange={(e) => setPolylineText(e.target.value)}
+            className="w-full h-32 bg-zinc-800 rounded-lg p-3 text-sm font-mono"
           />
         </div>
+
       </div>
 
       <div className="flex-1 relative">
