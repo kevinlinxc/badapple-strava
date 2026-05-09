@@ -13,6 +13,9 @@ export type PolylinePlayerSettings = {
   followCamera: boolean;
   rotateCamera: boolean;
   zoom: number;
+  pitch: number;
+  followStrength: number;
+  bearingStrength: number;
   trailMode: "full" | "progress" | "none";
   dotSize: number;
   dotGlowRadius: number;
@@ -24,16 +27,19 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
   "polylineText": "kmbcFdtbhVf@AdADv@CF@JAXBCz@ERDJCJDJ@l@ATDPGTC?ID[?EDG?EEA@KAEDKBHm@CKCDIr@GFCGCg@I@FZ?PCFMEQ@DSGFECAFC@i@GAJBHAFJX?DFBQb@JYD?@INGCCDGJNf@TCPED?JJ_@D@BNCH@DB@AHB@HKAGCABMC]LJDHD?HFHABIDCAMBGVBBEDBDAFt@CRBTCDE~@?NeAC@QAU@UCWEBCOE@ADIAKBIGGJCACBKAGH?HHFJAFD@ABBDEFBHAF@BDDE@@@f@BD_@Dc@Ae@@[?MEEDICG@EC@MAmBDyBASPM?GBE@W@ECKBI?UF?BEHC@WGYMCMFENAt@@FAHD\\CJ?JGDAYD@?CEI@cD@Ah@?",
   "progress": 1,
   "speed": 0.04,
-  "followCamera": false,
+  "followCamera": true,
   "rotateCamera": false,
   "zoom": 16.4,
+  "pitch": 0,
+  "followStrength": 100,
+  "bearingStrength": 100,
   "trailMode": "progress",
-  "dotSize": 2,
-  "dotGlowRadius": 5,
+  "dotSize": 1,
+  "dotGlowRadius": 3,
   "showDot": true,
-  "showStreetNames": true
+  "showStreetNames": false
 };
-
+const DEFAULT_VIEW_COORDINATES: Coord = [-122.080748, 37.3727745];
 type Coord = [number, number];
 
 function lerp(a: number, b: number, t: number) {
@@ -151,6 +157,14 @@ export default function PolylinePlayer() {
 
   const [zoom, setZoom] = useState(defaultPlayerSettings.zoom);
 
+  const [pitch, setPitch] = useState(defaultPlayerSettings.pitch);
+  const [followStrength, setFollowStrength] = useState(
+    defaultPlayerSettings.followStrength
+  );
+  const [bearingStrength, setBearingStrength] = useState(
+    defaultPlayerSettings.bearingStrength
+  );
+
   const [trailMode, setTrailMode] = useState<"full" | "progress" | "none">(
     defaultPlayerSettings.trailMode
   );
@@ -231,6 +245,9 @@ export default function PolylinePlayer() {
     setFollowCamera(settings.followCamera);
     setRotateCamera(settings.rotateCamera);
     setZoom(settings.zoom);
+    setPitch(settings.pitch);
+    setFollowStrength(settings.followStrength);
+    setBearingStrength(settings.bearingStrength);
     setTrailMode(settings.trailMode);
     setDotSize(settings.dotSize);
     setDotGlowRadius(settings.dotGlowRadius);
@@ -247,6 +264,9 @@ export default function PolylinePlayer() {
       typeof value.followCamera === "boolean" &&
       typeof value.rotateCamera === "boolean" &&
       typeof value.zoom === "number" &&
+      typeof value.pitch === "number" &&
+      typeof value.followStrength === "number" &&
+      typeof value.bearingStrength === "number" &&
       (value.trailMode === "full" ||
         value.trailMode === "progress" ||
         value.trailMode === "none") &&
@@ -265,6 +285,9 @@ export default function PolylinePlayer() {
       followCamera,
       rotateCamera,
       zoom,
+      pitch,
+      followStrength,
+      bearingStrength,
       trailMode,
       dotSize,
       dotGlowRadius,
@@ -417,16 +440,26 @@ export default function PolylinePlayer() {
     }),
   ].filter(Boolean);
 
-  const viewState = {
-    longitude: currentPosition[0] || -122.4,
+  const followFactor = followCamera ? followStrength / 100 : 0;
 
-    latitude: currentPosition[1] || 37.78,
+  const viewState = {
+    longitude: lerp(
+      DEFAULT_VIEW_COORDINATES[0],
+      currentPosition[0],
+      followFactor
+    ),
+
+    latitude: lerp(
+      DEFAULT_VIEW_COORDINATES[1],
+      currentPosition[1],
+      followFactor
+    ),
 
     zoom: zoom + 1,
 
-    pitch: followCamera ? 65 : 0,
+    pitch,
 
-    bearing: rotateCamera ? currentBearing : 0,
+    bearing: rotateCamera ? currentBearing * (bearingStrength / 100) : 0,
   };
 
   return (
@@ -549,6 +582,54 @@ export default function PolylinePlayer() {
             step={0.1}
             value={zoom}
             onChange={(e) => setZoom(Number(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <div className="mb-5">
+          <label className="block mb-2">
+            Pitch: {pitch.toFixed(0)}°
+          </label>
+
+          <input
+            type="range"
+            min={0}
+            max={65}
+            step={1}
+            value={pitch}
+            onChange={(e) => setPitch(Number(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <div className="mb-5">
+          <label className="block mb-2">
+            Follow Strength: {followStrength.toFixed(0)}%
+          </label>
+
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={followStrength}
+            onChange={(e) => setFollowStrength(Number(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
+        <div className="mb-5">
+          <label className="block mb-2">
+            Bearing Strength: {bearingStrength.toFixed(0)}%
+          </label>
+
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={bearingStrength}
+            onChange={(e) => setBearingStrength(Number(e.target.value))}
             className="w-full"
           />
         </div>
