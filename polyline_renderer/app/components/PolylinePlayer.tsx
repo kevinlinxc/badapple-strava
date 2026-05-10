@@ -448,6 +448,7 @@ export default function PolylinePlayer() {
   }, []);
 
   const prevPlayingRef = useRef(false);
+  const polylineDuration = 1 / speed;
 
   useEffect(() => {
     const map = mapRef.current?.getMap();
@@ -458,9 +459,8 @@ export default function PolylinePlayer() {
     if (!video || !isFinite(video.duration)) return;
 
     if (playing) {
-      // Seek to current position on play start only
       if (!prevPlayingRef.current) {
-        source.seek(progress * video.duration);
+        source.seek(progress * polylineDuration);
       }
       source.play();
     } else {
@@ -478,7 +478,7 @@ export default function PolylinePlayer() {
     if (!source) return;
     const video = source.getVideo() as HTMLVideoElement | undefined;
     if (!video || !isFinite(video.duration)) return;
-    source.seek(progress * video.duration);
+    source.seek(progress * polylineDuration);
   }, [progress, playing]);
 
   useEffect(() => {
@@ -590,7 +590,7 @@ export default function PolylinePlayer() {
 
         <div className="mt-6">
           <label className="block mb-2">
-            Timeline: {(progress * 100).toFixed(1)}%
+            Timeline: {(progress * polylineDuration).toFixed(1)}s / {polylineDuration.toFixed(1)}s
           </label>
 
           <input
