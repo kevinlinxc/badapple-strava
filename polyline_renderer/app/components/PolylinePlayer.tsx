@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import DeckGL from "@deck.gl/react";
 import { PathLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { Map } from "react-map-gl/maplibre";
+import type { MapRef } from "react-map-gl/maplibre";
 import polyline from "@mapbox/polyline";
 import KeyframeSlider from "./KeyframeSlider";
 
@@ -26,7 +27,7 @@ export type PolylinePlayerSettings = {
 
 export const defaultPlayerSettings: PolylinePlayerSettings = {
   "polylineText": "kmbcFdtbhVf@AdADv@CF@JAXBCz@ERDJCJDJ@l@ATDPGTC?ID[?EDG?EEA@KAEDKBHm@CKCDIr@GFCGCg@I@FZ?PCFMEQ@DSGFECAFC@i@GAJBHAFJX?DFBQb@JYD?@INGCCDGJNf@TCPED?JJ_@D@BNCH@DB@AHB@HKAGCABMC]LJDHD?HFHABIDCAMBGVBBEDBDAFt@CRBTCDE~@?NeAC@QAU@UCWEBCOE@ADIAKBIGGJCACBKAGH?HHFJAFD@ABBDEFBHAF@BDDE@@@f@BD_@Dc@Ae@@[?MEEDICG@EC@MAmBDyBASPM?GBE@W@ECKBI?UF?BEHC@WGYMCMFENAt@@FAHD\\CJ?JGDAYD@?CEI@cD@Ah@?",
-  "progress": 1,
+  "progress": 0,
   "speed": 0.04,
   "followCamera": true,
   "rotateCamera": false,
@@ -182,10 +183,23 @@ export default function PolylinePlayer() {
   const [pitchKf, setPitchKf] = useState<number | null>(null);
   const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
   const [bearingStrengthKf, setBearingStrengthKf] = useState<number | null>(null);
+  const [videoOpacity, setVideoOpacity] = useState(1);
+  const [videoOpacityKf, setVideoOpacityKf] = useState<number | null>(null);
   const [mapStyle, setMapStyle] = useState<any>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const animationRef = useRef<number | null>(null);
+  const mapRef = useRef<MapRef | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const [debug, setDebug] = useState({
+    playing: false,
+    progress: 0,
+    videoTime: 0,
+    videoDuration: 0,
+    videoPaused: true,
+    videoReady: 0,
+  });
 
   const path = useMemo<Coord[]>(() => {
     try {
@@ -392,6 +406,116 @@ export default function PolylinePlayer() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    const source = map?.getSource("badapple-video") as any;
+    const video = source?.getVideo?.() as HTMLVideoElement | undefined;
+    setDebug({
+      playing,
+      progress,
+      videoTime: video?.currentTime ?? 0,
+      videoDuration: video?.duration ?? 0,
+      videoPaused: video?.paused ?? true,
+      videoReady: video?.readyState ?? 0,
+    });
+  }, [playing, progress]);
+
+  const setupVideo = useCallback((map: maplibregl.Map) => {
+    if (map.getSource("badapple-video")) return;
+    map.addSource("badapple-video", {
+      type: "video",
+      urls: ["/badapple-small.mp4"],
+      coordinates: [
+        [-122.08197, 37.373469],
+        [-122.079526, 37.373469],
+        [-122.079526, 37.372080],
+        [-122.08197, 37.372080],
+      ],
+    });
+    map.addLayer({
+      id: "badapple-video-layer",
+      type: "raster",
+      source: "badapple-video",
+      paint: { "raster-fade-duration": 0 },
+    });
+    // Wait for the source to fully load, then pause to stop MapLibre's autoplay
+    const onSourceData = (e: any) => {
+      if (e.sourceId === "badapple-video" && e.isSourceLoaded) {
+        (map.getSource("badapple-video") as any)?.pause();
+      }
+    };
+    map.on("sourcedata", onSourceData);
+  }, []);
+
+  const prevPlayingRef = useRef(false);
+
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const source = map.getSource("badapple-video") as any;
+    if (!source) return;
+    const video = source.getVideo() as HTMLVideoElement | undefined;
+    if (!video || !isFinite(video.duration)) return;
+
+    if (playing) {
+      // Seek to current position on play start only
+      if (!prevPlayingRef.current) {
+        source.seek(progress * video.duration);
+      }
+      source.play();
+    } else {
+      source.pause();
+    }
+    prevPlayingRef.current = playing;
+  }, [playing]);
+
+  // Seek when scrubbing while paused
+  useEffect(() => {
+    if (playing) return;
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const source = map.getSource("badapple-video") as any;
+    if (!source) return;
+    const video = source.getVideo() as HTMLVideoElement | undefined;
+    if (!video || !isFinite(video.duration)) return;
+    source.seek(progress * video.duration);
+  }, [progress, playing]);
+
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const opacity = videoOpacityKf ?? videoOpacity;
+    if (map.getLayer("badapple-video-layer")) {
+      map.setPaintProperty("badapple-video-layer", "raster-opacity", opacity);
+    }
+  }, [videoOpacity, videoOpacityKf]);
+
+  const followFactor = followCamera
+    ? (followStrengthKf ?? followStrength) / 100
+    : 0;
+
+  const viewState = {
+    longitude: lerp(
+      DEFAULT_VIEW_COORDINATES[0],
+      currentPosition[0],
+      followFactor
+    ),
+
+    latitude: lerp(
+      DEFAULT_VIEW_COORDINATES[1],
+      currentPosition[1],
+      followFactor
+    ),
+
+    zoom: (zoomKf ?? zoom) + 1,
+
+    pitch: pitchKf ?? pitch,
+
+    bearing: rotateCamera
+      ? currentBearing * ((bearingStrengthKf ?? bearingStrength) / 100)
+      : 0,
+  };
+
   const layers = [
     trailMode !== "none" &&
     new PathLayer({
@@ -456,32 +580,6 @@ export default function PolylinePlayer() {
       billboard: true,
     }),
   ].filter(Boolean);
-
-  const followFactor = followCamera
-    ? (followStrengthKf ?? followStrength) / 100
-    : 0;
-
-  const viewState = {
-    longitude: lerp(
-      DEFAULT_VIEW_COORDINATES[0],
-      currentPosition[0],
-      followFactor
-    ),
-
-    latitude: lerp(
-      DEFAULT_VIEW_COORDINATES[1],
-      currentPosition[1],
-      followFactor
-    ),
-
-    zoom: (zoomKf ?? zoom) + 1,
-
-    pitch: pitchKf ?? pitch,
-
-    bearing: rotateCamera
-      ? currentBearing * ((bearingStrengthKf ?? bearingStrength) / 100)
-      : 0,
-  };
 
   return (
     <div className="fixed inset-0 bg-black text-white flex overflow-hidden">
@@ -647,6 +745,19 @@ export default function PolylinePlayer() {
           onKeyframeValueChange={setBearingStrengthKf}
         />
 
+        <KeyframeSlider
+          label="Video Opacity"
+          value={videoOpacity}
+          onChange={setVideoOpacity}
+          min={0}
+          max={1}
+          step={0.01}
+          formatValue={(v) => v.toFixed(2)}
+          progress={progress}
+          onProgressChange={setProgress}
+          onKeyframeValueChange={setVideoOpacityKf}
+        />
+
         <div className="space-y-3">
           <label className="flex items-center gap-2">
             <input
@@ -746,17 +857,27 @@ export default function PolylinePlayer() {
 
       </div>
 
-      <div className="flex-1 relative">
+      <div ref={mapContainerRef} className="flex-1 relative">
+        <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
+          <div>playing: {String(debug.playing)}</div>
+          <div>progress: {debug.progress.toFixed(4)}</div>
+          <div>vid.time: {debug.videoTime.toFixed(2)}</div>
+          <div>vid.dur: {debug.videoDuration.toFixed(2)}</div>
+          <div>vid.paused: {String(debug.videoPaused)}</div>
+          <div>vid.ready: {debug.videoReady}</div>
+        </div>
         <DeckGL
           controller={true}
           layers={layers}
           viewState={viewState}
         >
           <Map
+            ref={mapRef}
             mapStyle={mapStyle || "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"}
+            onLoad={(e: any) => setupVideo(e.target)}
           />
         </DeckGL>
+        </div>
       </div>
-    </div>
   );
 }
