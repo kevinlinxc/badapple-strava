@@ -186,12 +186,11 @@ export default function KeyframeSlider({
         return;
       }
 
-      // Clicked empty space: deselect and add new keyframe
+      // Clicked empty space: just deselect
       setSelected(null);
-      const t = vbXToTime(vb.x);
-      addKeyframe(t);
+      setScrubbing(true);
     },
-    [keyframes, min, max, progress, addKeyframe],
+    [keyframes, min, max, progress],
   );
 
   const handleSvgMouseMove = useCallback(
@@ -256,17 +255,28 @@ export default function KeyframeSlider({
         <label className="text-sm text-zinc-300">
           {label}: {displayLabel}
         </label>
-        <button
-          onClick={() => setShowGraph((p) => !p)}
-          className={`text-sm leading-none transition-colors select-none ${
-            hasKeyframes
-              ? "text-red-400 hover:text-red-300"
-              : "text-zinc-500 hover:text-zinc-300"
-          }`}
-          title={showGraph ? "Hide keyframe editor" : "Show keyframe editor"}
-        >
-          {hasKeyframes ? "◆" : "◇"}
-        </button>
+        <div className="flex items-center gap-1">
+          {showGraph && (
+            <button
+              onClick={() => addKeyframe(progress)}
+              className="text-xs text-zinc-500 hover:text-yellow-400 transition-colors select-none leading-none"
+              title="Add keyframe at current time"
+            >
+              ◆+
+            </button>
+          )}
+          <button
+            onClick={() => setShowGraph((p) => !p)}
+            className={`text-sm leading-none transition-colors select-none ${
+              hasKeyframes
+                ? "text-red-400 hover:text-red-300"
+                : "text-zinc-500 hover:text-zinc-300"
+            }`}
+            title={showGraph ? "Hide keyframe editor" : "Show keyframe editor"}
+          >
+            {hasKeyframes ? "◆" : "◇"}
+          </button>
+        </div>
       </div>
 
       <input
