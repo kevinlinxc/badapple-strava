@@ -32,7 +32,6 @@ for activity in activities:
         time_s=activity.moving_time,
         distance_m=activity.distance,
         url=url,
-        poyline=activity.map.summary_polyline, # /activities/id doesn't have the full polyline, got to get it another way
     )
     #  max 100 rwquests every 15 minutes, so need 9 second interval to not get rate limited when over 100 activities
     activity_detailed = client.get_activity_detailed(activity.id)
