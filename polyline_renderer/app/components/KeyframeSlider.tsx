@@ -18,6 +18,8 @@ interface KeyframeSliderProps {
   progress: number; // 0..1
   onProgressChange?: (progress: number) => void;
   onKeyframeValueChange?: (value: number | null) => void;
+  keyframes?: Keyframe[];
+  onKeyframesChange?: (keyframes: Keyframe[]) => void;
 }
 
 const VB_W = 200;
@@ -26,6 +28,7 @@ const PAD = 10;
 const KF_RY = 3.5;
 const KF_RX = 3.5;
 const HIT_R = 10;
+const PH_R = 4;
 
 function clamp(v: number, lo: number, hi: number) {
   return Math.max(lo, Math.min(hi, v));
@@ -107,13 +110,33 @@ export default function KeyframeSlider({
   progress,
   onProgressChange,
   onKeyframeValueChange,
+  keyframes: keyframesProp,
+  onKeyframesChange,
 }: KeyframeSliderProps) {
-  const [keyframes, setKeyframes] = useState<Keyframe[]>([]);
+  const [internalKeyframes, setInternalKeyframes] = useState<Keyframe[]>(
+    keyframesProp ?? [],
+  );
   const [showGraph, setShowGraph] = useState(false);
   const [dragging, setDragging] = useState<number | null>(null);
   const [scrubbing, setScrubbing] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  // Use controlled keyframes when provided, otherwise internal state
+  const keyframes = keyframesProp ?? internalKeyframes;
+
+  const updateKeyframes = useCallback(
+    (next: Keyframe[] | ((prev: Keyframe[]) => Keyframe[])) => {
+      if (keyframesProp !== undefined) {
+        const resolved =
+          typeof next === "function" ? next(keyframesProp) : next;
+        onKeyframesChange?.(resolved);
+      } else {
+        setInternalKeyframes(next);
+      }
+    },
+    [keyframesProp, onKeyframesChange],
+  );
 
   const hasKeyframes = keyframes.length > 0;
 
@@ -148,14 +171,14 @@ export default function KeyframeSlider({
         (kf) => Math.abs(kf.time - time) < 0.005,
       );
       if (exists) return;
-      setKeyframes((prev) => [...prev, { time, value: displayValue }]);
+      updateKeyframes((prev) => [...prev, { time, value: displayValue }]);
     },
     [keyframes, displayValue],
   );
 
   const deleteKeyframe = useCallback((index: number) => {
-    setKeyframes((prev) => prev.filter((_, i) => i !== index));
-  }, []);
+    updateKeyframes((prev) => prev.filter((_, i) => i !== index));
+  }, [updateKeyframes]);
 
   const handleSvgMouseDown = useCallback(
     (e: React.MouseEvent<SVGSVGElement>) => {
@@ -175,22 +198,10 @@ export default function KeyframeSlider({
         }
       }
 
-      // Check if near the playhead line
-      const playheadX = timeToVbX(progress);
-      if (
-        Math.abs(vb.x - playheadX) <= HIT_R &&
-        vb.y >= PAD &&
-        vb.y <= VB_H - PAD
-      ) {
-        setScrubbing(true);
-        return;
-      }
-
       // Clicked empty space: just deselect
       setSelected(null);
-      setScrubbing(true);
     },
-    [keyframes, min, max, progress],
+    [keyframes, min, max],
   );
 
   const handleSvgMouseMove = useCallback(
@@ -209,7 +220,7 @@ export default function KeyframeSlider({
       const vb = getViewBoxCoords(e, svg);
       const t = vbXToTime(vb.x);
       const v = vbYToValue(vb.y, min, max);
-      setKeyframes((prev) => {
+      updateKeyframes((prev) => {
         const next = [...prev];
         next[dragging] = { time: t, value: v };
         return next;
@@ -287,7 +298,7 @@ export default function KeyframeSlider({
         value={hasKeyframes ? displayValue : value}
         onChange={(e) => {
           if (hasKeyframes) {
-            setKeyframes([]);
+            updateKeyframes([]);
             setSelected(null);
             onKeyframeValueChange?.(null);
           }
@@ -417,24 +428,39 @@ export default function KeyframeSlider({
               );
             })}
 
-            {/* Playhead indicator */}
-            <line
-              x1={timeToVbX(progress)}
-              y1={PAD}
-              x2={timeToVbX(progress)}
-              y2={VB_H - PAD}
-              stroke="transparent"
-              strokeWidth={HIT_R * 2}
+            {/* Playhead handle (diamond, draggable) */}
+            <rect
+              x={timeToVbX(progress) - PH_R}
+              y={PAD - PH_R}
+              width={PH_R * 2}
+              height={PH_R * 2}
+              fill="transparent"
               style={{ cursor: "ew-resize" }}
+              onMouseDown={(e) => {
+                e.stopPropagation();
+                setScrubbing(true);
+              }}
+            />
+            <polygon
+              points={(() => {
+                const px = timeToVbX(progress);
+                const py = PAD;
+                const r = PH_R;
+                return `${px},${py - r} ${px + r},${py} ${px},${py + r} ${px - r},${py}`;
+              })()}
+              fill={scrubbing ? "#fbbf24" : "#f59e0b"}
+              stroke="#92400e"
+              strokeWidth={0.5}
+              pointerEvents="none"
             />
             <line
               x1={timeToVbX(progress)}
-              y1={PAD}
+              y1={PAD + PH_R}
               x2={timeToVbX(progress)}
               y2={VB_H - PAD}
               stroke="#fbbf24"
               strokeWidth={scrubbing ? 1.6 : 0.8}
-              opacity={scrubbing ? 0.9 : 0.6}
+              opacity={scrubbing ? 0.9 : 0.4}
               pointerEvents="none"
             />
           </svg>

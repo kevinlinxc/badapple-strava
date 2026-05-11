@@ -8,8 +8,12 @@ import type { MapRef } from "react-map-gl/maplibre";
 import polyline from "@mapbox/polyline";
 import KeyframeSlider from "./KeyframeSlider";
 
+export type Keyframe = { time: number; value: number };
+
+type FrameActivity = { frame: number; polyline: string };
+
 export type PolylinePlayerSettings = {
-  polylineText: string;
+  frameIndex: number;
   progress: number;
   speed: number;
   followCamera: boolean;
@@ -23,14 +27,20 @@ export type PolylinePlayerSettings = {
   dotGlowRadius: number;
   showDot: boolean;
   showStreetNames: boolean;
+  videoOpacity: number;
+  zoomKeyframes: Keyframe[];
+  pitchKeyframes: Keyframe[];
+  followStrengthKeyframes: Keyframe[];
+  bearingStrengthKeyframes: Keyframe[];
+  videoOpacityKeyframes: Keyframe[];
 };
 
 export const defaultPlayerSettings: PolylinePlayerSettings = {
-  "polylineText": "kmbcFdtbhVf@AdADv@CF@JAXBCz@ERDJCJDJ@l@ATDPGTC?ID[?EDG?EEA@KAEDKBHm@CKCDIr@GFCGCg@I@FZ?PCFMEQ@DSGFECAFC@i@GAJBHAFJX?DFBQb@JYD?@INGCCDGJNf@TCPED?JJ_@D@BNCH@DB@AHB@HKAGCABMC]LJDHD?HFHABIDCAMBGVBBEDBDAFt@CRBTCDE~@?NeAC@QAU@UCWEBCOE@ADIAKBIGGJCACBKAGH?HHFJAFD@ABBDEFBHAF@BDDE@@@f@BD_@Dc@Ae@@[?MEEDICG@EC@MAmBDyBASPM?GBE@W@ECKBI?UF?BEHC@WGYMCMFENAt@@FAHD\\CJ?JGDAYD@?CEI@cD@Ah@?",
-  "progress": 0,
+  "frameIndex": 1815,
+  "progress": 0.04401919999999985,
   "speed": 0.04,
   "followCamera": true,
-  "rotateCamera": false,
+  "rotateCamera": true,
   "zoom": 16.4,
   "pitch": 0,
   "followStrength": 100,
@@ -39,10 +49,82 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
   "dotSize": 1,
   "dotGlowRadius": 3,
   "showDot": true,
-  "showStreetNames": false
-};
+  "showStreetNames": false,
+  "videoOpacity": 0.77,
+  "zoomKeyframes": [
+    {
+      "time": 0,
+      "value": 19.496199819454667
+    },
+    {
+      "time": 1,
+      "value": 16.52507519939388
+    },
+    {
+      "time": 0.521952043228639,
+      "value": 19.108661825533698
+    }
+  ],
+  "pitchKeyframes": [
+    {
+      "time": 0.008611955420466059,
+      "value": 63.71581150043336
+    },
+    {
+      "time": 1,
+      "value": 0
+    }
+  ],
+  "followStrengthKeyframes": [
+    {
+      "time": 0,
+      "value": 100
+    },
+    {
+      "time": 1,
+      "value": 0
+    },
+    {
+      "time": 0.5962512664640324,
+      "value": 98.48023388523461
+    }
+  ],
+  "bearingStrengthKeyframes": [
+    {
+      "time": 0,
+      "value": 100
+    },
+    {
+      "time": 0.3159405606214116,
+      "value": 0
+    },
+    {
+      "time": 0.2281323877068558,
+      "value": 100
+    }
+  ],
+  "videoOpacityKeyframes": [
+    {
+      "time": 1,
+      "value": 1
+    },
+    {
+      "time": 0.6975683890577508,
+      "value": 0
+    }
+  ]
+}
+
 const DEFAULT_VIEW_COORDINATES: Coord = [-122.080748, 37.3727745];
+const SHOW_DEBUG = false;
 type Coord = [number, number];
+
+type Activity = {
+  frame: number;
+  distance_m: number;
+  time_s: number;
+  polyline: string;
+};
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -139,9 +221,8 @@ function getProgressedPath(path: Coord[], progress: number): Coord[] {
 }
 
 export default function PolylinePlayer() {
-  const [polylineText, setPolylineText] = useState(
-    defaultPlayerSettings.polylineText
-  );
+  const [frameIndex, setFrameIndex] = useState(defaultPlayerSettings.frameIndex);
+  const [frameData, setFrameData] = useState<FrameActivity[] | null>(null);
 
   const [playing, setPlaying] = useState(false);
 
@@ -183,9 +264,31 @@ export default function PolylinePlayer() {
   const [pitchKf, setPitchKf] = useState<number | null>(null);
   const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
   const [bearingStrengthKf, setBearingStrengthKf] = useState<number | null>(null);
-  const [videoOpacity, setVideoOpacity] = useState(1);
+  const [videoOpacity, setVideoOpacity] = useState(defaultPlayerSettings.videoOpacity);
   const [videoOpacityKf, setVideoOpacityKf] = useState<number | null>(null);
+  const [zoomKfs, setZoomKfs] = useState<Keyframe[]>(defaultPlayerSettings.zoomKeyframes);
+  const [pitchKfs, setPitchKfs] = useState<Keyframe[]>(defaultPlayerSettings.pitchKeyframes);
+  const [followStrengthKfs, setFollowStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.followStrengthKeyframes);
+  const [bearingStrengthKfs, setBearingStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.bearingStrengthKeyframes);
+  const [videoOpacityKfs, setVideoOpacityKfs] = useState<Keyframe[]>(defaultPlayerSettings.videoOpacityKeyframes);
   const [mapStyle, setMapStyle] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/bad_apple_activities.json")
+      .then((r) => r.json())
+      .then((data: FrameActivity[]) => setFrameData(data))
+      .catch(() => {});
+  }, []);
+
+  const polylineText = useMemo(() => {
+    if (!frameData || frameData.length === 0) return "";
+    let best = frameData[0];
+    for (const f of frameData) {
+      if (f.frame <= frameIndex) best = f;
+      else break;
+    }
+    return best.polyline;
+  }, [frameData, frameIndex]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const animationRef = useRef<number | null>(null);
@@ -258,7 +361,7 @@ export default function PolylinePlayer() {
   }, [showStreetNames]);
 
   const applySettings = (settings: PolylinePlayerSettings) => {
-    setPolylineText(settings.polylineText);
+    setFrameIndex(settings.frameIndex);
     setProgress(settings.progress);
     setSpeed(settings.speed);
     setFollowCamera(settings.followCamera);
@@ -272,12 +375,18 @@ export default function PolylinePlayer() {
     setDotGlowRadius(settings.dotGlowRadius);
     setShowDot(settings.showDot);
     setShowStreetNames(settings.showStreetNames);
+    setVideoOpacity(settings.videoOpacity ?? 1);
+    setZoomKfs(settings.zoomKeyframes ?? []);
+    setPitchKfs(settings.pitchKeyframes ?? []);
+    setFollowStrengthKfs(settings.followStrengthKeyframes ?? []);
+    setBearingStrengthKfs(settings.bearingStrengthKeyframes ?? []);
+    setVideoOpacityKfs(settings.videoOpacityKeyframes ?? []);
   };
 
   const isValidSettings = (value: any): value is PolylinePlayerSettings => {
     return (
       value &&
-      typeof value.polylineText === "string" &&
+      typeof value.frameIndex === "number" &&
       typeof value.progress === "number" &&
       typeof value.speed === "number" &&
       typeof value.followCamera === "boolean" &&
@@ -298,7 +407,7 @@ export default function PolylinePlayer() {
 
   const exportSettings = () => {
     const settings: PolylinePlayerSettings = {
-      polylineText,
+      frameIndex,
       progress,
       speed,
       followCamera,
@@ -312,6 +421,12 @@ export default function PolylinePlayer() {
       dotGlowRadius,
       showDot,
       showStreetNames,
+      videoOpacity,
+      zoomKeyframes: zoomKfs,
+      pitchKeyframes: pitchKfs,
+      followStrengthKeyframes: followStrengthKfs,
+      bearingStrengthKeyframes: bearingStrengthKfs,
+      videoOpacityKeyframes: videoOpacityKfs,
     };
 
     const blob = new Blob([JSON.stringify(settings, null, 2)], {
@@ -588,6 +703,21 @@ export default function PolylinePlayer() {
           deck.gl Polyline Animator
         </h1>
 
+        <div className="mb-5">
+          <label className="block mb-2">
+            Frame: {frameIndex}
+          </label>
+          <input
+            type="range"
+            min={0}
+            max={frameData ? frameData[frameData.length - 1].frame : 0}
+            step={15}
+            value={frameIndex}
+            onChange={(e) => setFrameIndex(Number(e.target.value))}
+            className="w-full"
+          />
+        </div>
+
         <div className="mt-6">
           <label className="block mb-2">
             Timeline: {(progress * polylineDuration).toFixed(1)}s / {polylineDuration.toFixed(1)}s
@@ -704,6 +834,8 @@ export default function PolylinePlayer() {
           progress={progress}
           onProgressChange={setProgress}
           onKeyframeValueChange={setZoomKf}
+          keyframes={zoomKfs}
+          onKeyframesChange={setZoomKfs}
         />
 
         <KeyframeSlider
@@ -717,6 +849,8 @@ export default function PolylinePlayer() {
           progress={progress}
           onProgressChange={setProgress}
           onKeyframeValueChange={setPitchKf}
+          keyframes={pitchKfs}
+          onKeyframesChange={setPitchKfs}
         />
 
         <KeyframeSlider
@@ -730,6 +864,8 @@ export default function PolylinePlayer() {
           progress={progress}
           onProgressChange={setProgress}
           onKeyframeValueChange={setFollowStrengthKf}
+          keyframes={followStrengthKfs}
+          onKeyframesChange={setFollowStrengthKfs}
         />
 
         <KeyframeSlider
@@ -743,6 +879,8 @@ export default function PolylinePlayer() {
           progress={progress}
           onProgressChange={setProgress}
           onKeyframeValueChange={setBearingStrengthKf}
+          keyframes={bearingStrengthKfs}
+          onKeyframesChange={setBearingStrengthKfs}
         />
 
         <KeyframeSlider
@@ -756,6 +894,8 @@ export default function PolylinePlayer() {
           progress={progress}
           onProgressChange={setProgress}
           onKeyframeValueChange={setVideoOpacityKf}
+          keyframes={videoOpacityKfs}
+          onKeyframesChange={setVideoOpacityKfs}
         />
 
         <div className="space-y-3">
@@ -843,21 +983,10 @@ export default function PolylinePlayer() {
           </label>
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-2 text-sm text-zinc-300">
-            Encoded Polyline
-          </label>
-
-          <textarea
-            value={polylineText}
-            onChange={(e) => setPolylineText(e.target.value)}
-            className="w-full h-32 bg-zinc-800 rounded-lg p-3 text-sm font-mono"
-          />
-        </div>
-
       </div>
 
       <div ref={mapContainerRef} className="flex-1 relative">
+        {SHOW_DEBUG && (
         <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
           <div>playing: {String(debug.playing)}</div>
           <div>progress: {debug.progress.toFixed(4)}</div>
@@ -866,6 +995,7 @@ export default function PolylinePlayer() {
           <div>vid.paused: {String(debug.videoPaused)}</div>
           <div>vid.ready: {debug.videoReady}</div>
         </div>
+        )}
         <DeckGL
           controller={true}
           layers={layers}
@@ -875,6 +1005,7 @@ export default function PolylinePlayer() {
             ref={mapRef}
             mapStyle={mapStyle || "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"}
             onLoad={(e: any) => setupVideo(e.target)}
+            attributionControl={false}
           />
         </DeckGL>
         </div>
