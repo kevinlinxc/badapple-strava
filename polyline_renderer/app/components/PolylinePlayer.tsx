@@ -37,7 +37,7 @@ export type PolylinePlayerSettings = {
 
 export const defaultPlayerSettings: PolylinePlayerSettings = {
   "frameIndex": 1815,
-  "progress": 0.04401919999999985,
+  "progress": 0.0,
   "speed": 0.04,
   "followCamera": true,
   "rotateCamera": true,
@@ -115,8 +115,30 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
   ]
 }
 
+function interpolateKfs(kfs: Keyframe[], progress: number): number | null {
+  if (kfs.length === 0) return null;
+  const sorted = [...kfs].sort((a, b) => a.time - b.time);
+  if (sorted.length === 1) return sorted[0].value;
+  if (progress <= sorted[0].time) return sorted[0].value;
+  if (progress >= sorted[sorted.length - 1].time) return sorted[sorted.length - 1].value;
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const a = sorted[i];
+    const b = sorted[i + 1];
+    if (progress >= a.time && progress <= b.time) {
+      const t = (progress - a.time) / (b.time - a.time || 1);
+      return a.value + (b.value - a.value) * t;
+    }
+  }
+  return sorted[sorted.length - 1].value;
+}
+const SHOW_DEBUG = true;
 const DEFAULT_VIEW_COORDINATES: Coord = [-122.080748, 37.3727745];
-const SHOW_DEBUG = false;
+const VIDEO_FPS = 30;
+const VIDEO_TOTAL_FRAMES = 6572;
+
+function frameToVideoTime(frame: number, videoDuration: number): number {
+  return (frame / VIDEO_TOTAL_FRAMES) * videoDuration;
+}
 type Coord = [number, number];
 
 type Activity = {
@@ -271,6 +293,7 @@ export default function PolylinePlayer() {
   const [followStrengthKfs, setFollowStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.followStrengthKeyframes);
   const [bearingStrengthKfs, setBearingStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.bearingStrengthKeyframes);
   const [videoOpacityKfs, setVideoOpacityKfs] = useState<Keyframe[]>(defaultPlayerSettings.videoOpacityKeyframes);
+  const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [mapStyle, setMapStyle] = useState<any>(null);
 
   useEffect(() => {
@@ -293,6 +316,9 @@ export default function PolylinePlayer() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const animationRef = useRef<number | null>(null);
   const mapRef = useRef<MapRef | null>(null);
+  const opacityRef = useRef(1);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const hiddenVideoRef = useRef<HTMLVideoElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [debug, setDebug] = useState({
@@ -536,77 +562,128 @@ export default function PolylinePlayer() {
   }, [playing, progress]);
 
   const setupVideo = useCallback((map: maplibregl.Map) => {
-    if (map.getSource("badapple-video")) return;
-    map.addSource("badapple-video", {
-      type: "video",
-      urls: ["/badapple-small.mp4"],
+    if (map.getSource("badapple-canvas")) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = 240;
+    canvas.height = 180;
+    map.addSource("badapple-canvas", {
+      type: "canvas",
+      canvas,
       coordinates: [
-        [-122.08197, 37.373469],
-        [-122.079526, 37.373469],
-        [-122.079526, 37.372080],
-        [-122.08197, 37.372080],
+        [-122.08197, 37.373400],
+        [-122.079526, 37.373400],
+        [-122.079526, 37.372149],
+        [-122.08197, 37.372149],
       ],
     });
     map.addLayer({
       id: "badapple-video-layer",
       type: "raster",
-      source: "badapple-video",
-      paint: { "raster-fade-duration": 0 },
+      source: "badapple-canvas",
+      paint: {
+        "raster-fade-duration": 0,
+        "raster-opacity": opacityRef.current,
+      },
     });
-    // Wait for the source to fully load, then pause to stop MapLibre's autoplay
-    const onSourceData = (e: any) => {
-      if (e.sourceId === "badapple-video" && e.isSourceLoaded) {
-        (map.getSource("badapple-video") as any)?.pause();
-      }
-    };
-    map.on("sourcedata", onSourceData);
+    (map.getSource("badapple-canvas") as any)?.play();
+    setVideoSourceReady(true);
   }, []);
 
-  const prevPlayingRef = useRef(false);
   const polylineDuration = 1 / speed;
+  const progressRef = useRef(progress);
+  progressRef.current = progress;
+  const frameIndexRef = useRef(frameIndex);
+  frameIndexRef.current = frameIndex;
+  const polylineDurationRef = useRef(polylineDuration);
+  polylineDurationRef.current = polylineDuration;
+
+  const drawFrame = useCallback(() => {
+    const video = hiddenVideoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas || !isFinite(video.duration)) return;
+
+    const t = Math.max(0, Math.min(video.duration,
+      frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current));
+    video.currentTime = t;
+
+    const draw = () => {
+      const ctx = canvas.getContext("2d");
+      if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    };
+
+    draw();
+    video.addEventListener("seeked", draw, { once: true });
+  }, []);
+
+  // Immediate draw on frameIndex change
+  useEffect(() => {
+    drawFrame();
+  }, [frameIndex, drawFrame]);
+
+  // Immediate draw when scrubbing while paused
+  useEffect(() => {
+    if (playing) return;
+    drawFrame();
+  }, [progress, playing, drawFrame]);
+
+  // During playback, let the video play naturally and capture frames
+  // The video's linear speed matches the polyline's — both cover
+  // polylineDuration seconds, so no seeking is needed mid-playback.
+  const prevPlayingRef = useRef(false);
 
   useEffect(() => {
-    const map = mapRef.current?.getMap();
-    if (!map) return;
-    const source = map.getSource("badapple-video") as any;
-    if (!source) return;
-    const video = source.getVideo() as HTMLVideoElement | undefined;
+    const video = hiddenVideoRef.current;
     if (!video || !isFinite(video.duration)) return;
 
     if (playing) {
       if (!prevPlayingRef.current) {
-        source.seek(progress * polylineDuration);
+        // Seek to the start position on play start only
+        const t = Math.max(0, Math.min(video.duration,
+          frameToVideoTime(frameIndexRef.current, video.duration) - polylineDurationRef.current));
+        video.currentTime = t;
       }
-      source.play();
+      video.play().catch(() => {});
     } else {
-      source.pause();
+      video.pause();
     }
     prevPlayingRef.current = playing;
   }, [playing]);
 
-  // Seek when scrubbing while paused
   useEffect(() => {
-    if (playing) return;
-    const map = mapRef.current?.getMap();
-    if (!map) return;
-    const source = map.getSource("badapple-video") as any;
-    if (!source) return;
-    const video = source.getVideo() as HTMLVideoElement | undefined;
-    if (!video || !isFinite(video.duration)) return;
-    source.seek(progress * polylineDuration);
-  }, [progress, playing]);
+    if (!playing) return;
+    let raf: number;
+    const loop = () => {
+      const video = hiddenVideoRef.current;
+      const canvas = canvasRef.current;
+      if (video && canvas && isFinite(video.duration) && !video.paused) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [playing]);
+
+  const effectiveZoom = interpolateKfs(zoomKfs, progress) ?? zoom;
+  const effectivePitch = interpolateKfs(pitchKfs, progress) ?? pitch;
+  const effectiveFollow = interpolateKfs(followStrengthKfs, progress) ?? followStrength;
+  const effectiveBearing = interpolateKfs(bearingStrengthKfs, progress) ?? bearingStrength;
+  const effectiveOpacity = interpolateKfs(videoOpacityKfs, progress) ?? videoOpacity;
+  opacityRef.current = effectiveOpacity;
 
   useEffect(() => {
     const map = mapRef.current?.getMap();
     if (!map) return;
-    const opacity = videoOpacityKf ?? videoOpacity;
+    const opacity = effectiveOpacity;
     if (map.getLayer("badapple-video-layer")) {
       map.setPaintProperty("badapple-video-layer", "raster-opacity", opacity);
     }
-  }, [videoOpacity, videoOpacityKf]);
+  }, [effectiveOpacity, videoSourceReady]);
 
   const followFactor = followCamera
-    ? (followStrengthKf ?? followStrength) / 100
+    ? effectiveFollow / 100
     : 0;
 
   const viewState = {
@@ -622,12 +699,12 @@ export default function PolylinePlayer() {
       followFactor
     ),
 
-    zoom: (zoomKf ?? zoom) + 1,
+    zoom: effectiveZoom + 1,
 
-    pitch: pitchKf ?? pitch,
+    pitch: effectivePitch,
 
     bearing: rotateCamera
-      ? currentBearing * ((bearingStrengthKf ?? bearingStrength) / 100)
+      ? currentBearing * (effectiveBearing / 100)
       : 0,
   };
 
@@ -983,7 +1060,19 @@ export default function PolylinePlayer() {
           </label>
         </div>
 
-      </div>
+       </div>
+
+      <video
+        ref={hiddenVideoRef}
+        src="/badapple-small.mp4"
+        muted
+        loop
+        playsInline
+        preload="auto"
+        crossOrigin="anonymous"
+        className="hidden"
+      />
+      <canvas ref={canvasRef} className="hidden" />
 
       <div ref={mapContainerRef} className="flex-1 relative">
         {SHOW_DEBUG && (
