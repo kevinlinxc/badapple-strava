@@ -9,7 +9,7 @@ dependencies = [
     "polars>=1.31.0",
     "python-dotenv>=1.1.0",
     "selenium>=4.27.1",
-    "strava-client>=1.0.5",
+    "strava-client==1.0.7",
     "streamlit-folium>=0.24.0",
     "utm>=0.7.0",
 ]
