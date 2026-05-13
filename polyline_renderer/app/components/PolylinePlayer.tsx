@@ -131,7 +131,7 @@ function interpolateKfs(kfs: Keyframe[], progress: number): number | null {
   }
   return sorted[sorted.length - 1].value;
 }
-const SHOW_DEBUG = true;
+const SHOW_DEBUG = false;
 const DEFAULT_VIEW_COORDINATES: Coord = [-122.080748, 37.3727745];
 const VIDEO_FPS = 30;
 const VIDEO_TOTAL_FRAMES = 6572;
@@ -328,6 +328,8 @@ export default function PolylinePlayer() {
     videoDuration: 0,
     videoPaused: true,
     videoReady: 0,
+    expectedTime: 0,
+    frameIndex: 0,
   });
 
   const path = useMemo<Coord[]>(() => {
@@ -548,9 +550,11 @@ export default function PolylinePlayer() {
   }, []);
 
   useEffect(() => {
-    const map = mapRef.current?.getMap();
-    const source = map?.getSource("badapple-video") as any;
-    const video = source?.getVideo?.() as HTMLVideoElement | undefined;
+    const video = hiddenVideoRef.current;
+    const expectedTime = video?.duration && isFinite(video.duration)
+      ? Math.max(0, Math.min(video.duration,
+          frameToVideoTime(frameIndex, video.duration) - (1 - progress) * polylineDuration))
+      : 0;
     setDebug({
       playing,
       progress,
@@ -558,6 +562,8 @@ export default function PolylinePlayer() {
       videoDuration: video?.duration ?? 0,
       videoPaused: video?.paused ?? true,
       videoReady: video?.readyState ?? 0,
+      expectedTime,
+      frameIndex,
     });
   }, [playing, progress]);
 
@@ -638,9 +644,8 @@ export default function PolylinePlayer() {
 
     if (playing) {
       if (!prevPlayingRef.current) {
-        // Seek to the start position on play start only
         const t = Math.max(0, Math.min(video.duration,
-          frameToVideoTime(frameIndexRef.current, video.duration) - polylineDurationRef.current));
+          frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current));
         video.currentTime = t;
       }
       video.play().catch(() => {});
@@ -1079,7 +1084,10 @@ export default function PolylinePlayer() {
         <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
           <div>playing: {String(debug.playing)}</div>
           <div>progress: {debug.progress.toFixed(4)}</div>
+          <div>frameIndex: {debug.frameIndex}</div>
           <div>vid.time: {debug.videoTime.toFixed(2)}</div>
+          <div>vid.expect: {debug.expectedTime.toFixed(2)}</div>
+          <div>vid.drift: {(debug.videoTime - debug.expectedTime).toFixed(3)}s</div>
           <div>vid.dur: {debug.videoDuration.toFixed(2)}</div>
           <div>vid.paused: {String(debug.videoPaused)}</div>
           <div>vid.ready: {debug.videoReady}</div>
