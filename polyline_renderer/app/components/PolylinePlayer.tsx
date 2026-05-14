@@ -10,7 +10,7 @@ import KeyframeSlider from "./KeyframeSlider";
 
 export type Keyframe = { time: number; value: number };
 
-type FrameActivity = { frame: number; polyline: string };
+type FrameActivity = { frame: number; distance_m: number; time_s: number; polyline: string };
 
 export type PolylinePlayerSettings = {
   frameIndex: number;
@@ -148,6 +148,23 @@ type Activity = {
   polyline: string;
 };
 
+function formatTime(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function StatPill({ label, current, max, unit }: { label: string; current: number; max: number; unit: string }) {
+  const displayValue = max > 0 ? Math.min(current, max) : 0;
+  const formatted = unit === "m" ? `${Math.round(displayValue)} m` : formatTime(displayValue);
+  return (
+    <div className="bg-black/50 rounded-2xl px-5 py-3 flex flex-col items-center">
+      <span className="text-white/70 text-xs">{label}</span>
+      <span className="text-white text-xl font-semibold">{formatted}</span>
+    </div>
+  );
+}
+
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
@@ -282,6 +299,7 @@ export default function PolylinePlayer() {
   const [showDot, setShowDot] = useState(defaultPlayerSettings.showDot);
   const [settingsError, setSettingsError] = useState<string | null>(null);
   const [showStreetNames, setShowStreetNames] = useState(defaultPlayerSettings.showStreetNames);
+  const [showStats, setShowStats] = useState(true);
   const [zoomKf, setZoomKf] = useState<number | null>(null);
   const [pitchKf, setPitchKf] = useState<number | null>(null);
   const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
@@ -311,6 +329,16 @@ export default function PolylinePlayer() {
       else break;
     }
     return best.polyline;
+  }, [frameData, frameIndex]);
+
+  const currentActivity = useMemo(() => {
+    if (!frameData || frameData.length === 0) return null;
+    let best = frameData[0];
+    for (const f of frameData) {
+      if (f.frame <= frameIndex) best = f;
+      else break;
+    }
+    return best;
   }, [frameData, frameIndex]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -1063,6 +1091,15 @@ export default function PolylinePlayer() {
             />
             Show Street Names
           </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={showStats}
+              onChange={(e) => setShowStats(e.target.checked)}
+            />
+            Show Stats
+          </label>
         </div>
 
        </div>
@@ -1091,6 +1128,12 @@ export default function PolylinePlayer() {
           <div>vid.dur: {debug.videoDuration.toFixed(2)}</div>
           <div>vid.paused: {String(debug.videoPaused)}</div>
           <div>vid.ready: {debug.videoReady}</div>
+        </div>
+        )}
+        {showStats && currentActivity && (
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
+          <StatPill label="Distance" current={progress * currentActivity.distance_m} max={currentActivity.distance_m} unit="m" />
+          <StatPill label="Time" current={progress * currentActivity.time_s} max={currentActivity.time_s} unit="min" />
         </div>
         )}
         <DeckGL
