@@ -37,7 +37,7 @@ export type PolylinePlayerSettings = {
 
 export const defaultPlayerSettings: PolylinePlayerSettings = {
   "frameIndex": 1815,
-  "progress": 0.0,
+  "progress": 1,
   "speed": 0.04,
   "followCamera": true,
   "rotateCamera": true,
@@ -57,8 +57,8 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
       "value": 19.496199819454667
     },
     {
-      "time": 1,
-      "value": 16.52507519939388
+      "time": 0.9609929078014183,
+      "value": 15.90121738236726
     },
     {
       "time": 0.521952043228639,
@@ -158,7 +158,7 @@ function StatPill({ label, current, max, unit }: { label: string; current: numbe
   const displayValue = max > 0 ? Math.min(current, max) : 0;
   const formatted = unit === "m" ? `${Math.round(displayValue)} m` : formatTime(displayValue);
   return (
-    <div className="bg-black/50 rounded-2xl px-5 py-3 flex flex-col items-center">
+    <div className="bg-black/50 rounded-2xl px-3 py-1 flex flex-col items-center">
       <span className="text-white/70 text-xs">{label}</span>
       <span className="text-white text-xl font-semibold">{formatted}</span>
     </div>
@@ -532,9 +532,13 @@ export default function PolylinePlayer() {
     setSettingsError(null);
   };
 
+  const finishedPlayingRef = useRef<number | null>(null);
+  const VIDEO_TAIL_DURATION = 3;
+
   useEffect(() => {
     if (!playing) return;
 
+    finishedPlayingRef.current = null;
     let last = performance.now();
 
     const animate = (now: number) => {
@@ -546,7 +550,12 @@ export default function PolylinePlayer() {
         const next = p + delta * speed;
 
         if (next >= 1) {
-          setPlaying(false);
+          if (finishedPlayingRef.current === null) {
+            finishedPlayingRef.current = now;
+          }
+          if (now - finishedPlayingRef.current >= VIDEO_TAIL_DURATION * 1000) {
+            setPlaying(false);
+          }
           return 1;
         }
 
@@ -664,6 +673,7 @@ export default function PolylinePlayer() {
   // During playback, let the video play naturally and capture frames
   // The video's linear speed matches the polyline's — both cover
   // polylineDuration seconds, so no seeking is needed mid-playback.
+  // When progress hasn't reached the point where footage exists, hold on frame 0.
   const prevPlayingRef = useRef(false);
 
   useEffect(() => {
@@ -672,11 +682,15 @@ export default function PolylinePlayer() {
 
     if (playing) {
       if (!prevPlayingRef.current) {
-        const t = Math.max(0, Math.min(video.duration,
-          frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current));
-        video.currentTime = t;
+        const calc = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
+        if (calc < 0) {
+          video.currentTime = 0;
+          video.pause();
+        } else {
+          video.currentTime = Math.min(calc, video.duration);
+          video.play().catch(() => {});
+        }
       }
-      video.play().catch(() => {});
     } else {
       video.pause();
     }
@@ -686,12 +700,32 @@ export default function PolylinePlayer() {
   useEffect(() => {
     if (!playing) return;
     let raf: number;
+    let wasWaiting = false;
     const loop = () => {
       const video = hiddenVideoRef.current;
       const canvas = canvasRef.current;
-      if (video && canvas && isFinite(video.duration) && !video.paused) {
+      if (!video || !canvas || !isFinite(video.duration)) return;
+
+      const calc = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
+
+      if (calc < 0) {
+        if (!wasWaiting) {
+          video.currentTime = 0;
+          video.pause();
+          wasWaiting = true;
+        }
         const ctx = canvas.getContext("2d");
         if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      } else {
+        if (wasWaiting) {
+          video.currentTime = Math.min(calc, video.duration);
+          video.play().catch(() => {});
+          wasWaiting = false;
+        }
+        if (!video.paused) {
+          const ctx = canvas.getContext("2d");
+          if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
       }
       raf = requestAnimationFrame(loop);
     };
@@ -1131,7 +1165,7 @@ export default function PolylinePlayer() {
         </div>
         )}
         {showStats && currentActivity && (
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
+        <div className="absolute bottom-64 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
           <StatPill label="Distance" current={progress * currentActivity.distance_m} max={currentActivity.distance_m} unit="m" />
           <StatPill label="Time" current={progress * currentActivity.time_s} max={currentActivity.time_s} unit="min" />
         </div>
