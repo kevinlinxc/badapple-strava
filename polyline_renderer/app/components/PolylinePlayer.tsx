@@ -259,58 +259,64 @@ function getProgressedPath(path: Coord[], progress: number): Coord[] {
   return path;
 }
 
+function usePersistedState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [state, setState] = useState<T>(() => {
+    try {
+      const stored = localStorage.getItem(`polyline-player-${key}`);
+      if (stored !== null) return JSON.parse(stored);
+    } catch {}
+    return defaultValue;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(`polyline-player-${key}`, JSON.stringify(state));
+    } catch {}
+  }, [key, state]);
+
+  return [state, setState];
+}
+
 export default function PolylinePlayer() {
-  const [frameIndex, setFrameIndex] = useState(defaultPlayerSettings.frameIndex);
+  const [frameIndex, setFrameIndex] = usePersistedState("frameIndex", defaultPlayerSettings.frameIndex);
   const [frameData, setFrameData] = useState<FrameActivity[] | null>(null);
 
   const [playing, setPlaying] = useState(false);
 
-  const [progress, setProgress] = useState(defaultPlayerSettings.progress);
+  const [progress, setProgress] = usePersistedState("progress", defaultPlayerSettings.progress);
 
-  const [speed, setSpeed] = useState(defaultPlayerSettings.speed);
+  const [speed, setSpeed] = usePersistedState("speed", defaultPlayerSettings.speed);
 
-  const [followCamera, setFollowCamera] = useState(
-    defaultPlayerSettings.followCamera
-  );
+  const [followCamera, setFollowCamera] = usePersistedState("followCamera", defaultPlayerSettings.followCamera);
 
-  const [rotateCamera, setRotateCamera] = useState(
-    defaultPlayerSettings.rotateCamera
-  );
+  const [rotateCamera, setRotateCamera] = usePersistedState("rotateCamera", defaultPlayerSettings.rotateCamera);
 
-  const [zoom, setZoom] = useState(defaultPlayerSettings.zoom);
+  const [zoom, setZoom] = usePersistedState("zoom", defaultPlayerSettings.zoom);
 
-  const [pitch, setPitch] = useState(defaultPlayerSettings.pitch);
-  const [followStrength, setFollowStrength] = useState(
-    defaultPlayerSettings.followStrength
-  );
-  const [bearingStrength, setBearingStrength] = useState(
-    defaultPlayerSettings.bearingStrength
-  );
+  const [pitch, setPitch] = usePersistedState("pitch", defaultPlayerSettings.pitch);
+  const [followStrength, setFollowStrength] = usePersistedState("followStrength", defaultPlayerSettings.followStrength);
+  const [bearingStrength, setBearingStrength] = usePersistedState("bearingStrength", defaultPlayerSettings.bearingStrength);
 
-  const [trailMode, setTrailMode] = useState<"full" | "progress" | "none">(
-    defaultPlayerSettings.trailMode
-  );
+  const [trailMode, setTrailMode] = usePersistedState<"full" | "progress" | "none">("trailMode", defaultPlayerSettings.trailMode);
 
-  const [dotSize, setDotSize] = useState(defaultPlayerSettings.dotSize);
-  const [dotGlowRadius, setDotGlowRadius] = useState(
-    defaultPlayerSettings.dotGlowRadius
-  );
+  const [dotSize, setDotSize] = usePersistedState("dotSize", defaultPlayerSettings.dotSize);
+  const [dotGlowRadius, setDotGlowRadius] = usePersistedState("dotGlowRadius", defaultPlayerSettings.dotGlowRadius);
 
-  const [showDot, setShowDot] = useState(defaultPlayerSettings.showDot);
+  const [showDot, setShowDot] = usePersistedState("showDot", defaultPlayerSettings.showDot);
   const [settingsError, setSettingsError] = useState<string | null>(null);
-  const [showStreetNames, setShowStreetNames] = useState(defaultPlayerSettings.showStreetNames);
-  const [showStats, setShowStats] = useState(true);
+  const [showStreetNames, setShowStreetNames] = usePersistedState("showStreetNames", defaultPlayerSettings.showStreetNames);
+  const [showStats, setShowStats] = usePersistedState("showStats", true);
   const [zoomKf, setZoomKf] = useState<number | null>(null);
   const [pitchKf, setPitchKf] = useState<number | null>(null);
   const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
   const [bearingStrengthKf, setBearingStrengthKf] = useState<number | null>(null);
-  const [videoOpacity, setVideoOpacity] = useState(defaultPlayerSettings.videoOpacity);
+  const [videoOpacity, setVideoOpacity] = usePersistedState("videoOpacity", defaultPlayerSettings.videoOpacity);
   const [videoOpacityKf, setVideoOpacityKf] = useState<number | null>(null);
-  const [zoomKfs, setZoomKfs] = useState<Keyframe[]>(defaultPlayerSettings.zoomKeyframes);
-  const [pitchKfs, setPitchKfs] = useState<Keyframe[]>(defaultPlayerSettings.pitchKeyframes);
-  const [followStrengthKfs, setFollowStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.followStrengthKeyframes);
-  const [bearingStrengthKfs, setBearingStrengthKfs] = useState<Keyframe[]>(defaultPlayerSettings.bearingStrengthKeyframes);
-  const [videoOpacityKfs, setVideoOpacityKfs] = useState<Keyframe[]>(defaultPlayerSettings.videoOpacityKeyframes);
+  const [zoomKfs, setZoomKfs] = usePersistedState<Keyframe[]>("zoomKfs", defaultPlayerSettings.zoomKeyframes);
+  const [pitchKfs, setPitchKfs] = usePersistedState<Keyframe[]>("pitchKfs", defaultPlayerSettings.pitchKeyframes);
+  const [followStrengthKfs, setFollowStrengthKfs] = usePersistedState<Keyframe[]>("followStrengthKfs", defaultPlayerSettings.followStrengthKeyframes);
+  const [bearingStrengthKfs, setBearingStrengthKfs] = usePersistedState<Keyframe[]>("bearingStrengthKfs", defaultPlayerSettings.bearingStrengthKeyframes);
+  const [videoOpacityKfs, setVideoOpacityKfs] = usePersistedState<Keyframe[]>("videoOpacityKfs", defaultPlayerSettings.videoOpacityKeyframes);
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [mapStyle, setMapStyle] = useState<any>(null);
 
@@ -399,7 +405,7 @@ export default function PolylinePlayer() {
         if (!showStreetNames) {
           // Hide label layers by setting visibility to "none"
           style.layers = style.layers.map((layer: any) => {
-            if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road"))) {
+            if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
               return { ...layer, layout: { ...layer.layout, visibility: "none" } };
             }
             return layer;
@@ -533,7 +539,7 @@ export default function PolylinePlayer() {
   };
 
   const finishedPlayingRef = useRef<number | null>(null);
-  const VIDEO_TAIL_DURATION = 3;
+  const VIDEO_TAIL_DURATION = 5;
 
   useEffect(() => {
     if (!playing) return;
@@ -1165,7 +1171,7 @@ export default function PolylinePlayer() {
         </div>
         )}
         {showStats && currentActivity && (
-        <div className="absolute bottom-64 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
+        <div className="absolute bottom-48 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
           <StatPill label="Distance" current={progress * currentActivity.distance_m} max={currentActivity.distance_m} unit="m" />
           <StatPill label="Time" current={progress * currentActivity.time_s} max={currentActivity.time_s} unit="min" />
         </div>
