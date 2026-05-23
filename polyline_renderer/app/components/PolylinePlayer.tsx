@@ -154,13 +154,27 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+function formatTimeHMS(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  const hh = h.toString().padStart(2, "0");
+  const mm = m.toString().padStart(2, "0");
+  const ss = s.toString().padStart(2, "0");
+  return `${hh}h${mm}m${ss}s`;
+}
+
+function formatDistanceKm(meters: number): string {
+  return `${(meters / 1000).toFixed(2)} km`;
+}
+
 function StatPill({ label, current, max, unit }: { label: string; current: number; max: number; unit: string }) {
   const displayValue = max > 0 ? Math.min(current, max) : 0;
-  const formatted = unit === "m" ? `${Math.round(displayValue)} m` : formatTime(displayValue);
+  const formatted = unit === "m" ? `${Math.round(displayValue)} m` : unit === "km" ? formatDistanceKm(displayValue) : unit === "hms" ? formatTimeHMS(displayValue) : formatTime(displayValue);
   return (
     <div className="bg-black/50 rounded-2xl px-3 py-1 flex flex-col items-center">
       <span className="text-white/70 text-xs">{label}</span>
-      <span className="text-white text-xl font-semibold">{formatted}</span>
+      <span className="text-white text-xl font-semibold tabular-nums">{formatted}</span>
     </div>
   );
 }
@@ -260,13 +274,14 @@ function getProgressedPath(path: Coord[], progress: number): Coord[] {
 }
 
 function usePersistedState<T>(key: string, defaultValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
-  const [state, setState] = useState<T>(() => {
+  const [state, setState] = useState<T>(defaultValue);
+
+  useEffect(() => {
     try {
       const stored = localStorage.getItem(`polyline-player-${key}`);
-      if (stored !== null) return JSON.parse(stored);
+      if (stored !== null) setState(JSON.parse(stored));
     } catch {}
-    return defaultValue;
-  });
+  }, [key]);
 
   useEffect(() => {
     try {
@@ -319,6 +334,19 @@ export default function PolylinePlayer() {
   const [videoOpacityKfs, setVideoOpacityKfs] = usePersistedState<Keyframe[]>("videoOpacityKfs", defaultPlayerSettings.videoOpacityKeyframes);
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [mapStyle, setMapStyle] = useState<any>(null);
+
+  const [mode, setMode] = useState<"art" | "final">("art");
+  const [finalStartFrame, setFinalStartFrame] = usePersistedState("finalStartFrame", 0);
+  const [finalShowVideo, setFinalShowVideo] = usePersistedState("finalShowVideo", true);
+  const [finalCumulativeDistance, setFinalCumulativeDistance] = useState(0);
+  const [finalCumulativeTime, setFinalCumulativeTime] = useState(0);
+  const [finalZoom, setFinalZoom] = usePersistedState("finalZoom", 16);
+  const [finalShowSilhouette, setFinalShowSilhouette] = usePersistedState("finalShowSilhouette", true);
+  const [finalSilhouetteOpacity, setFinalSilhouetteOpacity] = usePersistedState("finalSilhouetteOpacity", 0.5);
+  const [finalPlayMusic, setFinalPlayMusic] = usePersistedState("finalPlayMusic", false);
+  const [finalVideoLowFps, setFinalVideoLowFps] = usePersistedState("finalVideoLowFps", false);
+  const [final1Fps, setFinal1Fps] = usePersistedState("final1Fps", false);
+  const [finalShowDebug, setFinalShowDebug] = usePersistedState("finalShowDebug", false);
 
   useEffect(() => {
     fetch("/bad_apple_activities.json")
@@ -542,7 +570,7 @@ export default function PolylinePlayer() {
   const VIDEO_TAIL_DURATION = 5;
 
   useEffect(() => {
-    if (!playing) return;
+    if (mode !== "art" || !playing) return;
 
     finishedPlayingRef.current = null;
     let last = performance.now();
@@ -578,19 +606,121 @@ export default function PolylinePlayer() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [playing, speed]);
+  }, [mode, playing, speed]);
+
+  const switchMode = useCallback((newMode: "art" | "final") => {
+    setPlaying(false);
+    if (newMode === "final") {
+      setFrameIndex(finalStartFrame);
+      setProgress(0);
+      setFinalCumulativeDistance(0);
+      setFinalCumulativeTime(0);
+    }
+    setMode(newMode);
+  }, [finalStartFrame]);
+
+  // Final mode animation hook — polyline follows video position
+  const FINAL_FRAME_STEP = final1Fps ? 30 : 15;
+  const finalPolylineDuration = final1Fps ? 1 : 0.5;
+  const seekCompleteRef = useRef(false);
+  useEffect(() => {
+    if (mode !== "final" || !playing || !frameData) return;
+    seekCompleteRef.current = false;
+
+    // Fall back to real-time when video is paused (e.g. waiting for calc >= 0)
+    let lastTime = performance.now();
+    let pausedProgress = progressRef.current;
+
+    const animate = () => {
+      const video = hiddenVideoRef.current;
+      if (!video || !isFinite(video.duration)) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      const currentFrame = frameIndexRef.current;
+      const frameEnd = frameToVideoTime(currentFrame, video.duration);
+      const frameStart = frameEnd - finalPolylineDuration;
+
+      let p: number;
+      if (video.paused) {
+        const now = performance.now();
+        const delta = (now - lastTime) / 1000;
+        lastTime = now;
+        pausedProgress += delta / finalPolylineDuration;
+        p = Math.min(pausedProgress, 1);
+      } else {
+        if (!seekCompleteRef.current) {
+          if (Math.abs(video.currentTime - frameStart) < 0.1) {
+            seekCompleteRef.current = true;
+          } else {
+            animationRef.current = requestAnimationFrame(animate);
+            return;
+          }
+        }
+        const remaining = frameEnd - video.currentTime;
+        p = Math.max(0, Math.min(1, 1 - remaining / finalPolylineDuration));
+      }
+
+      if (p >= 1) {
+        const activity = frameData.find(d => d.frame === currentFrame);
+        if (activity) {
+          setFinalCumulativeDistance(d => d + activity.distance_m);
+          setFinalCumulativeTime(d => d + activity.time_s);
+        }
+
+        const nextFrame = currentFrame + FINAL_FRAME_STEP;
+        const hasNext = frameData.some(d => d.frame === nextFrame);
+
+        if (hasNext) {
+          frameIndexRef.current = nextFrame;
+          progressRef.current = 0;
+          setFrameIndex(nextFrame);
+          setProgress(0);
+          pausedProgress = 0;
+          lastTime = performance.now();
+          seekCompleteRef.current = false;
+        } else {
+          progressRef.current = 1;
+          setProgress(1);
+          setPlaying(false);
+          return;
+        }
+      } else {
+        progressRef.current = p;
+        setProgress(p);
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [mode, playing, frameData, final1Fps]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === " ") {
         e.preventDefault();
         setPlaying((p) => !p);
-        setProgress((pr) => (pr >= 1 ? 0 : pr));
+        if (mode === "art") {
+          setProgress((pr) => (pr >= 1 ? 0 : pr));
+        } else if (mode === "final") {
+          setProgress((pr) => (pr >= 1 ? 0 : pr));
+        }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [mode]);
+
+  const effectiveSpeed = mode === "final" ? (final1Fps ? 1 : 2) : speed;
+  const polylineDuration = 1 / effectiveSpeed;
 
   useEffect(() => {
     const video = hiddenVideoRef.current;
@@ -639,7 +769,6 @@ export default function PolylinePlayer() {
     setVideoSourceReady(true);
   }, []);
 
-  const polylineDuration = 1 / speed;
   const progressRef = useRef(progress);
   progressRef.current = progress;
   const frameIndexRef = useRef(frameIndex);
@@ -665,10 +794,26 @@ export default function PolylinePlayer() {
     video.addEventListener("seeked", draw, { once: true });
   }, []);
 
-  // Immediate draw on frameIndex change
+  // Immediate draw on frameIndex change (skip in final mode while playing - video plays naturally)
   useEffect(() => {
+    if (mode === "final" && playing) {
+      if (finalVideoLowFps) {
+        const video = hiddenVideoRef.current;
+        const canvas = canvasRef.current;
+        if (!video || !canvas || !isFinite(video.duration)) return;
+        video.currentTime = frameToVideoTime(frameIndex, video.duration);
+        video.pause();
+        const draw = () => {
+          const ctx = canvas.getContext("2d");
+          if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        };
+        draw();
+        video.addEventListener("seeked", draw, { once: true });
+      }
+      return;
+    }
     drawFrame();
-  }, [frameIndex, drawFrame]);
+  }, [frameIndex, drawFrame, mode, playing, finalVideoLowFps]);
 
   // Immediate draw when scrubbing while paused
   useEffect(() => {
@@ -684,7 +829,19 @@ export default function PolylinePlayer() {
 
   useEffect(() => {
     const video = hiddenVideoRef.current;
+    if (!video) return;
+    video.muted = !(mode === "final" && playing && finalPlayMusic);
+  }, [mode, playing, finalPlayMusic]);
+
+  useEffect(() => {
+    const video = hiddenVideoRef.current;
     if (!video || !isFinite(video.duration)) return;
+
+    if (mode === "final" && finalVideoLowFps) {
+      video.pause();
+      prevPlayingRef.current = playing;
+      return;
+    }
 
     if (playing) {
       if (!prevPlayingRef.current) {
@@ -693,6 +850,7 @@ export default function PolylinePlayer() {
           video.currentTime = 0;
           video.pause();
         } else {
+          video.playbackRate = 1;
           video.currentTime = Math.min(calc, video.duration);
           video.play().catch(() => {});
         }
@@ -707,14 +865,15 @@ export default function PolylinePlayer() {
     if (!playing) return;
     let raf: number;
     let wasWaiting = false;
+
     const loop = () => {
       const video = hiddenVideoRef.current;
       const canvas = canvasRef.current;
       if (!video || !canvas || !isFinite(video.duration)) return;
 
-      const calc = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
+      const desiredTime = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
 
-      if (calc < 0) {
+      if (desiredTime < 0) {
         if (!wasWaiting) {
           video.currentTime = 0;
           video.pause();
@@ -724,7 +883,7 @@ export default function PolylinePlayer() {
         if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       } else {
         if (wasWaiting) {
-          video.currentTime = Math.min(calc, video.duration);
+          video.currentTime = Math.min(desiredTime, video.duration);
           video.play().catch(() => {});
           wasWaiting = false;
         }
@@ -743,7 +902,9 @@ export default function PolylinePlayer() {
   const effectivePitch = interpolateKfs(pitchKfs, progress) ?? pitch;
   const effectiveFollow = interpolateKfs(followStrengthKfs, progress) ?? followStrength;
   const effectiveBearing = interpolateKfs(bearingStrengthKfs, progress) ?? bearingStrength;
-  const effectiveOpacity = interpolateKfs(videoOpacityKfs, progress) ?? videoOpacity;
+  const effectiveOpacity = mode === "final"
+    ? (finalShowVideo ? videoOpacity : 0)
+    : (interpolateKfs(videoOpacityKfs, progress) ?? videoOpacity);
   opacityRef.current = effectiveOpacity;
 
   useEffect(() => {
@@ -759,7 +920,15 @@ export default function PolylinePlayer() {
     ? effectiveFollow / 100
     : 0;
 
-  const viewState = {
+  const viewState = mode === "final"
+    ? {
+        longitude: DEFAULT_VIEW_COORDINATES[0],
+        latitude: DEFAULT_VIEW_COORDINATES[1],
+        zoom: finalZoom,
+        pitch: 0,
+        bearing: 0,
+      }
+    : {
     longitude: lerp(
       DEFAULT_VIEW_COORDINATES[0],
       currentPosition[0],
@@ -782,6 +951,18 @@ export default function PolylinePlayer() {
   };
 
   const layers = [
+    mode === "final" && finalShowSilhouette &&
+    new PathLayer({
+      id: "silhouette",
+      data: [{ path }],
+      getPath: (d: any) => d.path,
+      getColor: [255, 140, 0, Math.round(finalSilhouetteOpacity * 255)],
+      widthUnits: "pixels",
+      getWidth: 4,
+      capRounded: true,
+      jointRounded: true,
+    }),
+
     trailMode !== "none" &&
     new PathLayer({
       id: "path",
@@ -796,7 +977,8 @@ export default function PolylinePlayer() {
 
       getWidth: 6,
 
-      rounded: true,
+      capRounded: true,
+      jointRounded: true,
     }),
 
     showDot &&
@@ -853,6 +1035,31 @@ export default function PolylinePlayer() {
           deck.gl Polyline Animator
         </h1>
 
+        <div className="flex gap-1 mb-4">
+          <button
+            onClick={() => switchMode("art")}
+            className={`flex-1 px-3 py-2 rounded-lg transition ${
+              mode === "art"
+                ? "bg-orange-500 text-white"
+                : "bg-zinc-700 hover:bg-zinc-600 text-zinc-300"
+            }`}
+          >
+            Art Mode
+          </button>
+          <button
+            onClick={() => switchMode("final")}
+            className={`flex-1 px-3 py-2 rounded-lg transition ${
+              mode === "final"
+                ? "bg-orange-500 text-white"
+                : "bg-zinc-700 hover:bg-zinc-600 text-zinc-300"
+            }`}
+          >
+            Final Mode
+          </button>
+        </div>
+
+        {mode === "art" && (
+          <>
         <div className="mb-5">
           <label className="block mb-2">
             Frame: {frameIndex}
@@ -1141,6 +1348,176 @@ export default function PolylinePlayer() {
             Show Stats
           </label>
         </div>
+          </>
+        )}
+
+        {mode === "final" && (
+          <div className="space-y-4">
+            <div className="mb-5">
+              <label className="block mb-2">
+                Start Frame: {finalStartFrame}
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={frameData ? frameData[frameData.length - 1].frame : 0}
+                step={15}
+                value={finalStartFrame}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  setFinalStartFrame(v);
+                  if (!playing) {
+                    setFrameIndex(v);
+                    setProgress(0);
+                    setFinalCumulativeDistance(0);
+                    setFinalCumulativeTime(0);
+                  }
+                }}
+                className="w-full"
+              />
+            </div>
+
+            <div className="mb-5">
+              <label className="block mb-2">
+                Current Frame: {frameIndex}
+              </label>
+              <div className="w-full bg-zinc-800 rounded-full h-2 mb-1">
+                <div
+                  className="bg-orange-500 h-2 rounded-full transition-all duration-75"
+                  style={{ width: `${progress * 100}%` }}
+                />
+              </div>
+              <div className="text-xs text-zinc-500">{(progress * 100).toFixed(0)}%</div>
+            </div>
+
+            <div className="flex gap-2 mb-4 flex-wrap">
+              <button
+                onClick={() => {
+                  if (progress >= 1) {
+                    const nextFrame = frameIndex + (final1Fps ? 30 : 15);
+                    if (frameData?.some(d => d.frame === nextFrame)) {
+                      setFrameIndex(nextFrame);
+                      setProgress(0);
+                    }
+                  }
+                  setPlaying(true);
+                }}
+                className="bg-orange-500 hover:bg-orange-400 transition px-3 py-2 rounded-lg"
+              >
+                Play
+              </button>
+              <button
+                onClick={() => setPlaying(false)}
+                className="bg-zinc-700 hover:bg-zinc-600 transition px-3 py-2 rounded-lg"
+              >
+                Pause
+              </button>
+              <button
+                onClick={() => {
+                  setPlaying(false);
+                  setFrameIndex(finalStartFrame);
+                  setProgress(0);
+                  setFinalCumulativeDistance(0);
+                  setFinalCumulativeTime(0);
+                }}
+                className="bg-zinc-700 hover:bg-zinc-600 transition px-3 py-2 rounded-lg"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={finalShowVideo}
+                  onChange={(e) => setFinalShowVideo(e.target.checked)}
+                />
+                Show Background Video
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={finalVideoLowFps}
+                  onChange={(e) => setFinalVideoLowFps(e.target.checked)}
+                />
+                2 FPS Background Video
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={final1Fps}
+                  onChange={(e) => setFinal1Fps(e.target.checked)}
+                />
+                1 FPS Mode (every 30 frames)
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={finalPlayMusic}
+                  onChange={(e) => setFinalPlayMusic(e.target.checked)}
+                />
+                Play Music
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={finalShowSilhouette}
+                  onChange={(e) => setFinalShowSilhouette(e.target.checked)}
+                />
+                Show Finished Silhouette
+              </label>
+
+              {finalShowSilhouette && (
+                <div className="mb-4 ml-6">
+                  <label className="block mb-2 text-sm text-zinc-400">
+                    Silhouette Opacity: {(finalSilhouetteOpacity * 100).toFixed(0)}%
+                  </label>
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    value={finalSilhouetteOpacity}
+                    onChange={(e) => setFinalSilhouetteOpacity(Number(e.target.value))}
+                    className="w-full"
+                  />
+                </div>
+              )}
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={finalShowDebug}
+                  onChange={(e) => setFinalShowDebug(e.target.checked)}
+                />
+                Show Debug Info
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={showStats}
+                  onChange={(e) => setShowStats(e.target.checked)}
+                />
+                Show Stats
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={showStreetNames}
+                  onChange={(e) => setShowStreetNames(e.target.checked)}
+                />
+                Show Map Labels
+              </label>
+            </div>
+          </div>
+        )}
 
        </div>
 
@@ -1157,23 +1534,33 @@ export default function PolylinePlayer() {
       <canvas ref={canvasRef} className="hidden" />
 
       <div ref={mapContainerRef} className="flex-1 relative">
-        {SHOW_DEBUG && (
+        {(SHOW_DEBUG || (mode === "final" && finalShowDebug)) && (
         <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
           <div>playing: {String(debug.playing)}</div>
           <div>progress: {debug.progress.toFixed(4)}</div>
           <div>frameIndex: {debug.frameIndex}</div>
-          <div>vid.time: {debug.videoTime.toFixed(2)}</div>
-          <div>vid.expect: {debug.expectedTime.toFixed(2)}</div>
+          <div>vid.time: {debug.videoTime.toFixed(2)}s</div>
+          <div>vid.frame: {debug.videoDuration ? Math.round(debug.videoTime * VIDEO_FPS) : 0}</div>
+          <div>frame→time: {debug.videoDuration ? frameToVideoTime(frameIndex, debug.videoDuration).toFixed(2) : 0}s</div>
+          <div>vid.expect: {debug.expectedTime.toFixed(2)}s</div>
           <div>vid.drift: {(debug.videoTime - debug.expectedTime).toFixed(3)}s</div>
-          <div>vid.dur: {debug.videoDuration.toFixed(2)}</div>
+          <div>vid.dur: {debug.videoDuration.toFixed(2)}s</div>
           <div>vid.paused: {String(debug.videoPaused)}</div>
           <div>vid.ready: {debug.videoReady}</div>
+          <div>speed: {effectiveSpeed.toFixed(1)}</div>
+          <div>polyDur: {polylineDuration.toFixed(2)}s</div>
         </div>
         )}
-        {showStats && currentActivity && (
+        {mode === "art" && showStats && currentActivity && (
         <div className="absolute bottom-48 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
           <StatPill label="Distance" current={progress * currentActivity.distance_m} max={currentActivity.distance_m} unit="m" />
           <StatPill label="Time" current={progress * currentActivity.time_s} max={currentActivity.time_s} unit="min" />
+        </div>
+        )}
+        {mode === "final" && showStats && currentActivity && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-4 pointer-events-none">
+          <StatPill label="Distance" current={finalCumulativeDistance + progress * currentActivity.distance_m} max={999999} unit="km" />
+          <StatPill label="Time" current={finalCumulativeTime + progress * currentActivity.time_s} max={999999} unit="hms" />
         </div>
         )}
         <DeckGL
