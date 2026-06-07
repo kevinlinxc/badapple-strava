@@ -1489,6 +1489,21 @@ export default function PolylinePlayer() {
                 </div>
               )}
 
+              <div className="mb-4">
+                <label className="block mb-2 text-sm text-zinc-400">
+                  Zoom: {finalZoom.toFixed(1)}
+                </label>
+                <input
+                  type="range"
+                  min={3}
+                  max={20}
+                  step={0.1}
+                  value={finalZoom}
+                  onChange={(e) => setFinalZoom(Number(e.target.value))}
+                  className="w-full"
+                />
+              </div>
+
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
