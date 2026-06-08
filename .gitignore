@@ -10,3 +10,4 @@
 .strava.secrets
 **.csv
 **.egg-info
+strava_data**
