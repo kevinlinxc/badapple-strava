@@ -17,7 +17,7 @@ if secrets_file.exists():
 
 client = StravaClient(scopes=["activity:read_all", "profile:read_all", "read_all"])
 
-activities: list[StravaActivity] = client.get_activities(after=datetime(2025, 5, 18), per_page=200) # I started on May 18th
+activities: list[StravaActivity] = client.get_activities(after=datetime(2026, 5, 1), per_page=200) # I started on May 18th
 
 print(f"Found {len(activities)} activities.")
 
