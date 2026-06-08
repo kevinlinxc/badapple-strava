@@ -620,12 +620,21 @@ export default function PolylinePlayer() {
   }, [finalStartFrame]);
 
   // Final mode animation hook — polyline follows video position
-  const FINAL_FRAME_STEP = final1Fps ? 30 : 15;
-  const finalPolylineDuration = final1Fps ? 1 : 0.5;
   const seekCompleteRef = useRef(false);
+  // Helper: find the next frame in data after `current`, optionally skipping one entry for 1fps mode
+  const findNextFrame = (current: number, data: FrameActivity[]) => {
+    const idx = data.findIndex(d => d.frame >= current);
+    if (idx === -1) return null;
+    const advance = final1Fps ? 2 : 1;
+    const nextIdx = idx + advance;
+    return nextIdx < data.length ? data[nextIdx].frame : null;
+  };
   useEffect(() => {
     if (mode !== "final" || !playing || !frameData) return;
     seekCompleteRef.current = false;
+
+    const initialNext = findNextFrame(frameIndexRef.current, frameData);
+    const stepRef = { current: initialNext != null ? initialNext - frameIndexRef.current : (final1Fps ? 30 : 15) };
 
     // Fall back to real-time when video is paused (e.g. waiting for calc >= 0)
     let lastTime = performance.now();
@@ -639,15 +648,16 @@ export default function PolylinePlayer() {
       }
 
       const currentFrame = frameIndexRef.current;
+      const polyDuration = stepRef.current / VIDEO_FPS;
       const frameEnd = frameToVideoTime(currentFrame, video.duration);
-      const frameStart = frameEnd - finalPolylineDuration;
+      const frameStart = frameEnd - polyDuration;
 
       let p: number;
       if (video.paused) {
         const now = performance.now();
         const delta = (now - lastTime) / 1000;
         lastTime = now;
-        pausedProgress += delta / finalPolylineDuration;
+        pausedProgress += delta / polyDuration;
         p = Math.min(pausedProgress, 1);
       } else {
         if (!seekCompleteRef.current) {
@@ -659,7 +669,7 @@ export default function PolylinePlayer() {
           }
         }
         const remaining = frameEnd - video.currentTime;
-        p = Math.max(0, Math.min(1, 1 - remaining / finalPolylineDuration));
+        p = Math.max(0, Math.min(1, 1 - remaining / polyDuration));
       }
 
       if (p >= 1) {
@@ -669,10 +679,10 @@ export default function PolylinePlayer() {
           setFinalCumulativeTime(d => d + activity.time_s);
         }
 
-        const nextFrame = currentFrame + FINAL_FRAME_STEP;
-        const hasNext = frameData.some(d => d.frame === nextFrame);
+        const nextFrame = findNextFrame(currentFrame, frameData);
 
-        if (hasNext) {
+        if (nextFrame != null) {
+          stepRef.current = nextFrame - currentFrame;
           frameIndexRef.current = nextFrame;
           progressRef.current = 0;
           setFrameIndex(nextFrame);
@@ -1067,10 +1077,13 @@ export default function PolylinePlayer() {
           <input
             type="range"
             min={0}
-            max={frameData ? frameData[frameData.length - 1].frame : 0}
-            step={15}
-            value={frameIndex}
-            onChange={(e) => setFrameIndex(Number(e.target.value))}
+            max={frameData ? frameData.length - 1 : 0}
+            step={1}
+            value={frameData ? Math.max(0, frameData.findIndex(d => d.frame >= frameIndex)) : 0}
+            onChange={(e) => {
+              const f = frameData?.[Number(e.target.value)]?.frame;
+              if (f != null) setFrameIndex(f);
+            }}
             className="w-full"
           />
         </div>
@@ -1360,14 +1373,15 @@ export default function PolylinePlayer() {
               <input
                 type="range"
                 min={0}
-                max={frameData ? frameData[frameData.length - 1].frame : 0}
-                step={15}
-                value={finalStartFrame}
+                max={frameData ? frameData.length - 1 : 0}
+                step={1}
+                value={frameData ? Math.max(0, frameData.findIndex(d => d.frame >= finalStartFrame)) : 0}
                 onChange={(e) => {
-                  const v = Number(e.target.value);
-                  setFinalStartFrame(v);
+                  const f = frameData?.[Number(e.target.value)]?.frame;
+                  if (f == null) return;
+                  setFinalStartFrame(f);
                   if (!playing) {
-                    setFrameIndex(v);
+                    setFrameIndex(f);
                     setProgress(0);
                     setFinalCumulativeDistance(0);
                     setFinalCumulativeTime(0);
@@ -1393,9 +1407,9 @@ export default function PolylinePlayer() {
             <div className="flex gap-2 mb-4 flex-wrap">
               <button
                 onClick={() => {
-                  if (progress >= 1) {
-                    const nextFrame = frameIndex + (final1Fps ? 30 : 15);
-                    if (frameData?.some(d => d.frame === nextFrame)) {
+                  if (progress >= 1 && frameData) {
+                    const nextFrame = findNextFrame(frameIndex, frameData);
+                    if (nextFrame != null) {
                       setFrameIndex(nextFrame);
                       setProgress(0);
                     }
