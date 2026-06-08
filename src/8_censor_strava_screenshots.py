@@ -48,6 +48,9 @@ def setup_logger(log_path: str):
 
 # Padding (px) to add around each detected bounding box
 BOX_PADDING = 4
+# cuesta_drive gets more horizontal padding and less vertical padding
+DRIVE_PAD_X = BOX_PADDING + 5   # left/right
+DRIVE_PAD_Y = BOX_PADDING - 2   # top/bottom
 
 # How much extra image height (as a fraction) to crop above and below
 # a "Congrats" banner before re-running censoring on the cropped image.
@@ -367,10 +370,12 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
     for category, phrase_words in PHRASES:
         hits = find_phrase_boxes(boxes, phrase_words)
         for (x1, y1, x2, y2) in hits:
-            rx1 = max(0, x1 - BOX_PADDING)
-            ry1 = max(0, y1 - BOX_PADDING)
-            rx2 = min(img_w, x2 + BOX_PADDING)
-            ry2 = min(img_h, y2 + BOX_PADDING)
+            px = DRIVE_PAD_X if category == "cuesta_drive" else BOX_PADDING
+            py = DRIVE_PAD_Y if category == "cuesta_drive" else BOX_PADDING
+            rx1 = max(0, x1 - px)
+            ry1 = max(0, y1 - py)
+            rx2 = min(img_w, x2 + px)
+            ry2 = min(img_h, y2 + py)
             if category == "cuesta_park":
                 rx2 = cap_right_at_color(original, rx1, ry1, rx2, ry2)
                 logger.info("  Capped cuesta_park right edge to x2=%d", rx2)
@@ -382,10 +387,12 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
 
     # --- Fallback pass: zone-based partial matching ---
     for (x1, y1, x2, y2), category in find_zone_boxes(boxes, img_h):
-        rx1 = max(0, x1 - BOX_PADDING)
-        ry1 = max(0, y1 - BOX_PADDING)
-        rx2 = min(img_w, x2 + BOX_PADDING)
-        ry2 = min(img_h, y2 + BOX_PADDING)
+        px = DRIVE_PAD_X if category == "cuesta_drive" else BOX_PADDING
+        py = DRIVE_PAD_Y if category == "cuesta_drive" else BOX_PADDING
+        rx1 = max(0, x1 - px)
+        ry1 = max(0, y1 - py)
+        rx2 = min(img_w, x2 + px)
+        ry2 = min(img_h, y2 + py)
         if category == "cuesta_park":
             rx2 = cap_right_at_color(original, rx1, ry1, rx2, ry2)
             logger.info("  Zone fallback capped cuesta_park right edge to x2=%d", rx2)
