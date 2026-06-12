@@ -43,7 +43,21 @@ for activity in activities:
 
     df = df.vstack(polars.DataFrame(data, orient="row"))
 
-# include current date in 
+df = df.sort("date")
+
+unique_dates = df["date"].unique().to_list()
+date_to_day = {d: i + 1 for i, d in enumerate(unique_dates)}
+first_date = datetime.strptime(unique_dates[0], "%Y-%m-%d")
+date_to_elapsed = {
+    d: (datetime.strptime(d, "%Y-%m-%d") - first_date).days
+    for d in unique_dates
+}
+
+df = df.with_columns(
+    polars.Series("day", [date_to_day[d] for d in df["date"].to_list()]),
+    polars.Series("days_elapsed", [date_to_elapsed[d] for d in df["date"].to_list()]),
+)
+
 output_folder = Path("strava_data")
 output_folder.mkdir(exist_ok=True)
 df.write_csv(str(output_folder / f"activities-{latest_date}.csv"))
