@@ -10,7 +10,7 @@ from gps import x_y_to_gps, export_to_gpx
 load_dotenv()
 
 
-output_path = Path("final")
+output_path = Path("final-gpx")
 shutil.rmtree(output_path, ignore_errors=True)
 os.makedirs(output_path, exist_ok=True)
 
@@ -36,6 +36,7 @@ def load_contours(skip_frames=15):
 
 contours = load_contours(skip_frames=15)
 for key, xy_list in contours.items():
+    print(f"Processing frame {key} with {len(xy_list)} points")
     # Convert to GPS coordinates
     gps_list = [x_y_to_gps(x, y, 480, 360,
                            bottom_left_lat_long=bottom_left_lat_long,

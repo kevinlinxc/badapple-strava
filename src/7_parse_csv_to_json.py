@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def main():
-    csv_path = Path("strava_data/activities-2026-06-04.csv")
+    csv_path = Path("strava_data/activities-2026-06-21.csv")
     output_path = Path("strava_data/bad_apple_activities.json")
 
     activities = []
