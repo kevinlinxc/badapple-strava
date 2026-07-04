@@ -28,6 +28,8 @@ export type PolylinePlayerSettings = {
   showDot: boolean;
   showStreetNames: boolean;
   videoOpacity: number;
+  mapTheme?: string;
+  finalBlendMode?: string;
   zoomKeyframes: Keyframe[];
   pitchKeyframes: Keyframe[];
   followStrengthKeyframes: Keyframe[];
@@ -112,7 +114,9 @@ export const defaultPlayerSettings: PolylinePlayerSettings = {
       "time": 0.6975683890577508,
       "value": 0
     }
-  ]
+  ],
+  "mapTheme": "dark-matter",
+  "finalBlendMode": "normal"
 }
 
 function interpolateKfs(kfs: Keyframe[], progress: number): number | null {
@@ -292,6 +296,33 @@ function usePersistedState<T>(key: string, defaultValue: T): [T, React.Dispatch<
   return [state, setState];
 }
 
+const MAP_THEMES = [
+  { id: "dark-matter", label: "Dark Matter", url: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json" },
+  { id: "positron", label: "Positron", url: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json" },
+  { id: "voyager", label: "Voyager", url: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json" },
+  { id: "dark-matter-nolabels", label: "Dark Matter (no labels)", url: "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json" },
+  { id: "positron-nolabels", label: "Positron (no labels)", url: "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json" },
+  { id: "voyager-nolabels", label: "Voyager (no labels)", url: "https://basemaps.cartocdn.com/gl/voyager-nolabels-gl-style/style.json" },
+];
+
+function applyBlendMode(ctx: CanvasRenderingContext2D, width: number, height: number, mode: string) {
+  if (mode === "normal") return;
+  const imageData = ctx.getImageData(0, 0, width, height);
+  const data = imageData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+    if (mode === "screen") {
+      data[i + 3] = 255 - Math.round(lum);
+    } else if (mode === "overlay") {
+      data[i + 3] = Math.round(lum);
+    }
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
+
 export default function PolylinePlayer() {
   const [frameIndex, setFrameIndex] = usePersistedState("frameIndex", defaultPlayerSettings.frameIndex);
   const [frameData, setFrameData] = useState<FrameActivity[] | null>(null);
@@ -321,6 +352,7 @@ export default function PolylinePlayer() {
   const [settingsError, setSettingsError] = useState<string | null>(null);
   const [showStreetNames, setShowStreetNames] = usePersistedState("showStreetNames", defaultPlayerSettings.showStreetNames);
   const [showStats, setShowStats] = usePersistedState("showStats", true);
+  const [mapTheme, setMapTheme] = usePersistedState("mapTheme", "dark-matter");
   const [zoomKf, setZoomKf] = useState<number | null>(null);
   const [pitchKf, setPitchKf] = useState<number | null>(null);
   const [followStrengthKf, setFollowStrengthKf] = useState<number | null>(null);
@@ -333,7 +365,6 @@ export default function PolylinePlayer() {
   const [bearingStrengthKfs, setBearingStrengthKfs] = usePersistedState<Keyframe[]>("bearingStrengthKfs", defaultPlayerSettings.bearingStrengthKeyframes);
   const [videoOpacityKfs, setVideoOpacityKfs] = usePersistedState<Keyframe[]>("videoOpacityKfs", defaultPlayerSettings.videoOpacityKeyframes);
   const [videoSourceReady, setVideoSourceReady] = useState(false);
-  const [mapStyle, setMapStyle] = useState<any>(null);
 
   const [mode, setMode] = useState<"art" | "final">("art");
   const [finalStartFrame, setFinalStartFrame] = usePersistedState("finalStartFrame", 0);
@@ -347,6 +378,8 @@ export default function PolylinePlayer() {
   const [finalVideoLowFps, setFinalVideoLowFps] = usePersistedState("finalVideoLowFps", false);
   const [final1Fps, setFinal1Fps] = usePersistedState("final1Fps", false);
   const [finalShowDebug, setFinalShowDebug] = usePersistedState("finalShowDebug", false);
+  const [finalSpeed, setFinalSpeed] = usePersistedState("finalSpeed", 1.0);
+  const [finalBlendMode, setFinalBlendMode] = usePersistedState("finalBlendMode", "normal");
 
   useEffect(() => {
     fetch("/bad_apple_activities.json")
@@ -379,6 +412,8 @@ export default function PolylinePlayer() {
   const animationRef = useRef<number | null>(null);
   const mapRef = useRef<MapRef | null>(null);
   const opacityRef = useRef(1);
+  const showStreetNamesRef = useRef(showStreetNames);
+  showStreetNamesRef.current = showStreetNames;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const hiddenVideoRef = useRef<HTMLVideoElement | null>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -425,30 +460,19 @@ export default function PolylinePlayer() {
   }, [path, progress, trailMode]);
 
   useEffect(() => {
-    const fetchAndModifyStyle = async () => {
-      try {
-        const response = await fetch("https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json");
-        const style = await response.json();
-
-        if (!showStreetNames) {
-          // Hide label layers by setting visibility to "none"
-          style.layers = style.layers.map((layer: any) => {
-            if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
-              return { ...layer, layout: { ...layer.layout, visibility: "none" } };
-            }
-            return layer;
-          });
-        }
-
-        setMapStyle(style);
-      } catch (error) {
-        console.error("Failed to load map style:", error);
-        setMapStyle("https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json");
+    const map = mapRef.current?.getMap();
+    if (!map) return;
+    const visibility = showStreetNames ? "visible" : "none";
+    const layers = map.getStyle().layers;
+    if (!layers) return;
+    for (const layer of layers) {
+      if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
+        map.setLayoutProperty(layer.id, "visibility", visibility);
       }
-    };
-
-    fetchAndModifyStyle();
+    }
   }, [showStreetNames]);
+
+  const mapThemeUrl = MAP_THEMES.find(t => t.id === mapTheme)?.url ?? MAP_THEMES[0].url;
 
   const applySettings = (settings: PolylinePlayerSettings) => {
     setFrameIndex(settings.frameIndex);
@@ -471,6 +495,8 @@ export default function PolylinePlayer() {
     setFollowStrengthKfs(settings.followStrengthKeyframes ?? []);
     setBearingStrengthKfs(settings.bearingStrengthKeyframes ?? []);
     setVideoOpacityKfs(settings.videoOpacityKeyframes ?? []);
+    if (settings.mapTheme) setMapTheme(settings.mapTheme);
+    if (settings.finalBlendMode) setFinalBlendMode(settings.finalBlendMode);
   };
 
   const isValidSettings = (value: any): value is PolylinePlayerSettings => {
@@ -517,6 +543,8 @@ export default function PolylinePlayer() {
       followStrengthKeyframes: followStrengthKfs,
       bearingStrengthKeyframes: bearingStrengthKfs,
       videoOpacityKeyframes: videoOpacityKfs,
+      mapTheme,
+      finalBlendMode,
     };
 
     const blob = new Blob([JSON.stringify(settings, null, 2)], {
@@ -619,8 +647,7 @@ export default function PolylinePlayer() {
     setMode(newMode);
   }, [finalStartFrame]);
 
-  // Final mode animation hook — polyline follows video position
-  const seekCompleteRef = useRef(false);
+  // Final mode animation hook — polyline driven by wall-clock time for smooth progress
   // Helper: find the next frame in data after `current`, optionally skipping one entry for 1fps mode
   const findNextFrame = (current: number, data: FrameActivity[]) => {
     const idx = data.findIndex(d => d.frame >= current);
@@ -631,46 +658,29 @@ export default function PolylinePlayer() {
   };
   useEffect(() => {
     if (mode !== "final" || !playing || !frameData) return;
-    seekCompleteRef.current = false;
 
     const initialNext = findNextFrame(frameIndexRef.current, frameData);
     const stepRef = { current: initialNext != null ? initialNext - frameIndexRef.current : (final1Fps ? 30 : 15) };
 
-    // Fall back to real-time when video is paused (e.g. waiting for calc >= 0)
+    // Use wall-clock time for smooth progress at any speed
     let lastTime = performance.now();
     let pausedProgress = progressRef.current;
 
     const animate = () => {
       const video = hiddenVideoRef.current;
       if (!video || !isFinite(video.duration)) {
+        lastTime = performance.now();
         animationRef.current = requestAnimationFrame(animate);
         return;
       }
 
       const currentFrame = frameIndexRef.current;
       const polyDuration = stepRef.current / VIDEO_FPS;
-      const frameEnd = frameToVideoTime(currentFrame, video.duration);
-      const frameStart = frameEnd - polyDuration;
-
-      let p: number;
-      if (video.paused) {
-        const now = performance.now();
-        const delta = (now - lastTime) / 1000;
-        lastTime = now;
-        pausedProgress += delta / polyDuration;
-        p = Math.min(pausedProgress, 1);
-      } else {
-        if (!seekCompleteRef.current) {
-          if (Math.abs(video.currentTime - frameStart) < 0.1) {
-            seekCompleteRef.current = true;
-          } else {
-            animationRef.current = requestAnimationFrame(animate);
-            return;
-          }
-        }
-        const remaining = frameEnd - video.currentTime;
-        p = Math.max(0, Math.min(1, 1 - remaining / polyDuration));
-      }
+      const now = performance.now();
+      const delta = (now - lastTime) / 1000;
+      lastTime = now;
+      pausedProgress += (delta * finalSpeedRef.current) / polyDuration;
+      let p = Math.min(pausedProgress, 1);
 
       if (p >= 1) {
         const activity = frameData.find(d => d.frame === currentFrame);
@@ -689,7 +699,6 @@ export default function PolylinePlayer() {
           setProgress(0);
           pausedProgress = 0;
           lastTime = performance.now();
-          seekCompleteRef.current = false;
         } else {
           progressRef.current = 1;
           setProgress(1);
@@ -777,6 +786,16 @@ export default function PolylinePlayer() {
     });
     (map.getSource("badapple-canvas") as any)?.play();
     setVideoSourceReady(true);
+
+    const visibility = showStreetNamesRef.current ? "visible" : "none";
+    const layers = map.getStyle().layers;
+    if (layers) {
+      for (const layer of layers) {
+        if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
+          map.setLayoutProperty(layer.id, "visibility", visibility);
+        }
+      }
+    }
   }, []);
 
   const progressRef = useRef(progress);
@@ -785,6 +804,10 @@ export default function PolylinePlayer() {
   frameIndexRef.current = frameIndex;
   const polylineDurationRef = useRef(polylineDuration);
   polylineDurationRef.current = polylineDuration;
+  const finalSpeedRef = useRef(finalSpeed);
+  finalSpeedRef.current = finalSpeed;
+  const finalBlendModeRef = useRef(finalBlendMode);
+  finalBlendModeRef.current = finalBlendMode;
 
   const drawFrame = useCallback(() => {
     const video = hiddenVideoRef.current;
@@ -797,7 +820,10 @@ export default function PolylinePlayer() {
 
     const draw = () => {
       const ctx = canvas.getContext("2d");
-      if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      if (ctx) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
+      }
     };
 
     draw();
@@ -815,7 +841,10 @@ export default function PolylinePlayer() {
         video.pause();
         const draw = () => {
           const ctx = canvas.getContext("2d");
-          if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
+          }
         };
         draw();
         video.addEventListener("seeked", draw, { once: true });
@@ -860,7 +889,7 @@ export default function PolylinePlayer() {
           video.currentTime = 0;
           video.pause();
         } else {
-          video.playbackRate = 1;
+          video.playbackRate = mode === "final" ? finalSpeedRef.current : 1;
           video.currentTime = Math.min(calc, video.duration);
           video.play().catch(() => {});
         }
@@ -875,6 +904,7 @@ export default function PolylinePlayer() {
     if (!playing) return;
     let raf: number;
     let wasWaiting = false;
+    let startedPlaying = false;
 
     const loop = () => {
       const video = hiddenVideoRef.current;
@@ -888,18 +918,46 @@ export default function PolylinePlayer() {
           video.currentTime = 0;
           video.pause();
           wasWaiting = true;
+          startedPlaying = false;
         }
         const ctx = canvas.getContext("2d");
-        if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      } else {
-        if (wasWaiting) {
-          video.currentTime = Math.min(desiredTime, video.duration);
-          video.play().catch(() => {});
-          wasWaiting = false;
+        if (ctx) {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
         }
+      } else if (mode === "final") {
+        wasWaiting = false;
+        const t = Math.max(0, Math.min(video.duration, desiredTime));
+        if (!startedPlaying || Math.abs(video.currentTime - t) > 0.03) {
+          video.currentTime = t;
+          if (!startedPlaying) {
+            video.play().catch(() => {});
+            startedPlaying = true;
+          }
+          const drawExact = () => {
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+              applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
+            }
+          };
+          drawExact();
+          video.addEventListener("seeked", drawExact, { once: true });
+        } else {
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
+          }
+        }
+      } else {
+        wasWaiting = false;
         if (!video.paused) {
           const ctx = canvas.getContext("2d");
-          if (ctx) ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
+          }
         }
       }
       raf = requestAnimationFrame(loop);
@@ -1268,6 +1326,21 @@ export default function PolylinePlayer() {
           onKeyframesChange={setVideoOpacityKfs}
         />
 
+        <div className="space-y-2">
+          <label className="block text-sm text-zinc-300">
+            Video Blend Mode
+          </label>
+          <select
+            value={finalBlendMode}
+            onChange={(e) => setFinalBlendMode(e.target.value)}
+            className="w-full bg-zinc-800 rounded-lg p-3"
+          >
+            <option value="normal">Normal</option>
+            <option value="screen">Screen (white → transparent)</option>
+            <option value="overlay">Overlay (black → transparent)</option>
+          </select>
+        </div>
+
         <div className="space-y-3">
           <label className="flex items-center gap-2">
             <input
@@ -1352,6 +1425,21 @@ export default function PolylinePlayer() {
             Show Street Names
           </label>
 
+          <div className="space-y-2">
+            <label className="block text-sm text-zinc-300">
+              Map Theme
+            </label>
+            <select
+              value={mapTheme}
+              onChange={(e) => setMapTheme(e.target.value)}
+              className="w-full bg-zinc-800 rounded-lg p-3"
+            >
+              {MAP_THEMES.map((t) => (
+                <option key={t.id} value={t.id}>{t.label}</option>
+              ))}
+            </select>
+          </div>
+
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
@@ -1387,6 +1475,21 @@ export default function PolylinePlayer() {
                     setFinalCumulativeTime(0);
                   }
                 }}
+                className="w-full"
+              />
+            </div>
+
+            <div className="mb-5">
+              <label className="block mb-2">
+                Speed: {finalSpeed.toFixed(2)}x
+              </label>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={finalSpeed}
+                onChange={(e) => setFinalSpeed(Number(e.target.value))}
                 className="w-full"
               />
             </div>
@@ -1449,6 +1552,21 @@ export default function PolylinePlayer() {
                 />
                 Show Background Video
               </label>
+
+              <div className="space-y-2">
+                <label className="block text-sm text-zinc-300">
+                  Video Blend Mode
+                </label>
+                <select
+                  value={finalBlendMode}
+                  onChange={(e) => setFinalBlendMode(e.target.value)}
+                  className="w-full bg-zinc-800 rounded-lg p-3"
+                >
+                  <option value="normal">Normal</option>
+                  <option value="screen">Screen (white → transparent)</option>
+                  <option value="overlay">Overlay (black → transparent)</option>
+                </select>
+              </div>
 
               <label className="flex items-center gap-2">
                 <input
@@ -1598,8 +1716,9 @@ export default function PolylinePlayer() {
           viewState={viewState}
         >
           <Map
+            key={mapThemeUrl}
             ref={mapRef}
-            mapStyle={mapStyle || "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"}
+            mapStyle={mapThemeUrl}
             onLoad={(e: any) => setupVideo(e.target)}
             attributionControl={false}
           />

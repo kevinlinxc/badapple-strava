@@ -18,8 +18,8 @@ import cv2
 from PIL import Image
 
 # --- configurable parameters ---
-LAST_IMAGE_INDEX = 108  # 1-based index of last image in sorted list
-N_IMAGES = 30         # how many images, counting backward from LAST_IMAGE_INDEX
+LAST_IMAGE_INDEX = 117  # 1-based index of last image in sorted list
+N_IMAGES = 20         # how many images, counting backward from LAST_IMAGE_INDEX
 BORDER_SIDE_PROPORTION = 0.0464       # top/left/right border / content dimension
 BORDER_BOTTOM_PROPORTION = 0.1813     # bottom border / content height
 SCALE = 0.5
