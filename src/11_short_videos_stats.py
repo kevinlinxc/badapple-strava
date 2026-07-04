@@ -5,26 +5,18 @@ Usage:
     python 11_short_videos_stats.py
 
 Required env vars — set in a .env file in the project root:
-
+    This quickstart got me from 0 to 1: https://developers.google.com/youtube/v3/quickstart/python
     YouTube Data API v3 (OAuth 2.0):
         YOUTUBE_CLIENT_SECRETS_FILE=/path/to/client_secret_....json
-        → 1. Go to https://console.cloud.google.com/apis/credentials
-        → 2. Create an OAuth 2.0 Client ID → select "Desktop application"
-        → 3. Download the JSON file (client secret)
-        → 4. Set YOUTUBE_CLIENT_SECRETS_FILE to the path of that JSON file
-        → 5. Enable "YouTube Data API v3"
-        → 6. On first run, the script opens your browser for authorization
 
     Instagram Graph API:
+    followed this to get access token: https://finsweet.com/components/instagram-feed/how-to-get-access-token#
+    got instagram user id from https://developers.facebook.com/tools/explorer?domain=INSTAGRAM&method=GET&path=me%3Ffields%3Did%2Cname&version=v25.0
         INSTAGRAM_ACCESS_TOKEN + INSTAGRAM_USER_ID
-        → Requires a Facebook App + Instagram Business/Creator account linked
 
     TikTok Display API (OAuth 2.0):
+    Make an app, set it to sandbox, localhost didn't work for calllback uri but ngrok + localhost did
         TIKTOK_CLIENT_KEY + TIKTOK_CLIENT_SECRET
-        → 1. Create an app at https://developers.tiktok.com
-        → 2. Add "TikTok API" / "Display API" product
-        → 3. Set Redirect URI to  https://gobbler-working-bluebird.ngrok-free.app/callback/
-        → 4. On first run, the script opens your browser for authorization
 """
 
 import atexit
