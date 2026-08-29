@@ -143,6 +143,9 @@ const VIDEO_TOTAL_FRAMES = 6572;
 function frameToVideoTime(frame: number, videoDuration: number): number {
   return (frame / VIDEO_TOTAL_FRAMES) * videoDuration;
 }
+function toReversedFrame(frame: number): number {
+  return VIDEO_TOTAL_FRAMES - 1 - frame;
+}
 type Coord = [number, number];
 
 type Activity = {
@@ -303,6 +306,10 @@ const MAP_THEMES = [
   { id: "dark-matter-nolabels", label: "Dark Matter (no labels)", url: "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json" },
   { id: "positron-nolabels", label: "Positron (no labels)", url: "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json" },
   { id: "voyager-nolabels", label: "Voyager (no labels)", url: "https://basemaps.cartocdn.com/gl/voyager-nolabels-gl-style/style.json" },
+  { id: "maplibre-demo", label: "MapLibre Demo", url: "https://demotiles.maplibre.org/style.json" },
+  { id: "versatiles-colorful", label: "Versatiles Colorful", url: "https://tiles.versatiles.org/assets/styles/colorful/style.json" },
+  { id: "versatiles-neutrino", label: "Versatiles Neutrino", url: "https://tiles.versatiles.org/assets/styles/neutrino/style.json" },
+  { id: "versatiles-eclipse", label: "Versatiles Eclipse", url: "https://tiles.versatiles.org/assets/styles/eclipse/style.json" },
 ];
 
 function applyBlendMode(ctx: CanvasRenderingContext2D, width: number, height: number, mode: string) {
@@ -376,10 +383,10 @@ export default function PolylinePlayer() {
   const [finalSilhouetteOpacity, setFinalSilhouetteOpacity] = usePersistedState("finalSilhouetteOpacity", 0.5);
   const [finalPlayMusic, setFinalPlayMusic] = usePersistedState("finalPlayMusic", false);
   const [finalVideoLowFps, setFinalVideoLowFps] = usePersistedState("finalVideoLowFps", false);
-  const [final1Fps, setFinal1Fps] = usePersistedState("final1Fps", false);
   const [finalShowDebug, setFinalShowDebug] = usePersistedState("finalShowDebug", false);
   const [finalSpeed, setFinalSpeed] = usePersistedState("finalSpeed", 1.0);
   const [finalBlendMode, setFinalBlendMode] = usePersistedState("finalBlendMode", "normal");
+  const [finalReverse, setFinalReverse] = usePersistedState("finalReverse", false);
 
   useEffect(() => {
     fetch("/bad_apple_activities.json")
@@ -466,7 +473,7 @@ export default function PolylinePlayer() {
     const layers = map.getStyle().layers;
     if (!layers) return;
     for (const layer of layers) {
-      if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
+      if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber") || layer.id.includes("transit"))) {
         map.setLayoutProperty(layer.id, "visibility", visibility);
       }
     }
@@ -648,19 +655,23 @@ export default function PolylinePlayer() {
   }, [finalStartFrame]);
 
   // Final mode animation hook — polyline driven by wall-clock time for smooth progress
-  // Helper: find the next frame in data after `current`, optionally skipping one entry for 1fps mode
-  const findNextFrame = (current: number, data: FrameActivity[]) => {
+  // Helper: find the next (or previous) frame in data, optionally skipping one entry for 1fps mode
+  const findNextFrame = (current: number, data: FrameActivity[], reverse: boolean) => {
     const idx = data.findIndex(d => d.frame >= current);
     if (idx === -1) return null;
-    const advance = final1Fps ? 2 : 1;
-    const nextIdx = idx + advance;
+    if (reverse) {
+      const prevIdx = idx - 1;
+      return prevIdx >= 0 ? data[prevIdx].frame : null;
+    }
+    const nextIdx = idx + 1;
     return nextIdx < data.length ? data[nextIdx].frame : null;
   };
   useEffect(() => {
     if (mode !== "final" || !playing || !frameData) return;
 
-    const initialNext = findNextFrame(frameIndexRef.current, frameData);
-    const stepRef = { current: initialNext != null ? initialNext - frameIndexRef.current : (final1Fps ? 30 : 15) };
+    const initialNext = findNextFrame(frameIndexRef.current, frameData, finalReverse);
+    const stepRef = { current: initialNext != null ? Math.abs(initialNext - frameIndexRef.current) : 15 };
+    actualPolyDurationRef.current = stepRef.current / VIDEO_FPS;
 
     // Use wall-clock time for smooth progress at any speed
     let lastTime = performance.now();
@@ -689,10 +700,11 @@ export default function PolylinePlayer() {
           setFinalCumulativeTime(d => d + activity.time_s);
         }
 
-        const nextFrame = findNextFrame(currentFrame, frameData);
+        const nextFrame = findNextFrame(currentFrame, frameData, finalReverse);
 
         if (nextFrame != null) {
-          stepRef.current = nextFrame - currentFrame;
+          stepRef.current = finalReverse ? currentFrame - nextFrame : nextFrame - currentFrame;
+          actualPolyDurationRef.current = stepRef.current / VIDEO_FPS;
           frameIndexRef.current = nextFrame;
           progressRef.current = 0;
           setFrameIndex(nextFrame);
@@ -720,7 +732,7 @@ export default function PolylinePlayer() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [mode, playing, frameData, final1Fps]);
+  }, [mode, playing, frameData, finalReverse]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -738,7 +750,7 @@ export default function PolylinePlayer() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mode]);
 
-  const effectiveSpeed = mode === "final" ? (final1Fps ? 1 : 2) : speed;
+  const effectiveSpeed = mode === "final" ? 2 : speed;
   const polylineDuration = 1 / effectiveSpeed;
 
   useEffect(() => {
@@ -791,7 +803,7 @@ export default function PolylinePlayer() {
     const layers = map.getStyle().layers;
     if (layers) {
       for (const layer of layers) {
-        if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber"))) {
+        if (layer.type === "symbol" && (layer.id.includes("label") || layer.id.includes("place") || layer.id.includes("road") || layer.id.includes("poi") || layer.id.includes("watername") || layer.id.includes("housenumber") || layer.id.includes("transit"))) {
           map.setLayoutProperty(layer.id, "visibility", visibility);
         }
       }
@@ -808,14 +820,23 @@ export default function PolylinePlayer() {
   finalSpeedRef.current = finalSpeed;
   const finalBlendModeRef = useRef(finalBlendMode);
   finalBlendModeRef.current = finalBlendMode;
+  const finalReverseRef = useRef(finalReverse);
+  finalReverseRef.current = finalReverse;
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
+
+  // Tracks the actual polyline duration from the data's frame gap (not the global speed setting)
+  const actualPolyDurationRef = useRef(0.5);
 
   const drawFrame = useCallback(() => {
     const video = hiddenVideoRef.current;
     const canvas = canvasRef.current;
     if (!video || !canvas || !isFinite(video.duration)) return;
 
+    const lookupFrame = (finalReverseRef.current && modeRef.current === "final") ? toReversedFrame(frameIndexRef.current) : frameIndexRef.current;
+    const polyDur = modeRef.current === "final" ? actualPolyDurationRef.current : polylineDurationRef.current;
     const t = Math.max(0, Math.min(video.duration,
-      frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current));
+      frameToVideoTime(lookupFrame, video.duration) - (1 - progressRef.current) * polyDur));
     video.currentTime = t;
 
     const draw = () => {
@@ -865,6 +886,7 @@ export default function PolylinePlayer() {
   // polylineDuration seconds, so no seeking is needed mid-playback.
   // When progress hasn't reached the point where footage exists, hold on frame 0.
   const prevPlayingRef = useRef(false);
+  const seekingRef = useRef(false);
 
   useEffect(() => {
     const video = hiddenVideoRef.current;
@@ -884,7 +906,8 @@ export default function PolylinePlayer() {
 
     if (playing) {
       if (!prevPlayingRef.current) {
-        const calc = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
+        const polyDur = mode === "final" ? actualPolyDurationRef.current : polylineDurationRef.current;
+        const calc = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polyDur;
         if (calc < 0) {
           video.currentTime = 0;
           video.pause();
@@ -904,55 +927,42 @@ export default function PolylinePlayer() {
     if (!playing) return;
     let raf: number;
     let wasWaiting = false;
-    let startedPlaying = false;
+    let prevFrame = frameIndexRef.current;
 
     const loop = () => {
       const video = hiddenVideoRef.current;
       const canvas = canvasRef.current;
       if (!video || !canvas || !isFinite(video.duration)) return;
 
-      const desiredTime = frameToVideoTime(frameIndexRef.current, video.duration) - (1 - progressRef.current) * polylineDurationRef.current;
+      const currentFrame = frameIndexRef.current;
+      const lookupFrame = (finalReverseRef.current && modeRef.current === "final") ? toReversedFrame(currentFrame) : currentFrame;
+      const polyDur = modeRef.current === "final" ? actualPolyDurationRef.current : polylineDurationRef.current;
+      const desiredTime = frameToVideoTime(lookupFrame, video.duration) - (1 - progressRef.current) * polyDur;
 
       if (desiredTime < 0) {
         if (!wasWaiting) {
           video.currentTime = 0;
           video.pause();
           wasWaiting = true;
-          startedPlaying = false;
         }
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
           applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
         }
-      } else if (mode === "final") {
-        wasWaiting = false;
-        const t = Math.max(0, Math.min(video.duration, desiredTime));
-        if (!startedPlaying || Math.abs(video.currentTime - t) > 0.03) {
-          video.currentTime = t;
-          if (!startedPlaying) {
-            video.play().catch(() => {});
-            startedPlaying = true;
-          }
-          const drawExact = () => {
-            const ctx = canvas.getContext("2d");
-            if (ctx) {
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-              applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
-            }
-          };
-          drawExact();
-          video.addEventListener("seeked", drawExact, { once: true });
-        } else {
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            applyBlendMode(ctx, canvas.width, canvas.height, finalBlendModeRef.current);
-          }
-        }
       } else {
-        wasWaiting = false;
-        if (!video.paused) {
+        if (wasWaiting || currentFrame !== prevFrame) {
+          seekingRef.current = true;
+          video.currentTime = Math.min(desiredTime, video.duration);
+          video.addEventListener("seeked", () => {
+            seekingRef.current = false;
+          }, { once: true });
+          video.playbackRate = mode === "final" ? finalSpeedRef.current : 1;
+          video.play().catch(() => {});
+          wasWaiting = false;
+          prevFrame = currentFrame;
+        }
+        if (!video.paused && !seekingRef.current) {
           const ctx = canvas.getContext("2d");
           if (ctx) {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -1311,21 +1321,6 @@ export default function PolylinePlayer() {
           onKeyframesChange={setBearingStrengthKfs}
         />
 
-        <KeyframeSlider
-          label="Video Opacity"
-          value={videoOpacity}
-          onChange={setVideoOpacity}
-          min={0}
-          max={1}
-          step={0.01}
-          formatValue={(v) => v.toFixed(2)}
-          progress={progress}
-          onProgressChange={setProgress}
-          onKeyframeValueChange={setVideoOpacityKf}
-          keyframes={videoOpacityKfs}
-          onKeyframesChange={setVideoOpacityKfs}
-        />
-
         <div className="space-y-2">
           <label className="block text-sm text-zinc-300">
             Video Blend Mode
@@ -1454,6 +1449,21 @@ export default function PolylinePlayer() {
 
         {mode === "final" && (
           <div className="space-y-4">
+            <div className="space-y-2">
+              <label className="block text-sm text-zinc-300">
+                Map Theme
+              </label>
+              <select
+                value={mapTheme}
+                onChange={(e) => setMapTheme(e.target.value)}
+                className="w-full bg-zinc-800 rounded-lg p-3"
+              >
+                {MAP_THEMES.map((t) => (
+                  <option key={t.id} value={t.id}>{t.label}</option>
+                ))}
+              </select>
+            </div>
+
             <div className="mb-5">
               <label className="block mb-2">
                 Start Frame: {finalStartFrame}
@@ -1511,7 +1521,7 @@ export default function PolylinePlayer() {
               <button
                 onClick={() => {
                   if (progress >= 1 && frameData) {
-                    const nextFrame = findNextFrame(frameIndex, frameData);
+                    const nextFrame = findNextFrame(frameIndex, frameData, finalReverse);
                     if (nextFrame != null) {
                       setFrameIndex(nextFrame);
                       setProgress(0);
@@ -1544,6 +1554,21 @@ export default function PolylinePlayer() {
             </div>
 
             <div className="space-y-3">
+              <div className="mb-3">
+                <label className="block mb-2">
+                  Video Opacity: {videoOpacity.toFixed(2)}
+                </label>
+                <input
+                  type="range"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={videoOpacity}
+                  onChange={(e) => setVideoOpacity(Number(e.target.value))}
+                  className="w-full"
+                />
+              </div>
+
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -1580,10 +1605,10 @@ export default function PolylinePlayer() {
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  checked={final1Fps}
-                  onChange={(e) => setFinal1Fps(e.target.checked)}
+                  checked={finalReverse}
+                  onChange={(e) => setFinalReverse(e.target.checked)}
                 />
-                1 FPS Mode (every 30 frames)
+                Play Frames in Reverse
               </label>
 
               <label className="flex items-center gap-2">
@@ -1670,7 +1695,7 @@ export default function PolylinePlayer() {
 
       <video
         ref={hiddenVideoRef}
-        src="/badapple-small.mp4"
+        src={mode === "final" && finalReverse ? "/badapple-reversed.mp4" : "/badapple-small.mp4"}
         muted
         loop
         playsInline
