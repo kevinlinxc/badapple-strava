@@ -2,12 +2,17 @@
 Pans across the screenshot reel from first to last image with ease-out deceleration.
 
 Usage:
-    python 10_screenshot_reel_vid.py
+    python 10_screenshot_reel_vid.py <frame_number>
+
+The given frame number is looked up in bad_apple_activities.json. The script then
+counts back N_IMAGES entries through the JSON to determine which frame numbers to
+include. This handles the variable frame spacing (every 15 before ~2000, every 30 after).
 
 Dependencies:
     pip install opencv-python pillow
 """
 
+import json
 import math
 import re
 import subprocess
@@ -18,23 +23,21 @@ import cv2
 from PIL import Image
 
 # --- configurable parameters ---
-LAST_IMAGE_INDEX = 117  # 1-based index of last image in sorted list
-N_IMAGES = 20         # how many images, counting backward from LAST_IMAGE_INDEX
-BORDER_SIDE_PROPORTION = 0.0464       # top/left/right border / content dimension
-BORDER_BOTTOM_PROPORTION = 0.1813     # bottom border / content height
+N_IMAGES = 20
+BORDER_SIDE_PROPORTION = 0.0464
+BORDER_BOTTOM_PROPORTION = 0.1813
 SCALE = 0.5
 SPACING = 20
 
 VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920
 FPS = 60
-DURATION_SECONDS = None  # auto if None: N_IMAGES * FRAMES_PER_IMAGE / FPS
+DURATION_SECONDS = None
 FRAMES_PER_IMAGE = 20
-EASE_EXPONENT = 2.5  # >1 = ease out, 1 = linear
+EASE_EXPONENT = 2.5
 SEED = 42
-OUTPUT_DIR = Path(f"reel-frames-{LAST_IMAGE_INDEX - N_IMAGES + 1}-{LAST_IMAGE_INDEX}")
-OUTPUT_VIDEO = f"reel-{LAST_IMAGE_INDEX - N_IMAGES + 1}-{LAST_IMAGE_INDEX}.mov"
 SCREENSHOTS_DIR = Path(__file__).parent.parent / "strava_data" / "screenshots" / "censored"
+ACTIVITIES_JSON = Path(__file__).parent.parent / "polyline_renderer" / "public" / "bad_apple_activities.json"
 # -------------------------------
 
 
@@ -43,17 +46,38 @@ def ease_out(t, exp):
 
 
 def main():
-    all_files = sorted(
-        SCREENSHOTS_DIR.glob("*.jpg"),
-        key=lambda p: int(re.search(r"-(\d+)", p.stem).group(1)),
-    )
-    jpg_files = all_files[LAST_IMAGE_INDEX - N_IMAGES : LAST_IMAGE_INDEX]
-
-    if not jpg_files:
-        print(f"No .jpg files found in {SCREENSHOTS_DIR}", file=sys.stderr)
+    if len(sys.argv) < 2:
+        print("Usage: python 10_screenshot_reel_vid.py <frame_number>", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Building reel from {len(jpg_files)} images ...")
+    target_frame = int(sys.argv[1])
+
+    with open(ACTIVITIES_JSON) as f:
+        activities = json.load(f)
+
+    try:
+        target_index = next(i for i, entry in enumerate(activities) if entry["frame"] == target_frame)
+    except StopIteration:
+        print(f"Frame {target_frame} not found in {ACTIVITIES_JSON}", file=sys.stderr)
+        sys.exit(1)
+
+    start_index = max(0, target_index - N_IMAGES)
+    selected_frames = [activities[i]["frame"] for i in range(start_index, target_index)]
+
+    first_frame = selected_frames[0]
+    last_frame = selected_frames[-1]
+
+    OUTPUT_DIR = Path(f"reel-frames-{first_frame}-{last_frame}")
+    OUTPUT_VIDEO = f"reel-{first_frame}-{last_frame}.mov"
+
+    jpg_files = [SCREENSHOTS_DIR / f"strava-screenshot-{f}-censored.jpg" for f in selected_frames]
+    jpg_files = [p for p in jpg_files if p.exists()]
+
+    if not jpg_files:
+        print(f"No matching .jpg files found in {SCREENSHOTS_DIR} for frames {selected_frames}", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Building reel from {len(jpg_files)} images (frames {selected_frames[0]}..{selected_frames[-1]}) ...")
 
     raw = []
     for img_path in jpg_files:

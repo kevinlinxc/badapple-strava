@@ -24,6 +24,8 @@ import logging
 from pathlib import Path
 from PIL import Image, ImageDraw
 import pytesseract
+import cv2
+import numpy as np
 
 
 logger = logging.getLogger("censor")
@@ -56,13 +58,21 @@ DRIVE_PAD_Y = BOX_PADDING - 2   # top/bottom
 # a "Congrats" banner before re-running censoring on the cropped image.
 CONGRATS_CROP_MARGIN = 0.05
 
-# Colors for each category of redaction
-COLORS = {
-    "last_name":       (20,   20,   20), # strava header background colour
-    "location":        (20,   20,   20), # same
-    "cuesta_drive":    (73,  80,  88),   # road color
-    "cuesta_park":     (57,  62, 68),   # parking lot color
+PALETTE = 2  # 1 or 2
+
+_COLORS_P1 = {
+    "last_name":    (20,   20,   20),
+    "location":     (20,   20,   20),
+    "cuesta_drive": (73,   80,   88),
+    "cuesta_park":  (57,   62,   68),
 }
+_COLORS_P2 = {
+    "last_name":    (20,   20,   20),
+    "location":     (20,   20,   20),
+    "cuesta_drive": (110, 119, 134),
+    "cuesta_park":  (76,   81,   92),
+}
+COLORS = _COLORS_P2 if PALETTE == 2 else _COLORS_P1
 
 # What to search for (lowercased for matching)
 # Each entry: (category_key, list_of_consecutive_words_that_form_the_phrase)
@@ -225,29 +235,96 @@ def find_phrase_boxes(
 def find_zone_boxes(
     boxes: list[dict],
     img_h: int,
-) -> list[tuple[tuple[int, int, int, int], str]]:
+) -> list[tuple[tuple[int, int, int, int], str, str]]:
     """
-    Fallback pass: redact any OCR token whose vertical midpoint falls inside
-    a map zone. Nothing else appears on the teal map background, so any token
-    detected there must be a (possibly partial) label we want to censor.
-
-    Returns a list of ((x1, y1, x2, y2), category) tuples.
+    Return OCR tokens whose vertical midpoint falls inside a map zone.
+    Each entry: ((x1,y1,x2,y2), category, word_label).
+    Sorted largest-first by area.
     """
-    results = []
+    candidates = []
     for b in boxes:
-        # Skip garbage tokens that are unrealistically tall (vertical UI lines etc.)
         if b["h"] > 100:
             continue
+        alpha_count = sum(1 for c in b["lower"] if c.isalpha())
+        if alpha_count < 2:
+            continue
         mid_y = (b["y"] + b["h"] / 2) / img_h
+        rect = (b["x"], b["y"], b["x"] + b["w"], b["y"] + b["h"])
+        area = b["w"] * b["h"]
 
         if ZONE_DRIVE[0] <= mid_y <= ZONE_DRIVE[1]:
-            results.append(((b["x"], b["y"], b["x"] + b["w"], b["y"] + b["h"]), "cuesta_drive"))
-            logger.info("  Zone drive fallback '%s' [cuesta_drive] midY=%.2f", b["word"], mid_y)
+            candidates.append((rect, area, "cuesta_drive", b["word"], mid_y))
         elif ZONE_PARK[0] <= mid_y <= ZONE_PARK[1]:
-            results.append(((b["x"], b["y"], b["x"] + b["w"], b["y"] + b["h"]), "cuesta_park"))
-            logger.info("  Zone park fallback '%s' [cuesta_park]  midY=%.2f", b["word"], mid_y)
+            candidates.append((rect, area, "cuesta_park", b["word"], mid_y))
 
-    return results
+    candidates.sort(key=lambda x: x[1], reverse=True)
+    return [(r, c, w) for r, _, c, w, _ in candidates]
+
+
+def approve_zones_interactive(
+    original: Image.Image,
+    candidates: list[tuple[tuple[int, int, int, int], str, str]],
+    img_w: int,
+    img_h: int,
+) -> list[tuple[tuple[int, int, int, int], str]]:
+    """
+    Show each zone candidate as a red rectangle on the image.
+    y = approve, any other key = skip, d = skip remaining.
+    Returns the approved list of (rect, category) with padding applied.
+    """
+    if not candidates:
+        return []
+
+    img = np.array(original.convert("RGB"))
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+    SCREEN_W = 1200
+    scale = SCREEN_W / img_w if img_w > SCREEN_W else 1.0
+    if scale < 1.0:
+        img_display = cv2.resize(img, (int(img_w * scale), int(img_h * scale)))
+    else:
+        img_display = img.copy()
+        scale = 1.0
+
+    approved = []
+    cv2.namedWindow("approve", cv2.WINDOW_NORMAL)
+    total = len(candidates)
+
+    for i, (rect, category, word) in enumerate(candidates):
+        x1, y1, x2, y2 = rect
+        px = DRIVE_PAD_X if category == "cuesta_drive" else BOX_PADDING
+        py = DRIVE_PAD_Y if category == "cuesta_drive" else BOX_PADDING
+        rx1 = max(0, x1 - px)
+        ry1 = max(0, y1 - py)
+        rx2 = min(img_w, x2 + px)
+        ry2 = min(img_h, y2 + py)
+
+        disp = img_display.copy()
+        cv2.rectangle(
+            disp,
+            (int(rx1 * scale), int(ry1 * scale)),
+            (int(rx2 * scale), int(ry2 * scale)),
+            (0, 0, 255), 2,
+        )
+        cv2.putText(
+            disp, f"[{category}] \"{word}\"  ({i+1}/{total})",
+            (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2,
+        )
+        cv2.putText(
+            disp, "y=approve  d=done  any=skip",
+            (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1,
+        )
+
+        cv2.imshow("approve", disp)
+        key = cv2.waitKey(0) & 0xFF
+
+        if key == ord("d"):
+            break
+        elif key == ord("y"):
+            approved.append(((rx1, ry1, rx2, ry2), category))
+
+    cv2.destroyAllWindows()
+    return approved
 
 
 def cap_right_at_color(img, x1, y1, x2, y2):
@@ -324,17 +401,18 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
     boxes = get_word_boxes(original)
     logger.info("  %d words detected", len(boxes))
 
-    # Extract frame number on the first (non-recursive) call
+    is_original_call = _frame is None
+
     if _frame is None:
         _frame = find_frame_number(boxes)
-        if _frame is not None:
+        if isinstance(_frame, str):
             logger.info("  Bad Apple frame: %s", _frame)
         else:
             logger.info("  Bad Apple frame: not found, using original filename")
 
     # --- Resolve output path early so recursion always has it explicit ---
     if output_path is None:
-        stem = f"strava-screenshot-{_frame}" if _frame is not None else input_path.stem
+        stem = f"strava-screenshot-{_frame}" if isinstance(_frame, str) else input_path.stem
         # If input_path is a tempfile, we won't have the real folder — but
         # output_path is always passed explicitly in the recursive call, so
         # this branch only runs on the first call where input_path is real.
@@ -385,20 +463,20 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
             logger.info("  Redacting '%s' [%s] @ (%d,%d)-(%d,%d)",
                         " ".join(phrase_words), category, rx1, ry1, rx2, ry2)
 
-    # --- Fallback pass: zone-based partial matching ---
-    for (x1, y1, x2, y2), category in find_zone_boxes(boxes, img_h):
-        px = DRIVE_PAD_X if category == "cuesta_drive" else BOX_PADDING
-        py = DRIVE_PAD_Y if category == "cuesta_drive" else BOX_PADDING
-        rx1 = max(0, x1 - px)
-        ry1 = max(0, y1 - py)
-        rx2 = min(img_w, x2 + px)
-        ry2 = min(img_h, y2 + py)
+    # --- Fallback pass: interactive zone-based approval ---
+    zone_candidates = find_zone_boxes(boxes, img_h)
+    for rect, category, word in zone_candidates:
+        logger.info("  Zone candidate '%s' [%s]", word, category)
+    approved = approve_zones_interactive(original, zone_candidates, img_w, img_h)
+    for (rx1, ry1, rx2, ry2), category in approved:
         if category == "cuesta_park":
             rx2 = cap_right_at_color(original, rx1, ry1, rx2, ry2)
-            logger.info("  Zone fallback capped cuesta_park right edge to x2=%d", rx2)
+            logger.info("  Capped cuesta_park right edge to x2=%d", rx2)
         rect = (rx1, ry1, rx2, ry2)
-        if rect not in already_redacted:   # skip if primary pass already covered it
+        if rect not in already_redacted:
             redactions.append((rect, category))
+            logger.info("  User approved '%s' @ (%d,%d)-(%d,%d)",
+                        category, rx1, ry1, rx2, ry2)
 
     if not redactions:
         logger.warning("  WARNING: no phrases matched — output will be unchanged.")
@@ -411,6 +489,12 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
 
     censored.save(output_path, quality=95)
     logger.info("Saved:  %s", output_path)
+
+    if is_original_call and isinstance(_frame, str):
+        new_name = input_path.parent / f"{_frame}-uncensored.jpg"
+        input_path.rename(new_name)
+        logger.info("Renamed: %s -> %s", input_path.name, new_name.name)
+
     return str(output_path)
 
 
@@ -448,7 +532,7 @@ if __name__ == "__main__":
     censored_dir.mkdir(exist_ok=True)
     setup_logger(str(censored_dir / "censor.log"))
 
-    jpg_files = sorted(f for f in folder.glob("*.jpg") if "censored" not in f.name)
+    jpg_files = sorted(f for f in folder.glob("*.jpg") if "-censored" not in f.name)
     if not jpg_files:
         logger.error("No .jpg files found in '%s'", folder)
         sys.exit(0)

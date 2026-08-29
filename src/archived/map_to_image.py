@@ -15,13 +15,37 @@ def calculate_bounding_box(coordinates):
     return min_lat, max_lat, min_lon, max_lon
 
 
-def get_map_image(coordinates, width, height, zoom=15):
+TILE_OPTIONS = {
+    "OpenStreetMap": ("OpenStreetMap", None),
+    "CartoDB positron": ("CartoDB positron", None),
+    "CartoDB dark_matter": ("CartoDB dark_matter", None),
+    "Esri World Imagery": (
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "Tiles &copy; Esri",
+    ),
+    "Esri World Topo": (
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+        "Tiles &copy; Esri",
+    ),
+    "OpenTopoMap": (
+        "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        "Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap",
+    ),
+}
+
+
+def get_map_image(coordinates, width, height, zoom=15, tiles="OpenStreetMap"):
     """Generate a map image using Folium and Selenium."""
     min_lat, max_lat, min_lon, max_lon = calculate_bounding_box(coordinates)
     center_lat = (min_lat + max_lat) / 2
     center_lon = (min_lon + max_lon) / 2
 
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=zoom)
+    tile_url, attribution = TILE_OPTIONS.get(tiles, (tiles, None))
+    if attribution:
+        m = folium.Map(location=[center_lat, center_lon], zoom_start=zoom,
+                       tiles=tile_url, attr=attribution)
+    else:
+        m = folium.Map(location=[center_lat, center_lon], zoom_start=zoom, tiles=tile_url)
     folium.PolyLine(coordinates, color="red", weight=2.5, opacity=0.8).add_to(m)
 
     # Save map to a temporary file

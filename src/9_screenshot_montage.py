@@ -2,12 +2,17 @@
 Generates PNG frames with random screenshots accumulating on a transparent canvas.
 
 Usage:
-    python 9_screenshot_montage.py
+    python 9_screenshot_montage.py <frame_number>
+
+The given frame number is looked up in bad_apple_activities.json. The script then
+counts back N_IMAGES entries through the JSON (not including the target frame) to
+determine which frame numbers to include.
 
 Dependencies:
     pip install opencv-python pillow
 """
 
+import json
 import math
 import random
 import re
@@ -22,7 +27,7 @@ from PIL import Image
 VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920
 FPS = 30
-DURATION_SECONDS = None  # auto-computed from N_IMAGES, FRAMES_PER_IMAGE, FPS if None
+DURATION_SECONDS = None
 N_IMAGES = 114
 BORDER_TOP = 15
 BORDER_RIGHT = 15
@@ -35,24 +40,46 @@ ROTATION_MAX_DEG = 30
 FREEZE_SECONDS = 2
 SEED = 42
 ORDERED = True
-OUTPUT_DIR = Path(f"montage-frames-first-{N_IMAGES}")
-OUTPUT_VIDEO = f"montage-first-{N_IMAGES}.mov"
 SCREENSHOTS_DIR = Path(__file__).parent.parent / "strava_data" / "screenshots" / "censored"
+ACTIVITIES_JSON = Path(__file__).parent.parent / "polyline_renderer" / "public" / "bad_apple_activities.json"
 # -------------------------------
 
 
 def main():
     random.seed(SEED)
 
-    jpg_files = sorted(
-        SCREENSHOTS_DIR.glob("*.jpg"),
-        key=lambda p: int(re.search(r"-(\d+)", p.stem).group(1)),
-    )[:N_IMAGES]
-    print(f"Using {len(jpg_files)} images from {SCREENSHOTS_DIR}")
+    if len(sys.argv) < 2:
+        print("Usage: python 9_screenshot_montage.py <frame_number>", file=sys.stderr)
+        sys.exit(1)
+
+    target_frame = int(sys.argv[1])
+
+    with open(ACTIVITIES_JSON) as f:
+        activities = json.load(f)
+
+    try:
+        target_index = next(i for i, entry in enumerate(activities) if entry["frame"] == target_frame)
+    except StopIteration:
+        print(f"Frame {target_frame} not found in {ACTIVITIES_JSON}", file=sys.stderr)
+        sys.exit(1)
+
+    start_index = max(0, target_index - N_IMAGES)
+    selected_frames = [activities[i]["frame"] for i in range(start_index, target_index)]
+
+    first_frame = selected_frames[0] if selected_frames else target_frame
+    last_frame = selected_frames[-1] if selected_frames else target_frame
+
+    OUTPUT_DIR = Path(f"montage-frames-{first_frame}-{last_frame}")
+    OUTPUT_VIDEO = f"montage-{first_frame}-{last_frame}.mov"
+
+    jpg_files = [SCREENSHOTS_DIR / f"strava-screenshot-{f}-censored.jpg" for f in selected_frames]
+    jpg_files = [p for p in jpg_files if p.exists()]
 
     if not jpg_files:
-        print(f"No .jpg files found in {SCREENSHOTS_DIR}", file=sys.stderr)
+        print(f"No matching .jpg files found in {SCREENSHOTS_DIR} for frames {selected_frames}", file=sys.stderr)
         sys.exit(1)
+
+    print(f"Using {len(jpg_files)} images (frames {selected_frames[0]}..{selected_frames[-1]}) from {SCREENSHOTS_DIR}")
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     canvas = Image.new("RGBA", (VIDEO_WIDTH, VIDEO_HEIGHT), (0, 0, 0, 0))
