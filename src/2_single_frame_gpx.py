@@ -2,56 +2,30 @@
 # used this for my Toronto trip
 # streamlit run src/single_frame_gpx.py
 from gps import x_y_to_gps, export_to_gpx
-from archived.map_to_image import get_map_image
-import cv2
-import numpy as np
+from archived.map_to_image import get_map_image, TILE_OPTIONS
+import json
 import streamlit as st
 import tempfile
 from dotenv import load_dotenv
 import os
 load_dotenv()
 
-# make a list of x, y that make a rectangle from 0,0 to 480x360
-cap = cv2.VideoCapture("badapple-small.mp4")
+CONTOURS_PATH = "contours-15.json"
+FRAME_STEP = 15
 
-# Get total number of frames and framerate
-total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-frame_rate = cap.get(cv2.CAP_PROP_FPS)
+with open(CONTOURS_PATH) as f:
+    contours_data = json.load(f)
 
-print(f"Total number of frames: {total_frames}")
-print(f"Framerate: {frame_rate} FPS")
+frame_keys = sorted(int(k) for k in contours_data.keys())
+max_frame = frame_keys[-1]
 
 default_bottom_left_lat_long = os.environ["BOTTOM_LEFT_LAT_LONG"]
 default_top_right_lat_long = os.environ["TOP_RIGHT_LAT_LONG"]
 
 def bad_apple_contour_xy_list(frame_number):
-
-    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
-    ret, frame = cap.read()
-    xy_list = []
-
-    # Convert frame to grayscale
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    # Apply threshold to get binary image
-    _, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
-
-    # Find contours
-    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
-    # Use the largest contour
-    if contours:
-        largest_contour = max(contours, key=cv2.contourArea)
-
-        # Extract points from the contour
-        for point in largest_contour:
-            x, y = point[0]
-            xy_list.append((x, 360 - y))
-
-    return xy_list
-
-
-frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    key = str(round(frame_number / FRAME_STEP) * FRAME_STEP)
+    raw_points = contours_data.get(key, [])
+    return [(int(x), int(y)) for x, y in raw_points]
 
 # Initialize session state
 if 'gps_list' not in st.session_state:
@@ -71,7 +45,7 @@ def on_form_submit():
                           y_scale=st.session_state.y_scale) for x, y in xy_list]
     st.session_state.gps_list = gps_list
     
-    st.session_state.img_path = get_map_image(gps_list, 1920, 1080, zoom=st.session_state.zoom)
+    st.session_state.img_path = get_map_image(gps_list, 1920, 1080, zoom=st.session_state.zoom, tiles=st.session_state.tile)
 
 st.set_page_config(page_title="Bad Apple Strava Generator", layout="wide")
 st.write("## Bad Apple Strava Generator")
@@ -79,13 +53,14 @@ col1, col2 = st.columns([1, 3])
 
 with col1:
     with st.form("badapple-strava-form"):
-        st.number_input("Frame Number", min_value=0, max_value=frame_count - 1, value=235, key="frame_number")
+        st.number_input("Frame Number", min_value=0, max_value=max_frame, value=235, key="frame_number")
         st.slider("Angle", -180.0, 180.0, 0.0, step=0.1, key="angle")
         st.slider("Skew Y", -10.0, 10.0, 0.0, step=0.1, key="skew_y")
         st.slider("Skew X", -10.0, 10.0, 0.0, step=0.1, key="skew_x")
         st.slider("X Scale", 0.1, 2.0, 1.0, step=0.1, key="x_scale")
         st.slider("Y Scale", 0.1, 2.0, 0.9, step=0.1, key="y_scale")
         st.slider("Map zoom", 1, 20, 20, key="zoom")
+        st.selectbox("Map tiles", list(TILE_OPTIONS.keys()), key="tile")
         
         bottom_left = st.text_input("Bottom Left Lat, Long", default_bottom_left_lat_long)
         top_right = st.text_input("Top Right Lat, Long", default_top_right_lat_long)
