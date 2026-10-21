@@ -8,7 +8,7 @@ import csv
 import re
 from pathlib import Path
 
-N = 3840
+N = 4410
 
 n_frames_done = (N - 2010) / 30 + 1980/15
 n_frames_left = (6570 - N)/ 30
