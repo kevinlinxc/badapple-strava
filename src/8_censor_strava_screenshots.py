@@ -123,7 +123,8 @@ def get_word_boxes(image: Image.Image) -> list[dict]:
 
 # Words that indicate a Strava milestone/achievement banner.
 # Any token starting with one of these triggers a crop.
-BANNER_TRIGGER_WORDS = {"congrats", "kudos", "streak", "more"}
+# "nicely"/"challenge" cover the two-line "Nicely done! Keep moving by joining a challenge" banner.
+BANNER_TRIGGER_WORDS = {"congrats", "kudos", "streak", "more", "nicely", "challenge"}
 
 
 def find_banner_row(boxes: list[dict], img_h: int) -> tuple[int, int] | None:
@@ -131,24 +132,25 @@ def find_banner_row(boxes: list[dict], img_h: int) -> tuple[int, int] | None:
     Look for a Strava milestone banner (e.g. "Congrats on your 50th activity!",
     "Kudos on your 100th activity!") by checking if any token starts with a
     known trigger word. When found, returns (crop_top, crop_bottom) spanning
-    the full vertical extent of all tokens on the same approximate row, plus
-    CONGRATS_CROP_MARGIN padding. Returns None if no banner is detected.
+    the full vertical extent of all tokens on the same approximate row as any
+    trigger word (a banner can wrap onto two lines), plus CONGRATS_CROP_MARGIN
+    padding. Returns None if no banner is detected.
     """
-    # Find the anchor token
-    anchor = None
-    for b in boxes:
-        if any(b["lower"].startswith(t) for t in BANNER_TRIGGER_WORDS):
-            anchor = b
-            break
-    if anchor is None:
+    anchors = [
+        b for b in boxes
+        if any(b["lower"].startswith(t) for t in BANNER_TRIGGER_WORDS)
+    ]
+    if not anchors:
         return None
 
-    # Collect all tokens whose vertical midpoint is within the anchor's row
+    # Collect all tokens whose vertical midpoint is within an anchor's row
     # (within one anchor-height above/below its centre) to get the full extent.
-    anchor_mid = anchor["y"] + anchor["h"] / 2
     row_tokens = [
         b for b in boxes
-        if abs((b["y"] + b["h"] / 2) - anchor_mid) < anchor["h"]
+        if any(
+            abs((b["y"] + b["h"] / 2) - (a["y"] + a["h"] / 2)) < a["h"]
+            for a in anchors
+        )
     ]
     row_top    = min(b["y"]          for b in row_tokens)
     row_bottom = max(b["y"] + b["h"] for b in row_tokens)
