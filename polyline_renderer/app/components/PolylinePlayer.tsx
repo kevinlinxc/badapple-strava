@@ -19,6 +19,7 @@ import {
   VIDEO_TOTAL_FRAMES,
 } from "../lib/shared";
 import FinalMode from "./FinalMode";
+import DroneMode from "./DroneMode";
 import { IconButton, ProgressRow, Section, SegRow, SelectRow, SliderRow, TextButton, ToggleRow } from "./controls";
 
 export type Keyframe = { time: number; value: number };
@@ -366,7 +367,7 @@ export default function PolylinePlayer() {
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [videoFrameOffset, setVideoFrameOffset] = usePersistedState("videoFrameNudge", 0);
 
-  const [mode, setMode] = usePersistedState<"art" | "continuous" | "final">("mode", "art");
+  const [mode, setMode] = usePersistedState<"art" | "continuous" | "final" | "drone">("mode", "art");
   const [finalSidebar, setFinalSidebar] = useState<HTMLDivElement | null>(null);
   // Art and continuous share frameIndex/progress, so art's position is set aside while in continuous
   const [artPosition, setArtPosition] = usePersistedState<{ frameIndex: number; progress: number } | null>("artPosition", null);
@@ -646,7 +647,7 @@ export default function PolylinePlayer() {
     };
   }, [mode, playing, speed]);
 
-  const switchMode = useCallback((newMode: "art" | "continuous" | "final") => {
+  const switchMode = useCallback((newMode: "art" | "continuous" | "final" | "drone") => {
     setPlaying(false);
     if (newMode === mode) return;
     if (mode === "art") setArtPosition({ frameIndex, progress });
@@ -736,7 +737,7 @@ export default function PolylinePlayer() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (mode === "final") return;
+      if (mode === "final" || mode === "drone") return;
       if (e.key === " ") {
         e.preventDefault();
         setPlaying((p) => !p);
@@ -1116,7 +1117,7 @@ export default function PolylinePlayer() {
     <div className="fixed inset-0 bg-black text-white flex overflow-hidden">
       <div className="w-[320px] shrink-0 bg-s-bg text-s-text text-xs font-sans overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [scrollbar-color:var(--color-s-track)_transparent] border-r border-s-line z-10">
         <div className="flex gap-0.5 px-3 py-2.5 border-b border-s-line">
-          {(["art", "continuous", "final"] as const).map((m) => (
+          {(["art", "continuous", "final", "drone"] as const).map((m) => (
             <button
               key={m}
               onClick={() => switchMode(m)}
@@ -1457,10 +1458,11 @@ export default function PolylinePlayer() {
           </>
         )}
 
-        {mode === "final" && <div ref={setFinalSidebar} />}
+        {(mode === "final" || mode === "drone") && <div ref={setFinalSidebar} />}
       </div>
 
       {mode === "final" && <FinalMode frameData={frameData} sidebar={finalSidebar} />}
+      {mode === "drone" && <DroneMode frameData={frameData} sidebar={finalSidebar} />}
 
       <video
         ref={hiddenVideoRef}
@@ -1474,7 +1476,7 @@ export default function PolylinePlayer() {
       />
       <canvas ref={canvasRef} className="hidden" />
 
-      <div ref={mapContainerRef} className={`flex-1 relative ${mode === "final" ? "hidden" : ""}`}>
+      <div ref={mapContainerRef} className={`flex-1 relative ${mode === "final" || mode === "drone" ? "hidden" : ""}`}>
         {(SHOW_DEBUG || (mode === "continuous" && continuousShowDebug)) && (
         <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
           <div>playing: {String(debug.playing)}</div>
