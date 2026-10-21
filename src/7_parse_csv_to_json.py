@@ -5,10 +5,10 @@ from pathlib import Path
 
 
 def main():
-    csv_path = Path("strava_data/activities-2026-08-24.csv")
+    csv_path = Path("strava_data/activities-2026-10-10.csv")
     output_path = Path("strava_data/bad_apple_activities.json")
 
-    activities = []
+    activities = {}
     total_distance_m = 0.0
     total_time_s = 0
     unique_days = set()
@@ -18,6 +18,7 @@ def main():
         for row in reader:
             name = row["name"]
             if "Bad Apple" not in name:
+                # ignore non bad-apple activities
                 continue
 
             match = re.search(r"\d+", name)
@@ -31,15 +32,20 @@ def main():
             total_time_s += time_s
             unique_days.add(date)
 
-            activities.append({
+            # ignore new york frames by taking the latter activity
+
+            activities[frame] = {
                 "frame": frame,
+                "date": date,
                 "distance_m": distance_m,
                 "time_s": time_s,
+                "start_time": row["start_time"],
+                "end_time": row["end_time"],
                 "polyline": row["polyline"],
-            })
+            }
 
     with open(output_path, "w") as f:
-        json.dump(activities, f, indent=2)
+        json.dump(sorted(list(activities.values()), key=lambda x: x["frame"]), f, indent=2)
 
     total_distance_km = total_distance_m / 1000
     total_time_h = total_time_s / 3600
