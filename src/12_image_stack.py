@@ -2,6 +2,8 @@
 Stacks screenshots in Polaroid frames, overlaying them one at a time.
 Each image holds for HOLD_FRAMES (at FPS).
 
+Used for content creation (shorts, not the final video) to show all the frames. 
+
 Usage:
     python 12_image_stack.py <folder>
     python 12_image_stack.py <folder> --out <video.mov>
