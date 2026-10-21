@@ -25,3 +25,81 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --color-s-bg: #111113;
+  --color-s-panel: #19191c;
+  --color-s-line: #25252a;
+  --color-s-track: #2e2e35;
+  --color-s-dim: #85858f;
+  --color-s-text: #e7e7ea;
+  --color-s-accent: #fc5200;
+}
+
+.range {
+  --fill: var(--color-s-dim);
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  min-width: 0;
+  height: 14px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.range::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--fill) var(--p, 0%), var(--color-s-track) var(--p, 0%));
+}
+.range::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--fill) var(--p, 0%), var(--color-s-track) var(--p, 0%));
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--color-s-text);
+}
+.range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-s-text);
+}
+
+.switch {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 26px;
+  height: 14px;
+  margin: 0;
+  border-radius: 7px;
+  background: var(--color-s-track);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-s-dim);
+  transition: transform 0.12s, background 0.12s;
+}
+.switch:checked {
+  background: var(--color-s-accent);
+}
+.switch:checked::after {
+  transform: translateX(12px);
+  background: #fff;
+}

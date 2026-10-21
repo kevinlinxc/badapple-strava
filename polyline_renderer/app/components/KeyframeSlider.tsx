@@ -1,5 +1,7 @@
 "use client";
 
+import { SliderRow } from "./controls";
+import { usePersistedState } from "../lib/shared";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 interface Keyframe {
@@ -116,7 +118,7 @@ export default function KeyframeSlider({
   const [internalKeyframes, setInternalKeyframes] = useState<Keyframe[]>(
     keyframesProp ?? [],
   );
-  const [showGraph, setShowGraph] = useState(false);
+  const [showGraph, setShowGraph] = usePersistedState(`keyframeGraph.${label}`, false);
   const [dragging, setDragging] = useState<number | null>(null);
   const [scrubbing, setScrubbing] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
@@ -160,10 +162,6 @@ export default function KeyframeSlider({
     : step >= 1
       ? displayValue.toFixed(0)
       : displayValue.toFixed(1);
-
-  const sliderColor = hasKeyframes
-    ? "accent-red-500"
-    : "accent-blue-500";
 
   const addKeyframe = useCallback(
     (time: number) => {
@@ -261,54 +259,51 @@ export default function KeyframeSlider({
   );
 
   return (
-    <div className="mb-5">
-      <div className="flex items-center justify-between mb-2">
-        <label className="text-sm text-zinc-300">
-          {label}: {displayLabel}
-        </label>
-        <div className="flex items-center gap-1">
-          {showGraph && (
-            <button
-              onClick={() => addKeyframe(progress)}
-              className="text-xs text-zinc-500 hover:text-yellow-400 transition-colors select-none leading-none"
-              title="Add keyframe at current time"
-            >
-              ◆+
-            </button>
-          )}
-          <button
-            onClick={() => setShowGraph((p) => !p)}
-            className={`text-sm leading-none transition-colors select-none ${
-              hasKeyframes
-                ? "text-red-400 hover:text-red-300"
-                : "text-zinc-500 hover:text-zinc-300"
-            }`}
-            title={showGraph ? "Hide keyframe editor" : "Show keyframe editor"}
-          >
-            {hasKeyframes ? "◆" : "◇"}
-          </button>
-        </div>
-      </div>
-
-      <input
-        type="range"
+    <div>
+      <SliderRow
+        label={label}
+        display={displayLabel}
         min={min}
         max={max}
         step={step}
         value={hasKeyframes ? displayValue : value}
-        onChange={(e) => {
+        fill={hasKeyframes ? "#f87171" : undefined}
+        onChange={(v) => {
           if (hasKeyframes) {
             updateKeyframes([]);
             setSelected(null);
             onKeyframeValueChange?.(null);
           }
-          onChange(Number(e.target.value));
+          onChange(v);
         }}
-        className={`w-full ${sliderColor}`}
+        extra={
+          <>
+            <button
+              onClick={() => setShowGraph((p) => !p)}
+              className={`text-[9px] leading-none transition-colors select-none ${
+                hasKeyframes
+                  ? "text-red-400 hover:text-red-300"
+                  : "hover:text-s-text"
+              }`}
+              title={showGraph ? "Hide keyframe editor" : "Show keyframe editor"}
+            >
+              {hasKeyframes ? "◆" : "◇"}
+            </button>
+            {showGraph && (
+              <button
+                onClick={() => addKeyframe(progress)}
+                className="text-[9px] leading-none hover:text-yellow-400 transition-colors select-none"
+                title="Add keyframe at current time"
+              >
+                +
+              </button>
+            )}
+          </>
+        }
       />
 
       {showGraph && (
-        <div className="mt-2 bg-zinc-800 rounded-lg p-2 border border-zinc-700">
+        <div className="my-1.5 bg-s-panel rounded p-2 border border-s-line">
           <svg
             ref={svgRef}
             viewBox={`0 0 ${VB_W} ${VB_H}`}
