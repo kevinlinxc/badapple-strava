@@ -10,7 +10,7 @@ Print Instagram reel stats for your business/creator account.
 Set INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_USER_ID in .env.
 
 Usage:
-    uv run ig_stats.py
+    uv run src/stats/ig_stats.py
 """
 import os
 import sys

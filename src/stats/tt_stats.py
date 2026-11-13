@@ -10,7 +10,7 @@ Print TikTok video stats for your account.
 Set TIKTOK_CLIENT_KEY and TIKTOK_CLIENT_SECRET in .env.
 
 Usage:
-    uv run tt_stats.py
+    uv run src/stats/tt_stats.py
 """
 import hashlib
 import http.server

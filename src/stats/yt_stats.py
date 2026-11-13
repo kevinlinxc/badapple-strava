@@ -11,7 +11,7 @@ Print YouTube video stats for the authenticated channel.
 Set YOUTUBE_CLIENT_SECRETS_FILE to the path of your client_secret_*.json.
 
 Usage:
-    YOUTUBE_CLIENT_SECRETS_FILE=/path/to/client_secret.json uv run yt_stats.py
+    YOUTUBE_CLIENT_SECRETS_FILE=/path/to/client_secret.json uv run src/stats/yt_stats.py
 """
 
 import os
