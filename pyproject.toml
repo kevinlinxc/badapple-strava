@@ -19,6 +19,5 @@ dependencies = [
     "selenium>=4.27.1",
     "strava-client==1.0.7",
     "streamlit>=1.41.1",
-    "streamlit-folium>=0.24.0",
     "utm>=0.7.0",
 ]

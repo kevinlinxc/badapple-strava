@@ -66,7 +66,6 @@ dependencies = [
     { name = "selenium" },
     { name = "strava-client" },
     { name = "streamlit" },
-    { name = "streamlit-folium" },
     { name = "utm" },
 ]
 
@@ -86,7 +85,6 @@ requires-dist = [
     { name = "selenium", specifier = ">=4.27.1" },
     { name = "strava-client", specifier = "==1.0.7" },
     { name = "streamlit", specifier = ">=1.41.1" },
-    { name = "streamlit-folium", specifier = ">=0.24.0" },
     { name = "utm", specifier = ">=0.7.0" },
 ]
 
@@ -1211,21 +1209,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/78/33/14b5ac0369ecf0af675911e5e84b934e6fcc2cec850857d2390eb373b0a6/streamlit-1.41.1.tar.gz", hash = "sha256:6626d32b098ba1458b71eebdd634c62af2dd876380e59c4b6a1e828a39d62d69", size = 8712473, upload-time = "2024-12-13T21:22:15.849Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c2/87/b2e162869500062a94dde7589c167367b5538dab6eacce2e7c0f00d5c9c5/streamlit-1.41.1-py2.py3-none-any.whl", hash = "sha256:0def00822480071d642e6df36cd63c089f991da3a69fd9eb4ab8f65ce27de4e0", size = 9100386, upload-time = "2024-12-13T21:22:11.1Z" },
-]
-
-[[package]]
-name = "streamlit-folium"
-version = "0.24.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "branca" },
-    { name = "folium" },
-    { name = "jinja2" },
-    { name = "streamlit" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/7c/48/4f4d782de753c209fb6f38f90eda2941e893d4d298c75a56c4da74c12bed/streamlit_folium-0.24.0.tar.gz", hash = "sha256:f59238feb8e4c1ec0cc54f19fc45d1ee198a8ca55f025bc0b906f48eb7fa5c10", size = 330745, upload-time = "2024-12-19T19:44:21.44Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/60/947005f9f03632a80444e1870ff261b5528b4c8d53dd5f419fd5f4367d20/streamlit_folium-0.24.0-py3-none-any.whl", hash = "sha256:e7b1d30c5a5db018442a459644d085a397754da8c32047999e83f6bdf434345d", size = 328493, upload-time = "2024-12-19T19:44:18.928Z" },
 ]
 
 [[package]]

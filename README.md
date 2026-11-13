@@ -2,7 +2,7 @@
 
 Making Bad Apple using Strava activities.
 
-![Frame 300](preview.jpg)
+<img src="preview.jpg" alt="Frame 300" width="400">
 
 
 ## How it works
