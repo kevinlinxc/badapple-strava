@@ -4,13 +4,13 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom";
 import maplibregl from "maplibre-gl";
 import polyline from "@mapbox/polyline";
-import { BufferTarget, CanvasSource, Mp4OutputFormat, Output } from "mediabunny";
+import { BufferTarget, CanvasSource, Mp4OutputFormat, Output, StreamTarget } from "mediabunny";
 import {
   type Coord,
   type FrameActivity,
-  idle,
   MAP_THEMES,
   regionForPath,
+  renderSettled,
   setLabelVisibility,
   usePersistedState,
 } from "../lib/shared";
@@ -130,46 +130,117 @@ function fromLngLat(center: Coord, lng: number, lat: number) {
 // Steps in the faded tail. The gradient is always a step: maplibre samples an interpolated gradient at only 256
 // points along the whole line, which made the head of the drawing crawl forward in visible jumps.
 const FADE_STEPS = 32;
+// Points per piece of the finished trail. The finished part is re-sent to the map only when it grows by a piece.
+const TRAIL_CHUNK = 500;
 
-// Drawn up to `progress` (both as a fraction of the path's length). With a tail, only that much behind the head is
-// visible, fading out towards its far end.
-function trailGradient(progress: number, tail: number, alpha: number): maplibregl.ExpressionSpecification {
-  const clear = `rgba(${TRAIL_RGB}, 0)`;
-  if (progress <= 0) return ["step", ["line-progress"], clear, 0, clear];
-  if (tail <= 0) return ["step", ["line-progress"], `rgba(${TRAIL_RGB}, ${alpha})`, progress, clear];
-  let base = clear;
+// The path and how far along it each point is, in meters
+type Trail = { coords: Coord[]; along: number[] };
+
+function measureTrail(coords: Coord[]): Trail {
+  const along = [0];
+  for (let k = 1; k < coords.length; k++) {
+    const [x0, y0] = coords[k - 1];
+    const [x1, y1] = coords[k];
+    const dx = (x1 - x0) * Math.cos((((y0 + y1) / 2) * Math.PI) / 180);
+    along.push(along[k - 1] + Math.hypot(dx, y1 - y0) * M_PER_DEG);
+  }
+  return { coords, along };
+}
+
+// Index of the first point at or past `meters`
+function pointAt({ along }: Trail, meters: number) {
+  let lo = 0;
+  let hi = along.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (along[mid] < meters) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+function lerpPoint({ coords, along }: Trail, k: number, meters: number): Coord {
+  if (k <= 0) return coords[0];
+  const span = along[k] - along[k - 1];
+  const u = span > 0 ? (meters - along[k - 1]) / span : 1;
+  return [coords[k - 1][0] + (coords[k][0] - coords[k - 1][0]) * u, coords[k - 1][1] + (coords[k][1] - coords[k - 1][1]) * u];
+}
+
+// The part of the trail between two distances along it
+function sliceTrail(trail: Trail, from: number, to: number): Coord[] {
+  if (trail.coords.length < 2 || to <= from) return [];
+  const a = pointAt(trail, from);
+  const b = pointAt(trail, to);
+  const out = [lerpPoint(trail, a, from), ...trail.coords.slice(a, b), lerpPoint(trail, b, to)];
+  return out;
+}
+
+const lineData = (coords: Coord[]): GeoJSON.Feature => ({
+  type: "Feature",
+  properties: {},
+  geometry: coords.length >= 2 ? { type: "LineString", coordinates: coords } : { type: "MultiLineString", coordinates: [] },
+});
+
+// Colors along the head, which covers [from, to] of the progress (fractions of the path's length). With a tail it
+// fades out towards the end that is `tail` behind the head; without one it is solid.
+function headGradient(from: number, to: number, tail: number, alpha: number): maplibregl.ExpressionSpecification {
+  const solid = `rgba(${TRAIL_RGB}, ${alpha})`;
+  if (tail <= 0 || to <= from) return ["step", ["line-progress"], solid, 0, solid];
+  let base = `rgba(${TRAIL_RGB}, 0)`;
   const stops: (number | string)[] = [];
   for (let k = 0; k < FADE_STEPS; k++) {
-    const start = progress - tail + (k * tail) / FADE_STEPS;
+    const u = (to - tail + (k * tail) / FADE_STEPS - from) / (to - from);
     const color = `rgba(${TRAIL_RGB}, ${((alpha * (k + 1)) / FADE_STEPS).toFixed(4)})`;
-    if (start <= 0) base = color;
-    else stops.push(start, color);
+    if (u <= 0) base = color;
+    else stops.push(u, color);
   }
-  return ["step", ["line-progress"], base, ...stops, progress, clear] as maplibregl.ExpressionSpecification;
+  return ["step", ["line-progress"], base, ...stops] as maplibregl.ExpressionSpecification;
 }
 
 type TrailStyle = { lineWidth: number; glow: boolean; progress: number; tail: number; labels: boolean };
 
-// Used for both the preview map and the export map, after each style load
-function addTrail(map: maplibregl.Map, path: Coord[]) {
-  map.addSource("drone-trail", {
-    type: "geojson",
-    lineMetrics: true,
-    data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: path } },
-  });
+// What each map was last sent for the finished part of the trail
+const sentDone = new WeakMap<maplibregl.Map, { trail: Trail; end: number }>();
+
+// Used for both the preview map and the export map, after each style load. The trail is cut to what is visible on
+// the CPU: maplibre's line-progress came out wrong in the tile holding most of a long, tangled path, which showed
+// that tile at a different point in time from its neighbours. So line-progress is only used on the short head.
+function addTrail(map: maplibregl.Map) {
+  map.addSource("drone-done", { type: "geojson", data: lineData([]) });
+  map.addSource("drone-trail", { type: "geojson", lineMetrics: true, data: lineData([]) });
+  sentDone.delete(map);
   const layout = { "line-cap": "round", "line-join": "round" } as const;
+  const color = `rgb(${TRAIL_RGB})`;
+  map.addLayer({ id: "drone-done-glow", type: "line", source: "drone-done", layout, paint: { "line-blur": 6, "line-color": color, "line-opacity": 0.3 } });
   map.addLayer({ id: "drone-trail-glow", type: "line", source: "drone-trail", layout, paint: { "line-blur": 6 } });
+  map.addLayer({ id: "drone-done", type: "line", source: "drone-done", layout, paint: { "line-color": color } });
   map.addLayer({ id: "drone-trail", type: "line", source: "drone-trail", layout });
 }
 
-function styleTrail(map: maplibregl.Map, { lineWidth, glow, progress, tail, labels }: TrailStyle) {
+function styleTrail(map: maplibregl.Map, trail: Trail, { lineWidth, glow, progress, tail, labels }: TrailStyle) {
   if (!map.getLayer("drone-trail")) return;
   setLabelVisibility(map, labels);
-  map.setPaintProperty("drone-trail", "line-width", lineWidth);
-  map.setPaintProperty("drone-trail", "line-gradient", trailGradient(progress, tail, 1));
-  map.setLayoutProperty("drone-trail-glow", "visibility", glow ? "visible" : "none");
-  map.setPaintProperty("drone-trail-glow", "line-width", lineWidth * 4);
-  map.setPaintProperty("drone-trail-glow", "line-gradient", trailGradient(progress, tail, 0.3));
+  for (const id of ["drone-done", "drone-trail"]) {
+    map.setPaintProperty(id, "line-width", lineWidth);
+    map.setLayoutProperty(`${id}-glow`, "visibility", glow ? "visible" : "none");
+    map.setPaintProperty(`${id}-glow`, "line-width", lineWidth * 4);
+  }
+
+  const total = trail.along[trail.along.length - 1] ?? 0;
+  const head = Math.max(0, Math.min(1, progress)) * total;
+  // Without a tail everything before the last whole piece is solid, and only the rest is the head
+  const doneEnd = tail > 0 || head <= 0 ? 0 : Math.floor(Math.max(0, pointAt(trail, head) - 1) / TRAIL_CHUNK) * TRAIL_CHUNK;
+  const sent = sentDone.get(map);
+  if (!sent || sent.trail !== trail || sent.end !== doneEnd) {
+    (map.getSource("drone-done") as maplibregl.GeoJSONSource).setData(lineData(trail.coords.slice(0, doneEnd + 1)));
+    sentDone.set(map, { trail, end: doneEnd });
+  }
+  const from = tail > 0 ? Math.max(0, head - tail * total) : trail.along[doneEnd] ?? 0;
+  (map.getSource("drone-trail") as maplibregl.GeoJSONSource).setData(lineData(sliceTrail(trail, from, head)));
+  const fromFraction = total > 0 ? from / total : 0;
+  const toFraction = total > 0 ? head / total : 0;
+  map.setPaintProperty("drone-trail", "line-gradient", headGradient(fromFraction, toFraction, tail, 1));
+  map.setPaintProperty("drone-trail-glow", "line-gradient", headGradient(fromFraction, toFraction, tail, 0.3));
 }
 
 function cameraFor(center: Coord, pose: Pose) {
@@ -334,6 +405,7 @@ export default function DroneMode({
   // Slider position of a frame: the index of the first activity at or after it
   const activityIndex = (frame: number) =>
     frameData ? Math.max(0, frameData.findIndex((d) => d.frame >= frame)) : 0;
+  const trail = useMemo(() => measureTrail(path), [path]);
   const center = useMemo(() => regionForPath(path).center, [path]);
 
   const keyIndex = keyIndexAt(keys, time);
@@ -346,8 +418,6 @@ export default function DroneMode({
   const styleRef = useRef(themeUrl);
   // True from the start of a drag, scroll or rotate on the map until it settles, so the keyed camera does not fight it
   const interactingRef = useRef(false);
-  const pathRef = useRef(path);
-  pathRef.current = path;
   const centerRef = useRef(center);
   centerRef.current = center;
   const liveRef = useRef(live);
@@ -427,7 +497,7 @@ export default function DroneMode({
     mapRef.current = map;
 
     map.on("style.load", () => {
-      addTrail(map, pathRef.current);
+      addTrail(map);
       setStyleVersion((v) => v + 1);
     });
 
@@ -478,14 +548,9 @@ export default function DroneMode({
   }, [themeUrl]);
 
   useEffect(() => {
-    const source = mapRef.current?.getSource("drone-trail") as maplibregl.GeoJSONSource | undefined;
-    source?.setData({ type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: path } });
-  }, [path, styleVersion]);
-
-  useEffect(() => {
     const map = mapRef.current;
-    if (map) styleTrail(map, { lineWidth, glow, progress: time, tail, labels });
-  }, [lineWidth, glow, time, tail, labels, styleVersion]);
+    if (map) styleTrail(map, trail, { lineWidth, glow, progress: time, tail, labels });
+  }, [trail, lineWidth, glow, time, tail, labels, styleVersion]);
 
   useEffect(() => {
     mapRef.current?.setVerticalFieldOfView(fov);
@@ -553,6 +618,22 @@ export default function DroneMode({
   const exportVideo = useCallback(async () => {
     const preview = mapDivRef.current;
     if (!preview || exportingRef.current) return;
+    // Long renders are too big to hold in memory, so where the browser allows it the file streams straight to disk.
+    // The picker has to open before anything is awaited or the click no longer counts as a user gesture
+    const picker = (window as unknown as { showSaveFilePicker?: (o: object) => Promise<FileSystemFileHandle> })
+      .showSaveFilePicker;
+    let file: FileSystemWritableFileStream | null = null;
+    if (picker) {
+      try {
+        const handle = await picker({
+          suggestedName: OUTPUT_NAME,
+          types: [{ description: "MP4 video", accept: { "video/mp4": [".mp4"] } }],
+        });
+        file = await handle.createWritable();
+      } catch {
+        return;
+      }
+    }
     setPlaying(false);
     setError(null);
     setExportProgress(0);
@@ -576,17 +657,20 @@ export default function DroneMode({
       pixelRatio: outW / preview.clientWidth,
       canvasContextAttributes: { preserveDrawingBuffer: true },
     });
-    map.on("style.load", () => addTrail(map, path));
+    map.on("style.load", () => addTrail(map));
 
     try {
-      await new Promise<void>((resolve) => map.once("load", () => resolve()));
+      // "load" is fired from a render, which never comes on its own in a hidden tab
+      await new Promise<void>((resolve) => map.once("style.load", () => resolve()));
       map.setVerticalFieldOfView(fov);
 
       const canvas = document.createElement("canvas");
       canvas.width = outW;
       canvas.height = outH;
       const ctx = canvas.getContext("2d")!;
-      const output = new Output({ format: new Mp4OutputFormat({ fastStart: "in-memory" }), target: new BufferTarget() });
+      const output = file
+        ? new Output({ format: new Mp4OutputFormat({ fastStart: false }), target: new StreamTarget(file, { chunked: true }) })
+        : new Output({ format: new Mp4OutputFormat({ fastStart: "in-memory" }), target: new BufferTarget() });
       const videoSource = new CanvasSource(canvas, {
         codec: "avc",
         bitrate: Math.round(BITRATE_PER_PIXEL * outW * outH * (exportFps / 30)),
@@ -598,8 +682,8 @@ export default function DroneMode({
       for (let n = 0; n < frames && !cancelRef.current; n++) {
         const t = n / (frames - 1);
         map.jumpTo(cameraFor(center, poseAt(keys, t, easing) ?? firstPose));
-        styleTrail(map, { lineWidth, glow, labels, progress: t, tail });
-        await idle(map);
+        styleTrail(map, trail, { lineWidth, glow, labels, progress: t, tail });
+        await renderSettled(map);
         ctx.drawImage(map.getCanvas(), 0, 0, outW, outH);
         await videoSource.add(n / exportFps, 1 / exportFps);
         if (n % 5 === 0) setExportProgress(n / frames);
@@ -610,17 +694,20 @@ export default function DroneMode({
         await output.cancel();
       } else {
         await output.finalize();
-        download(new Blob([output.target.buffer!], { type: "video/mp4" }), OUTPUT_NAME);
+        if (output.target instanceof BufferTarget) {
+          download(new Blob([output.target.buffer!], { type: "video/mp4" }), OUTPUT_NAME);
+        }
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
+      await file?.abort().catch(() => {});
     } finally {
       map.remove();
       box.remove();
       exportingRef.current = false;
       setExportProgress(null);
     }
-  }, [keys, easing, duration, center, path, themeUrl, fov, lineWidth, glow, labels, tail, exportSize, exportFps]);
+  }, [keys, easing, duration, center, trail, themeUrl, fov, lineWidth, glow, labels, tail, exportSize, exportFps]);
   const exporting = exportProgress !== null;
 
   useEffect(() => {

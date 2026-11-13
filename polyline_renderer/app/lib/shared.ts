@@ -125,6 +125,29 @@ export function idle(map: maplibregl.Map) {
   });
 }
 
+// Yields to the event loop without a timer or animation frame, neither of which runs reliably in a hidden tab
+function yieldTask() {
+  return new Promise<void>((resolve) => {
+    const channel = new MessageChannel();
+    channel.port1.onmessage = () => resolve();
+    channel.port2.postMessage(null);
+  });
+}
+
+// Like idle, but drawn synchronously instead of on animation frames, so it keeps going when the tab is hidden.
+// A render requests the tiles the camera needs, and each tile that arrives marks the map dirty for another render.
+export async function renderSettled(map: maplibregl.Map) {
+  const flags = map as unknown as { _styleDirty: boolean; _sourcesDirty: boolean; _placementDirty: boolean };
+  const dirty = () => flags._styleDirty || flags._sourcesDirty || flags._placementDirty;
+  for (;;) {
+    map.redraw();
+    if (map.loaded() && !dirty()) return;
+    // Renders again at least every 100ms in case something loads without marking the map dirty
+    const start = performance.now();
+    while (!dirty() && performance.now() - start < 100) await yieldTask();
+  }
+}
+
 export function applyBlendMode(ctx: CanvasRenderingContext2D, width: number, height: number, mode: string) {
   if (mode === "normal") return;
   const imageData = ctx.getImageData(0, 0, width, height);

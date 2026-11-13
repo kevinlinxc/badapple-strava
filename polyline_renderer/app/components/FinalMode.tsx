@@ -35,29 +35,139 @@ import {
 } from "../lib/shared";
 import { IconButton, ProgressRow, Section, SegRow, SelectRow, SliderRow, TextButton, ToggleRow } from "./controls";
 
-// Output frame: map on the left; on the right an orange totals block, the weekly chart, then the screenshot card
-const W = 1920;
-const H = 1080;
-const MAP_W = 1440;
-const SIDE_W = W - MAP_W;
+type Rect = { x: number; y: number; w: number; h: number };
+type Orientation = "landscape" | "portrait" | "portrait2";
+const ORIENTATION_OPTIONS: { value: Orientation; label: string }[] = [
+  { value: "landscape", label: "Horizontal" },
+  { value: "portrait", label: "Vertical 1" },
+  { value: "portrait2", label: "Vertical 2" },
+];
+
+type Layout = {
+  w: number;
+  h: number;
+  // Map with Bad Apple overlaid and the polyline drawing
+  map: Rect | null;
+  // Plain Bad Apple, for layouts without the map
+  apple: Rect | null;
+  // Orange totals block; `s` scales its type and spacing
+  hero: Rect & { s: number; rounded: boolean };
+  // Weekly chart; `s` scales its type and spacing
+  chart: Rect & { s: number };
+  card: Rect;
+  // Corner radius of the screenshot card
+  cardRadius: number;
+  // Screenshot pixels to output pixels
+  screenshotScale: number;
+  output: string;
+};
+
 const PAD = 24;
+// Height of the hero and the chart at s = 1
+const HERO_H = 250;
+const CHART_BASE_H = 220;
 // The card is shaped like the widest screenshot by the tallest one. Every screenshot is drawn at the same
 // scale and centered in it, so smaller ones get a margin instead of being stretched.
 const SCREENSHOT_MAX_W = 1206;
 const SCREENSHOT_MAX_H = 1505;
 const CARD_MARGIN = 16;
-const CARD_W = SIDE_W - CARD_MARGIN * 2;
-const SCREENSHOT_SCALE = CARD_W / SCREENSHOT_MAX_W;
-const CARD_H = Math.round(SCREENSHOT_MAX_H * SCREENSHOT_SCALE);
-const CARD_Y = H - CARD_MARGIN - CARD_H;
-const HERO_H = 250;
-const CHART_Y = HERO_H;
-const CHART_H = CARD_Y - CARD_MARGIN - CHART_Y;
+// Bad Apple's aspect ratio
+const APPLE_ASPECT = 4 / 3;
+
+// Map on the left; on the right an orange totals block, the weekly chart, then the screenshot card
+function landscapeLayout(): Layout {
+  const w = 1920;
+  const h = 1080;
+  const mapW = 1440;
+  const sideW = w - mapW;
+  const cardW = sideW - CARD_MARGIN * 2;
+  const screenshotScale = cardW / SCREENSHOT_MAX_W;
+  const cardH = Math.round(SCREENSHOT_MAX_H * screenshotScale);
+  const cardY = h - CARD_MARGIN - cardH;
+  return {
+    w,
+    h,
+    map: { x: 0, y: 0, w: mapW, h },
+    apple: null,
+    hero: { x: mapW, y: 0, w: sideW, h: HERO_H, s: 1, rounded: false },
+    chart: { x: mapW, y: HERO_H, w: sideW, h: cardY - CARD_MARGIN - HERO_H, s: 1 },
+    card: { x: mapW + CARD_MARGIN, y: cardY, w: cardW, h: cardH },
+    cardRadius: 0,
+    screenshotScale,
+    output: "badapple-strava-final.mp4",
+  };
+}
+
+// For phones: screenshot card on top, then Bad Apple beside the totals, then the weekly chart along the bottom
+function portraitLayout(): Layout {
+  const w = 1080;
+  const h = 1920;
+  const heroS = 1.25;
+  const chartS = 1.6;
+  const heroH = Math.round(HERO_H * heroS);
+  const chartH = Math.round(CHART_BASE_H * chartS);
+  const cardMaxH = h - CARD_MARGIN * 3 - heroH - chartH;
+  const screenshotScale = Math.min((w - CARD_MARGIN * 2) / SCREENSHOT_MAX_W, cardMaxH / SCREENSHOT_MAX_H);
+  const cardW = Math.round(SCREENSHOT_MAX_W * screenshotScale);
+  const cardH = Math.round(SCREENSHOT_MAX_H * screenshotScale);
+  const margin = Math.round((w - cardW) / 2);
+  const rowY = CARD_MARGIN + cardH + CARD_MARGIN;
+  const appleW = Math.round(heroH * APPLE_ASPECT);
+  const heroX = margin + appleW + CARD_MARGIN;
+  return {
+    w,
+    h,
+    map: null,
+    apple: { x: margin, y: rowY, w: appleW, h: heroH },
+    hero: { x: heroX, y: rowY, w: w - margin - heroX, h: heroH, s: heroS, rounded: true },
+    chart: { x: margin - PAD * chartS, y: h - chartH, w: cardW + PAD * chartS * 2, h: chartH, s: chartS },
+    card: { x: margin, y: CARD_MARGIN, w: cardW, h: cardH },
+    cardRadius: 16,
+    screenshotScale,
+    output: "badapple-strava-final-vertical-1.mp4",
+  };
+}
+
+// For phones, with the map as the focus: map across the top, then the screenshot card beside a column with the
+// totals over the weekly chart
+function portrait2Layout(): Layout {
+  const w = 1080;
+  const h = 1920;
+  const columnW = 440;
+  const heroS = columnW / 480;
+  const chartS = 1.15;
+  const cardW = w - CARD_MARGIN * 3 - columnW;
+  const screenshotScale = cardW / SCREENSHOT_MAX_W;
+  const cardH = Math.round(SCREENSHOT_MAX_H * screenshotScale);
+  const cardY = h - CARD_MARGIN - cardH;
+  const columnX = CARD_MARGIN * 2 + cardW;
+  const heroH = Math.round(HERO_H * heroS);
+  const chartY = cardY + heroH + CARD_MARGIN;
+  return {
+    w,
+    h,
+    map: { x: 0, y: 0, w, h: cardY - CARD_MARGIN },
+    apple: null,
+    hero: { x: columnX, y: cardY, w: columnW, h: heroH, s: heroS, rounded: true },
+    chart: { x: columnX, y: chartY, w: columnW, h: cardY + cardH - chartY, s: chartS },
+    card: { x: CARD_MARGIN, y: cardY, w: cardW, h: cardH },
+    cardRadius: 16,
+    screenshotScale,
+    output: "badapple-strava-final-vertical-2.mp4",
+  };
+}
+
+const LAYOUTS: Record<Orientation, Layout> = {
+  landscape: landscapeLayout(),
+  portrait: portraitLayout(),
+  portrait2: portrait2Layout(),
+};
 
 const APPLE_SRC = "/badapple-small.mp4";
 // Copied from strava_data/screenshots/uncensored/uncensored-removed
 const screenshotSrc = (frame: number) => `/uncensored-removed/badapple-strava-${String(frame).padStart(4, "0")}.jpg`;
-const OUTPUT_NAME = "badapple-strava-final.mp4";
+// Decoded screenshots kept around at once. At vertical card sizes all of them would not fit in memory.
+const SCREENSHOT_CACHE = 6;
 const BITRATE = 16_000_000;
 const AUDIO_BITRATE = 256_000;
 // Samples of padding macOS Chrome's AAC encoder puts in front of the audio. Measured on an export: without
@@ -66,16 +176,16 @@ const AAC_PRIMING_SAMPLES = 2112;
 
 // Bad Apple is held on frame 0 this long while the first polyline draws, so the totals start from zero.
 // Frames are numbered by Bad Apple frame throughout, which makes the intro -INTRO_FRAMES..-1.
-const INTRO_FRAMES = 30;
+export const INTRO_FRAMES = 30;
 const OUTPUT_FRAMES = INTRO_FRAMES + VIDEO_TOTAL_FRAMES;
 
-const ORANGE = "#fc5200";
-const PANEL = "#0b0b0d";
-const LINE = "#25252a";
-const DIM = "#85858f";
-const TEXT = "#f2f2f4";
+export const ORANGE = "#fc5200";
+export const PANEL = "#0b0b0d";
+export const LINE = "#25252a";
+export const DIM = "#85858f";
+export const TEXT = "#f2f2f4";
 
-const DAY_MS = 86_400_000;
+export const DAY_MS = 86_400_000;
 // Longest gap between two activities that still counts as the same visit to the park
 const SESSION_BREAK_S = 3600;
 // Step count of every activity, in the same order as bad_apple_activities.json (sorted by frame). Strava's API
@@ -109,10 +219,10 @@ const METRIC_OPTIONS: { value: Metric; label: string }[] = [
   { value: "days", label: "Days" },
 ];
 
-const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+export const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 // Calendar days visible in the weekly chart, and where "now" sits in that window while it scrolls
-const CHART_DAYS = 84;
-const CHART_ANCHOR = 0.78;
+export const CHART_DAYS = 84;
+export const CHART_ANCHOR = 0.78;
 // Frames of smoothing on the chart's scroll position, applied twice
 const SCROLL_SMOOTHING = 30;
 
@@ -137,7 +247,7 @@ type Item = {
   week: number;
 };
 
-type Timeline = {
+export type Timeline = {
   items: Item[];
   // Chart "now" for every Bad Apple frame, in days since 1970
   cursor: Float64Array;
@@ -152,11 +262,12 @@ type Timeline = {
 type Drawer = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) => void;
 
 type Scene = {
+  layout: Layout;
   timeline: Timeline;
   zoom: number;
   snapshots: Record<string, ImageBitmap>;
-  // One per timeline item, already scaled for the card. Empty slots are still loading.
-  screenshots: (ImageBitmap | undefined)[];
+  // Screenshot of timeline item i, already scaled for the card, or undefined while it loads
+  screenshot: (i: number) => ImageBitmap | undefined;
   opacity: number;
   blend: string;
   metric: Metric;
@@ -164,6 +275,14 @@ type Scene = {
   sans: string;
   mono: string;
 };
+
+type ScreenshotCache = {
+  // Card scale the images were decoded at
+  scale: number;
+  images: Map<number, ImageBitmap>;
+  pending: Map<number, Promise<ImageBitmap | undefined>>;
+};
+const emptyCache = (scale: number): ScreenshotCache => ({ scale, images: new Map(), pending: new Map() });
 
 function mercator([lng, lat]: Coord): Coord {
   const phi = (lat * Math.PI) / 180;
@@ -199,7 +318,7 @@ function parkTimes(data: FrameActivity[]): number[] {
   return times;
 }
 
-function buildTimeline(data: FrameActivity[]): Timeline {
+export function buildTimeline(data: FrameActivity[]): Timeline {
   const times = parkTimes(data);
   let distance = 0;
   let time = 0;
@@ -271,7 +390,7 @@ function buildTimeline(data: FrameActivity[]): Timeline {
 }
 
 // Everything on screen is a function of the Bad Apple frame number alone
-function stateAt(items: Item[], n: number) {
+export function stateAt(items: Item[], n: number) {
   const i = items.findIndex((it) => it.frame >= n);
   if (i === -1) return { i: items.length - 1, progress: 1 };
   return { i, progress: Math.max(0, 1 - (items[i].frame - n) / items[i].gap) };
@@ -279,10 +398,12 @@ function stateAt(items: Item[], n: number) {
 
 function drawChart(ctx: CanvasRenderingContext2D, scene: Scene, n: number, i: number, progress: number) {
   const { items, cursor, weekBase, weeks, yMax, start, end } = scene.timeline;
-  const left = MAP_W + PAD;
-  const width = SIDE_W - PAD * 2;
-  const top = CHART_Y + 68;
-  const bottom = CHART_Y + 178;
+  const { x: chartX, y: chartY, w: chartW, h: chartH, s } = scene.layout.chart;
+  const left = chartX + PAD * s;
+  const width = chartW - PAD * s * 2;
+  const top = chartY + 68 * s;
+  // A chart taller than the usual proportions stretches its plot to fill the height
+  const bottom = chartY + Math.max(178 * s, chartH - 61 * s);
   const height = bottom - top;
 
   const now = cursor[Math.max(0, Math.min(n, cursor.length - 1))];
@@ -299,35 +420,36 @@ function drawChart(ctx: CanvasRenderingContext2D, scene: Scene, n: number, i: nu
   const weekCenter = (w: number) => weekBase + w * 7 + 3.5;
 
   const date = new Date(Math.floor(now) * DAY_MS);
-  ctx.font = `500 18px ${scene.sans}`;
-  ctx.letterSpacing = "2px";
+  ctx.font = `500 ${18 * s}px ${scene.sans}`;
+  ctx.letterSpacing = `${2 * s}px`;
   ctx.textAlign = "left";
   ctx.fillStyle = DIM;
-  ctx.fillText("KM PER WEEK", left, CHART_Y + 42);
+  ctx.fillText("KM PER WEEK", left, chartY + 42 * s);
   ctx.textAlign = "right";
   ctx.fillStyle = TEXT;
-  ctx.fillText(`${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`, left + width, CHART_Y + 42);
+  ctx.fillText(`${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`, left + width, chartY + 42 * s);
 
-  ctx.font = `400 13px ${scene.mono}`;
+  ctx.font = `400 ${13 * s}px ${scene.mono}`;
   ctx.letterSpacing = "0px";
+  const rule = Math.max(1, Math.round(s));
   for (const fraction of [0, 0.5, 1]) {
     const y = Math.round(bottom - fraction * height);
     ctx.fillStyle = LINE;
-    ctx.fillRect(left, y, width, 1);
+    ctx.fillRect(left, y, width, rule);
     if (fraction > 0) {
       ctx.fillStyle = DIM;
-      ctx.fillText(String(yMax * fraction), left + width, y - 6);
+      ctx.fillText(String(yMax * fraction), left + width, y - 6 * s);
     }
   }
 
   ctx.save();
   ctx.beginPath();
-  ctx.rect(left, top - 14, width, CHART_Y + CHART_H - top + 14);
+  ctx.rect(left, top - 14 * s, width, chartY + chartH - top + 14 * s);
   ctx.clip();
 
   // Months
-  ctx.font = `500 15px ${scene.sans}`;
-  ctx.letterSpacing = "1.6px";
+  ctx.font = `500 ${15 * s}px ${scene.sans}`;
+  ctx.letterSpacing = `${1.6 * s}px`;
   ctx.textAlign = "left";
   const month = new Date((Math.floor(from) - 31) * DAY_MS);
   month.setUTCDate(1);
@@ -335,15 +457,15 @@ function drawChart(ctx: CanvasRenderingContext2D, scene: Scene, n: number, i: nu
     const x = Math.round(xOf(month.getTime() / DAY_MS));
     const january = month.getUTCMonth() === 0;
     ctx.fillStyle = LINE;
-    ctx.fillRect(x, top, 1, height + 8);
+    ctx.fillRect(x, top, rule, height + 8 * s);
     ctx.fillStyle = january ? TEXT : DIM;
-    ctx.fillText(january ? String(month.getUTCFullYear()) : MONTHS[month.getUTCMonth()], x + 7, bottom + 30);
+    ctx.fillText(january ? String(month.getUTCFullYear()) : MONTHS[month.getUTCMonth()], x + 7 * s, bottom + 30 * s);
   }
 
   // Line and fill, revealed up to now
   ctx.save();
   ctx.beginPath();
-  ctx.rect(left, top - 12, Math.max(0, xNow - left), height + 24);
+  ctx.rect(left, top - 12 * s, Math.max(0, xNow - left), height + 24 * s);
   ctx.clip();
   const trace = () => {
     ctx.beginPath();
@@ -358,19 +480,19 @@ function drawChart(ctx: CanvasRenderingContext2D, scene: Scene, n: number, i: nu
   ctx.fillStyle = fill;
   ctx.fill();
   trace();
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 3 * s;
   ctx.lineJoin = "round";
   ctx.strokeStyle = ORANGE;
   ctx.stroke();
   ctx.restore();
 
   // One dot per week, growing in as now passes it
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2 * s;
   for (let w = 0; w < weeks; w++) {
     const grow = Math.min(1, (now - weekCenter(w)) / 2);
     if (grow <= 0) break;
     ctx.beginPath();
-    ctx.arc(xOf(weekCenter(w)), yOf(total(w)), 4 * grow, 0, Math.PI * 2);
+    ctx.arc(xOf(weekCenter(w)), yOf(total(w)), 4 * s * grow, 0, Math.PI * 2);
     ctx.fillStyle = PANEL;
     ctx.fill();
     ctx.strokeStyle = ORANGE;
@@ -383,48 +505,42 @@ function drawChart(ctx: CanvasRenderingContext2D, scene: Scene, n: number, i: nu
   const value = total(week) + (total(week + 1) - total(week)) * (position - week);
   const yNow = yOf(value);
   ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
-  ctx.fillRect(Math.round(xNow), yNow, 1, bottom - yNow);
+  ctx.fillRect(Math.round(xNow), yNow, rule, bottom - yNow);
   ctx.beginPath();
-  ctx.arc(xNow, yNow, 13, 0, Math.PI * 2);
+  ctx.arc(xNow, yNow, 13 * s, 0, Math.PI * 2);
   ctx.fillStyle = "rgba(252, 82, 0, 0.25)";
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(xNow, yNow, 6, 0, Math.PI * 2);
+  ctx.arc(xNow, yNow, 6 * s, 0, Math.PI * 2);
   ctx.fillStyle = ORANGE;
   ctx.fill();
   ctx.strokeStyle = "#fff";
   ctx.stroke();
 
   // Fade what scrolls off the left
-  const fade = ctx.createLinearGradient(left, 0, left + 20, 0);
+  const fade = ctx.createLinearGradient(left, 0, left + 20 * s, 0);
   fade.addColorStop(0, PANEL);
   fade.addColorStop(1, "rgba(11, 11, 13, 0)");
   ctx.fillStyle = fade;
-  ctx.fillRect(left, top - 14, 20, CHART_H);
+  ctx.fillRect(left, top - 14 * s, 20 * s, chartH);
   ctx.restore();
 }
 
-function renderFrame(ctx: CanvasRenderingContext2D, n: number, scene: Scene, apple: Drawer | null) {
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, W, H);
-  const { items } = scene.timeline;
-  if (items.length === 0) return;
-
-  const { i, progress } = stateAt(items, n);
-  const item = items[i];
-
-  // Map panel
+function drawMap(ctx: CanvasRenderingContext2D, scene: Scene, map: Rect, item: Item, progress: number, apple: Drawer | null) {
   const scale = 512 * 2 ** scene.zoom;
   const center = mercator(item.region.center);
-  const toPx = (m: Coord): Coord => [(m[0] - center[0]) * scale + MAP_W / 2, (m[1] - center[1]) * scale + H / 2];
+  const toPx = (m: Coord): Coord => [
+    (m[0] - center[0]) * scale + map.x + map.w / 2,
+    (m[1] - center[1]) * scale + map.y + map.h / 2,
+  ];
 
   ctx.save();
   ctx.beginPath();
-  ctx.rect(0, 0, MAP_W, H);
+  ctx.rect(map.x, map.y, map.w, map.h);
   ctx.clip();
 
   const snapshot = scene.snapshots[item.region.id];
-  if (snapshot) ctx.drawImage(snapshot, 0, 0, MAP_W, H);
+  if (snapshot) ctx.drawImage(snapshot, map.x, map.y, map.w, map.h);
 
   if (apple && scene.opacity > 0) {
     const { scratch } = scene;
@@ -474,8 +590,10 @@ function renderFrame(ctx: CanvasRenderingContext2D, n: number, scene: Scene, app
     ctx.stroke();
   }
   ctx.restore();
+}
 
-  // Totals
+function drawHero(ctx: CanvasRenderingContext2D, scene: Scene, item: Item, progress: number) {
+  const { x, y, w, h, s, rounded } = scene.layout.hero;
   const distance = item.distanceBefore + progress * item.distance;
   const time = item.timeBefore + progress * item.time;
   const metric = {
@@ -484,67 +602,100 @@ function renderFrame(ctx: CanvasRenderingContext2D, n: number, scene: Scene, app
     minutes: Math.floor(time / 60).toLocaleString("en-US"),
     days: String(item.days),
   }[scene.metric];
-  const left = MAP_W + PAD;
-  const right = W - PAD;
+  const left = x + PAD * s;
+  const right = x + w - PAD * s;
 
-  ctx.fillStyle = PANEL;
-  ctx.fillRect(MAP_W, 0, SIDE_W, H);
   ctx.fillStyle = ORANGE;
-  ctx.fillRect(MAP_W, 0, SIDE_W, HERO_H);
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, rounded ? 16 : 0);
+  ctx.fill();
 
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = "left";
-  ctx.font = `600 18px ${scene.sans}`;
-  ctx.letterSpacing = "2px";
+  ctx.font = `600 ${18 * s}px ${scene.sans}`;
+  ctx.letterSpacing = `${2 * s}px`;
   ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-  ctx.fillText("DISTANCE", left, 46);
-  ctx.fillText(scene.metric.toUpperCase(), left, 216);
+  ctx.fillText("DISTANCE", left, y + 46 * s);
+  ctx.fillText(scene.metric.toUpperCase(), left, y + 216 * s);
 
   ctx.fillStyle = "#fff";
-  ctx.font = `600 96px ${scene.mono}`;
-  ctx.letterSpacing = "-2px";
   const km = (distance / 1000).toFixed(2);
-  ctx.fillText(km, left - 4, 140);
+  // Shrinks the number if it and the unit would run past the right edge
+  ctx.font = `600 ${30 * s}px ${scene.sans}`;
+  ctx.letterSpacing = `${s}px`;
+  const unitWidth = ctx.measureText("KM").width + 8 * s;
+  ctx.font = `600 ${96 * s}px ${scene.mono}`;
+  ctx.letterSpacing = `${-2 * s}px`;
+  const fit = Math.min(1, (right - left + 4 * s - unitWidth) / ctx.measureText(km).width);
+  ctx.font = `600 ${96 * s * fit}px ${scene.mono}`;
+  ctx.letterSpacing = `${-2 * s * fit}px`;
+  ctx.fillText(km, left - 4 * s, y + 140 * s);
   const kmWidth = ctx.measureText(km).width;
-  ctx.font = `600 30px ${scene.sans}`;
-  ctx.letterSpacing = "1px";
-  ctx.fillText("KM", left + kmWidth + 8, 140);
+  ctx.font = `600 ${30 * s}px ${scene.sans}`;
+  ctx.letterSpacing = `${s}px`;
+  ctx.fillText("KM", left + kmWidth + 8 * s, y + 140 * s);
 
   ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-  ctx.fillRect(left, 172, SIDE_W - PAD * 2, 2);
+  ctx.fillRect(left, y + 172 * s, right - left, 2 * s);
 
   ctx.fillStyle = "#fff";
-  ctx.font = `600 44px ${scene.mono}`;
-  ctx.letterSpacing = "-1px";
+  ctx.font = `600 ${44 * s}px ${scene.mono}`;
+  ctx.letterSpacing = `${-s}px`;
   ctx.textAlign = "right";
-  ctx.fillText(metric, right, 224);
+  ctx.fillText(metric, right, y + 224 * s);
   ctx.textAlign = "left";
+}
 
-  drawChart(ctx, scene, n, i, progress);
-
-  // Screenshot card
-  const cardX = MAP_W + CARD_MARGIN;
+// Rounded panel with a hairline border, for the screenshot card and the 9:16 Bad Apple
+function drawFramed(ctx: CanvasRenderingContext2D, { x, y, w, h }: Rect, draw: () => void, radius = 16) {
   ctx.save();
   ctx.beginPath();
-  ctx.roundRect(cardX, CARD_Y, CARD_W, CARD_H, 16);
+  ctx.roundRect(x, y, w, h, radius);
   ctx.clip();
   ctx.fillStyle = "#141414";
-  ctx.fillRect(cardX, CARD_Y, CARD_W, CARD_H);
-  // The screenshot of the activity being drawn, from the moment its polyline starts until the next one starts
-  const screenshot = scene.screenshots[i];
-  if (screenshot) {
-    ctx.drawImage(
-      screenshot,
-      cardX + Math.round((CARD_W - screenshot.width) / 2),
-      CARD_Y + Math.round((CARD_H - screenshot.height) / 2),
-    );
-  }
+  ctx.fillRect(x, y, w, h);
+  draw();
   ctx.restore();
   ctx.beginPath();
-  ctx.roundRect(cardX + 0.5, CARD_Y + 0.5, CARD_W - 1, CARD_H - 1, 16);
+  ctx.roundRect(x + 0.5, y + 0.5, w - 1, h - 1, radius);
   ctx.lineWidth = 1;
   ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
   ctx.stroke();
+}
+
+function renderFrame(ctx: CanvasRenderingContext2D, n: number, scene: Scene, apple: Drawer | null) {
+  const { layout } = scene;
+  ctx.fillStyle = PANEL;
+  ctx.fillRect(0, 0, layout.w, layout.h);
+  const { items } = scene.timeline;
+  if (items.length === 0) return;
+
+  const { i, progress } = stateAt(items, n);
+  const item = items[i];
+
+  if (layout.map) {
+    drawMap(ctx, scene, layout.map, item, progress, apple);
+  }
+  if (layout.apple) {
+    const rect = layout.apple;
+    drawFramed(ctx, rect, () => apple?.(ctx, rect.x, rect.y, rect.w, rect.h));
+  }
+
+  drawHero(ctx, scene, item, progress);
+  drawChart(ctx, scene, n, i, progress);
+
+  // The screenshot of the activity being drawn, from the moment its polyline starts until the next one starts
+  const { card } = layout;
+  const screenshot = scene.screenshot(i);
+  drawFramed(ctx, card, () => {
+    if (screenshot) {
+      ctx.drawImage(
+        screenshot,
+        card.x + Math.round((card.w - screenshot.width) / 2),
+        card.y + Math.round((card.h - screenshot.height) / 2),
+      );
+    }
+  }, layout.cardRadius);
 }
 
 const videoDrawer = (video: HTMLVideoElement | null): Drawer | null =>
@@ -557,12 +708,23 @@ export default function FinalMode({
   frameData: FrameActivity[] | null;
   sidebar: HTMLElement | null;
 }) {
-  const [zoom, setZoom] = usePersistedState("final.zoom", 18.3);
+  // Each layout with a map has its own zoom, since the maps are different shapes
+  const [landscapeZoom, setLandscapeZoom] = usePersistedState("final.zoom", 18.3);
+  const [portraitZoom, setPortraitZoom] = usePersistedState("final.zoom.vertical2", 18.1);
   const [theme, setTheme] = usePersistedState("final.theme", "dark-matter");
   const [labels, setLabels] = usePersistedState("final.labels", false);
   const [opacity, setOpacity] = usePersistedState("final.opacity", 0.5);
   const [blend, setBlend] = usePersistedState("final.blend", "normal");
   const [metric, setMetric] = usePersistedState<Metric>("final.metric", "steps");
+  const [orientation, setOrientation] = usePersistedState<Orientation>("final.orientation", "landscape");
+  const layout = LAYOUTS[orientation] ?? LAYOUTS.landscape;
+  const zoom = orientation === "portrait2" ? portraitZoom : landscapeZoom;
+  const setZoom = orientation === "portrait2" ? setPortraitZoom : setLandscapeZoom;
+  // Size the offscreen map renders at: the current layout's map, or the last one shown
+  const [mapSize, setMapSize] = useState({ w: LAYOUTS.landscape.map!.w, h: LAYOUTS.landscape.map!.h });
+  if (layout.map && (layout.map.w !== mapSize.w || layout.map.h !== mapSize.h)) {
+    setMapSize({ w: layout.map.w, h: layout.map.h });
+  }
   const [frame, setFrame] = useState(-INTRO_FRAMES);
   const [playing, setPlaying] = useState(false);
   const [exportProgress, setExportProgress] = useState<number | null>(null);
@@ -578,10 +740,16 @@ export default function FinalMode({
   const appleRef = useRef<HTMLVideoElement | null>(null);
   const scratchRef = useRef<HTMLCanvasElement | null>(null);
   const fontsRef = useRef({ sans: "sans-serif", mono: "monospace" });
-  const snapshotsRef = useRef<{ zoom: number; images: Record<string, ImageBitmap> }>({ zoom, images: {} });
+  const snapshotsRef = useRef<{ zoom: number; w: number; h: number; images: Record<string, ImageBitmap> }>({
+    zoom,
+    ...mapSize,
+    images: {},
+  });
   const snapshotsReadyRef = useRef<Promise<void>>(Promise.resolve());
-  const screenshotsRef = useRef<(ImageBitmap | undefined)[]>([]);
+  // Screenshots stay compressed until needed, then a few around the current one are decoded at card size
+  const blobsRef = useRef<(Blob | undefined)[]>([]);
   const screenshotsReadyRef = useRef<Promise<void>>(Promise.resolve());
+  const cacheRef = useRef<ScreenshotCache>(emptyCache(NaN));
   const generationRef = useRef(0);
   const frameRef = useRef(-INTRO_FRAMES);
   // Preview clock for the intro, where the videos are held and cannot keep time
@@ -593,8 +761,54 @@ export default function FinalMode({
   const cancelRef = useRef(false);
   const settingsRef = useRef({ opacity, blend, metric });
   settingsRef.current = { opacity, blend, metric };
+  const layoutRef = useRef(layout);
+  layoutRef.current = layout;
   const timelineRef = useRef(timeline);
   timelineRef.current = timeline;
+
+  const resetCache = useCallback((scale: number) => {
+    for (const image of cacheRef.current.images.values()) image.close();
+    cacheRef.current = emptyCache(scale);
+  }, []);
+
+  const loadScreenshot = useCallback(
+    (i: number, scale: number): Promise<ImageBitmap | undefined> => {
+      if (cacheRef.current.scale !== scale) resetCache(scale);
+      const cache = cacheRef.current;
+      const have = cache.images.get(i);
+      if (have) return Promise.resolve(have);
+      const pending = cache.pending.get(i);
+      if (pending) return pending;
+      const blob = blobsRef.current[i];
+      if (!blob) return Promise.resolve(undefined);
+      const promise = (async () => {
+        const full = await createImageBitmap(blob);
+        const scaled = await createImageBitmap(full, {
+          resizeWidth: Math.max(1, Math.round(full.width * scale)),
+          resizeHeight: Math.max(1, Math.round(full.height * scale)),
+          resizeQuality: "high",
+        });
+        full.close();
+        if (cacheRef.current !== cache) {
+          scaled.close();
+          return undefined;
+        }
+        cache.images.set(i, scaled);
+        // Drop whichever decoded screenshot is furthest from this one
+        while (cache.images.size > SCREENSHOT_CACHE) {
+          let far = i;
+          for (const k of cache.images.keys()) if (Math.abs(k - i) > Math.abs(far - i)) far = k;
+          cache.images.get(far)?.close();
+          cache.images.delete(far);
+        }
+        return scaled;
+      })().finally(() => cache.pending.delete(i));
+      promise.catch(() => {});
+      cache.pending.set(i, promise);
+      return promise;
+    },
+    [resetCache],
+  );
 
   const scene = useCallback((): Scene => {
     if (!scratchRef.current) {
@@ -602,16 +816,27 @@ export default function FinalMode({
       scratchRef.current.width = 480;
       scratchRef.current.height = 360;
     }
+    const layout = layoutRef.current;
+    const count = timelineRef.current.items.length;
     return {
+      layout,
       timeline: timelineRef.current,
       zoom: snapshotsRef.current.zoom,
-      snapshots: snapshotsRef.current.images,
-      screenshots: screenshotsRef.current,
+      // Snapshots from another layout's map are the wrong shape, so the map stays empty until its own are ready
+      snapshots:
+        layout.map && snapshotsRef.current.w === layout.map.w && snapshotsRef.current.h === layout.map.h
+          ? snapshotsRef.current.images
+          : {},
+      screenshot: (i) => {
+        void loadScreenshot(i, layout.screenshotScale);
+        if (i + 1 < count) void loadScreenshot(i + 1, layout.screenshotScale);
+        return cacheRef.current.images.get(i);
+      },
       scratch: scratchRef.current,
       ...settingsRef.current,
       ...fontsRef.current,
     };
-  }, []);
+  }, [loadScreenshot]);
 
   useEffect(() => {
     const root = getComputedStyle(document.documentElement);
@@ -655,6 +880,7 @@ export default function FinalMode({
         styleRef.current = themeUrl;
         map.setStyle(themeUrl);
       }
+      map.resize();
       await idle(map);
       if (generation !== generationRef.current) return;
       setLabelVisibility(map, labels);
@@ -665,28 +891,21 @@ export default function FinalMode({
         if (generation !== generationRef.current) return;
         images[region.id] = await createImageBitmap(map.getCanvas());
       }
-      snapshotsRef.current = { zoom, images };
+      snapshotsRef.current = { zoom, ...mapSize, images };
     })();
-  }, [zoom, themeUrl, labels]);
+  }, [zoom, themeUrl, labels, mapSize]);
 
-  // Screenshots are decoded once at card size; at full size all of them would not fit in memory
   useEffect(() => {
     let cancelled = false;
-    const images: (ImageBitmap | undefined)[] = [];
-    screenshotsRef.current = images;
+    const blobs: (Blob | undefined)[] = [];
+    blobsRef.current = blobs;
+    resetCache(NaN);
     const ready = Promise.all(
       timeline.items.map(async (item, i) => {
         const response = await fetch(screenshotSrc(item.frame));
         if (!response.ok) throw new Error(`Missing screenshot for frame ${item.frame}.`);
-        const full = await createImageBitmap(await response.blob());
-        const scaled = await createImageBitmap(full, {
-          resizeWidth: Math.max(1, Math.round(full.width * SCREENSHOT_SCALE)),
-          resizeHeight: Math.max(1, Math.round(full.height * SCREENSHOT_SCALE)),
-          resizeQuality: "high",
-        });
-        full.close();
-        if (cancelled) scaled.close();
-        else images[i] = scaled;
+        const blob = await response.blob();
+        if (!cancelled) blobs[i] = blob;
       }),
     ).then(() => {});
     // The preview just leaves the card empty; export awaits this and reports the error
@@ -694,9 +913,9 @@ export default function FinalMode({
     screenshotsReadyRef.current = ready;
     return () => {
       cancelled = true;
-      for (const image of images) image?.close();
+      resetCache(NaN);
     };
-  }, [timeline]);
+  }, [timeline, resetCache]);
 
   const setVideosRunning = useCallback((running: boolean) => {
     videosRunningRef.current = running;
@@ -846,7 +1065,10 @@ export default function FinalMode({
               if (!apple) throw new Error(`Source video ended early at frame ${Math.max(0, n)}.`);
             }
             const appleFrame = apple;
-            renderFrame(ctx, n, scene(), (c, x, y, w, h) => appleFrame.draw(c, x, y, w, h));
+            const frameScene = scene();
+            const { items } = frameScene.timeline;
+            if (items.length > 0) await loadScreenshot(stateAt(items, n).i, frameScene.layout.screenshotScale);
+            renderFrame(ctx, n, frameScene, (c, x, y, w, h) => appleFrame.draw(c, x, y, w, h));
             const out = n + INTRO_FRAMES;
             await videoSource.add(out / VIDEO_FPS, 1 / VIDEO_FPS);
             if (out % 15 === 0) {
@@ -870,7 +1092,7 @@ export default function FinalMode({
         const url = URL.createObjectURL(new Blob([output.target.buffer!], { type: "video/mp4" }));
         const link = document.createElement("a");
         link.href = url;
-        link.download = OUTPUT_NAME;
+        link.download = layoutRef.current.output;
         document.body.appendChild(link);
         link.click();
         link.remove();
@@ -886,18 +1108,23 @@ export default function FinalMode({
       setExportProgress(null);
       seek(frameRef.current);
     }
-  }, [scene, seek]);
+  }, [scene, seek, loadScreenshot]);
 
   const exporting = exportProgress !== null;
 
   return (
     <>
       <div className="flex-1 min-w-0 relative bg-black">
-        <canvas ref={canvasRef} width={W} height={H} className="absolute inset-0 w-full h-full object-contain" />
+        <canvas
+          ref={canvasRef}
+          width={layout.w}
+          height={layout.h}
+          className="absolute inset-0 w-full h-full object-contain"
+        />
         <div
           ref={mapDivRef}
           className="fixed top-0 left-0 -z-10 opacity-0 pointer-events-none"
-          style={{ width: MAP_W, height: H }}
+          style={{ width: mapSize.w, height: mapSize.h }}
         />
         <video ref={appleRef} src={APPLE_SRC} preload="auto" playsInline className="hidden" />
       </div>
@@ -905,6 +1132,23 @@ export default function FinalMode({
       {sidebar &&
         createPortal(
           <>
+            <div className="flex gap-0.5 px-3 py-2.5 border-b border-s-line">
+              {ORIENTATION_OPTIONS.map((o) => (
+                <button
+                  key={o.value}
+                  onClick={() => {
+                    if (!exporting) setOrientation(o.value);
+                  }}
+                  aria-pressed={orientation === o.value}
+                  className={`flex-1 py-[5px] rounded transition-colors ${
+                    orientation === o.value ? "bg-s-track text-s-text" : "text-s-dim hover:text-s-text"
+                  }`}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+
             <Section>
               <SliderRow
                 label="Frame"
@@ -936,37 +1180,42 @@ export default function FinalMode({
               </div>
             </Section>
 
-            <Section title="Map">
-              <SliderRow
-                label="Zoom"
-                display={zoom.toFixed(2)}
-                min={16}
-                max={20}
-                step={0.01}
-                value={zoom}
-                onChange={setZoom}
-              />
-              <SelectRow
-                label="Theme"
-                value={theme}
-                onChange={setTheme}
-                options={MAP_THEMES.map((t) => ({ value: t.id, label: t.label }))}
-              />
-              <ToggleRow label="Labels" checked={labels} onChange={setLabels} />
-            </Section>
+            {/* Only layouts with the map have Bad Apple overlaid on it */}
+            {layout.map && (
+              <>
+              <Section title="Map">
+                <SliderRow
+                  label="Zoom"
+                  display={zoom.toFixed(2)}
+                  min={16}
+                  max={20}
+                  step={0.01}
+                  value={zoom}
+                  onChange={setZoom}
+                />
+                <SelectRow
+                  label="Theme"
+                  value={theme}
+                  onChange={setTheme}
+                  options={MAP_THEMES.map((t) => ({ value: t.id, label: t.label }))}
+                />
+                <ToggleRow label="Labels" checked={labels} onChange={setLabels} />
+              </Section>
 
-            <Section title="Video">
-              <SliderRow
-                label="Opacity"
-                display={opacity.toFixed(2)}
-                min={0}
-                max={1}
-                step={0.01}
-                value={opacity}
-                onChange={setOpacity}
-              />
-              <SegRow label="Blend" value={blend} onChange={setBlend} options={BLEND_OPTIONS} />
-            </Section>
+              <Section title="Video">
+                <SliderRow
+                  label="Opacity"
+                  display={opacity.toFixed(2)}
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={opacity}
+                  onChange={setOpacity}
+                />
+                <SegRow label="Blend" value={blend} onChange={setBlend} options={BLEND_OPTIONS} />
+              </Section>
+              </>
+            )}
 
             <Section title="Totals">
               <SegRow label="Metric" value={metric} onChange={setMetric} options={METRIC_OPTIONS} />

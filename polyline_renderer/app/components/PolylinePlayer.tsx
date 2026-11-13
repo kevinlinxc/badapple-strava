@@ -20,6 +20,7 @@ import {
 } from "../lib/shared";
 import FinalMode from "./FinalMode";
 import DroneMode from "./DroneMode";
+import StravaMode from "./StravaMode";
 import { IconButton, ProgressRow, Section, SegRow, SelectRow, SliderRow, TextButton, ToggleRow } from "./controls";
 
 export type Keyframe = { time: number; value: number };
@@ -367,7 +368,7 @@ export default function PolylinePlayer() {
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [videoFrameOffset, setVideoFrameOffset] = usePersistedState("videoFrameNudge", 0);
 
-  const [mode, setMode] = usePersistedState<"art" | "continuous" | "final" | "drone">("mode", "art");
+  const [mode, setMode] = usePersistedState<"art" | "continuous" | "final" | "drone" | "strava">("mode", "art");
   const [finalSidebar, setFinalSidebar] = useState<HTMLDivElement | null>(null);
   // Art and continuous share frameIndex/progress, so art's position is set aside while in continuous
   const [artPosition, setArtPosition] = usePersistedState<{ frameIndex: number; progress: number } | null>("artPosition", null);
@@ -647,7 +648,7 @@ export default function PolylinePlayer() {
     };
   }, [mode, playing, speed]);
 
-  const switchMode = useCallback((newMode: "art" | "continuous" | "final" | "drone") => {
+  const switchMode = useCallback((newMode: "art" | "continuous" | "final" | "drone" | "strava") => {
     setPlaying(false);
     if (newMode === mode) return;
     if (mode === "art") setArtPosition({ frameIndex, progress });
@@ -700,7 +701,11 @@ export default function PolylinePlayer() {
       pausedProgress += (delta * continuousSpeedRef.current) / polyDuration;
       let p = Math.min(pausedProgress, 1);
 
-      if (p >= 1) {
+      if (p >= 1 && progressRef.current < 1) {
+        // Paint the completed polyline for at least one tick before moving on, or it never shows fully drawn
+        progressRef.current = 1;
+        setProgress(1);
+      } else if (p >= 1) {
         const nextFrame = findNextFrame(currentFrame, frameData, continuousReverse);
 
         if (nextFrame != null) {
@@ -737,7 +742,7 @@ export default function PolylinePlayer() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (mode === "final" || mode === "drone") return;
+      if (mode === "final" || mode === "drone" || mode === "strava") return;
       if (e.key === " ") {
         e.preventDefault();
         setPlaying((p) => !p);
@@ -951,11 +956,15 @@ export default function PolylinePlayer() {
         }
       } else {
         if (wasWaiting || currentFrame !== prevFrame) {
-          seekingRef.current = true;
-          video.currentTime = Math.min(desiredTime, video.duration);
-          video.addEventListener("seeked", () => {
-            seekingRef.current = false;
-          }, { once: true });
+          // Segments are contiguous in time, so the video is usually already where it should be.
+          // Seeking anyway freezes the canvas while the matched frame should be on screen.
+          if (wasWaiting || Math.abs(video.currentTime - desiredTime) > 1 / VIDEO_FPS) {
+            seekingRef.current = true;
+            video.currentTime = Math.min(desiredTime, video.duration);
+            video.addEventListener("seeked", () => {
+              seekingRef.current = false;
+            }, { once: true });
+          }
           video.playbackRate = mode === "continuous" ? continuousSpeedRef.current : 1;
           video.play().catch(() => {});
           wasWaiting = false;
@@ -1117,7 +1126,7 @@ export default function PolylinePlayer() {
     <div className="fixed inset-0 bg-black text-white flex overflow-hidden">
       <div className="w-[320px] shrink-0 bg-s-bg text-s-text text-xs font-sans overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [scrollbar-color:var(--color-s-track)_transparent] border-r border-s-line z-10">
         <div className="flex gap-0.5 px-3 py-2.5 border-b border-s-line">
-          {(["art", "continuous", "final", "drone"] as const).map((m) => (
+          {(["art", "continuous", "final", "drone", "strava"] as const).map((m) => (
             <button
               key={m}
               onClick={() => switchMode(m)}
@@ -1458,11 +1467,12 @@ export default function PolylinePlayer() {
           </>
         )}
 
-        {(mode === "final" || mode === "drone") && <div ref={setFinalSidebar} />}
+        {(mode === "final" || mode === "drone" || mode === "strava") && <div ref={setFinalSidebar} />}
       </div>
 
       {mode === "final" && <FinalMode frameData={frameData} sidebar={finalSidebar} />}
       {mode === "drone" && <DroneMode frameData={frameData} sidebar={finalSidebar} />}
+      {mode === "strava" && <StravaMode frameData={frameData} sidebar={finalSidebar} />}
 
       <video
         ref={hiddenVideoRef}
@@ -1476,7 +1486,7 @@ export default function PolylinePlayer() {
       />
       <canvas ref={canvasRef} className="hidden" />
 
-      <div ref={mapContainerRef} className={`flex-1 relative ${mode === "final" || mode === "drone" ? "hidden" : ""}`}>
+      <div ref={mapContainerRef} className={`flex-1 relative ${mode === "final" || mode === "drone" || mode === "strava" ? "hidden" : ""}`}>
         {(SHOW_DEBUG || (mode === "continuous" && continuousShowDebug)) && (
         <div className="absolute top-2 left-2 z-30 bg-black/70 text-[11px] font-mono text-green-400 p-2 rounded pointer-events-none">
           <div>playing: {String(debug.playing)}</div>
