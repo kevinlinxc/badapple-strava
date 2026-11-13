@@ -71,6 +71,9 @@ def main():
     OUTPUT_VIDEO = f"reel-{first_frame}-{last_frame}.mov"
 
     jpg_files = [SCREENSHOTS_DIR / f"strava-screenshot-{f}-censored.jpg" for f in selected_frames]
+    missing = [f for f, p in zip(selected_frames, jpg_files) if not p.exists()]
+    if missing:
+        print(f"Warning: no censored screenshot for frames {missing}, run 8_censor_strava_screenshots.py first", file=sys.stderr)
     jpg_files = [p for p in jpg_files if p.exists()]
 
     if not jpg_files:

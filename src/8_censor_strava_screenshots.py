@@ -58,7 +58,7 @@ DRIVE_PAD_Y = BOX_PADDING - 2   # top/bottom
 # a "Congrats" banner before re-running censoring on the cropped image.
 CONGRATS_CROP_MARGIN = 0.05
 
-PALETTE = 2  # 1 or 2
+PALETTE = 1  # 1 or 2
 
 _COLORS_P1 = {
     "last_name":    (20,   20,   20),
@@ -263,32 +263,53 @@ def find_zone_boxes(
     return [(r, c, w) for r, _, c, w, _ in candidates]
 
 
+def render_censored(
+    original: Image.Image,
+    redactions: list[tuple[tuple[int, int, int, int], str]],
+) -> Image.Image:
+    """Return a copy of `original` with each (rect, category) filled in its colour."""
+    censored = original.copy()
+    draw = ImageDraw.Draw(censored)
+    for rect, category in redactions:
+        draw.rectangle(rect, fill=COLORS[category])
+    return censored
+
+
+def _to_display(img: Image.Image, scale: float) -> np.ndarray:
+    arr = cv2.cvtColor(np.array(img.convert("RGB")), cv2.COLOR_RGB2BGR)
+    if scale < 1.0:
+        arr = cv2.resize(arr, (int(img.width * scale), int(img.height * scale)))
+    return arr
+
+
 def approve_zones_interactive(
     original: Image.Image,
     candidates: list[tuple[tuple[int, int, int, int], str, str]],
     img_w: int,
     img_h: int,
+    base_redactions: list[tuple[tuple[int, int, int, int], str]] = (),
 ) -> list[tuple[tuple[int, int, int, int], str]]:
     """
-    Show each zone candidate as a red rectangle on the image.
+    Show each zone candidate as a red rectangle on the image, with a live
+    preview of the censored result (base_redactions + approvals so far) on the right.
     y = approve, any other key = skip, d = skip remaining.
-    Returns the approved list of (rect, category) with padding applied.
+    Returns the approved list of (rect, category) with padding (and the
+    cuesta_park right-edge cap) applied.
     """
     if not candidates:
         return []
 
-    img = np.array(original.convert("RGB"))
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-
     SCREEN_W = 1200
     scale = SCREEN_W / img_w if img_w > SCREEN_W else 1.0
-    if scale < 1.0:
-        img_display = cv2.resize(img, (int(img_w * scale), int(img_h * scale)))
-    else:
-        img_display = img.copy()
-        scale = 1.0
+    img_display = _to_display(original, scale)
 
     approved = []
+
+    def preview_display():
+        return _to_display(render_censored(original, list(base_redactions) + approved), scale)
+
+    preview = preview_display()
+    divider = np.full((img_display.shape[0], 8, 3), 255, dtype=np.uint8)
     cv2.namedWindow("approve", cv2.WINDOW_NORMAL)
     total = len(candidates)
 
@@ -317,13 +338,17 @@ def approve_zones_interactive(
             (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1,
         )
 
-        cv2.imshow("approve", disp)
+        cv2.imshow("approve", np.hstack([disp, divider, preview]))
         key = cv2.waitKey(0) & 0xFF
 
         if key == ord("d"):
             break
         elif key == ord("y"):
+            if category == "cuesta_park":
+                rx2 = cap_right_at_color(original, rx1, ry1, rx2, ry2)
+                logger.info("  Capped cuesta_park right edge to x2=%d", rx2)
             approved.append(((rx1, ry1, rx2, ry2), category))
+            preview = preview_display()
 
     cv2.destroyAllWindows()
     return approved
@@ -440,9 +465,6 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
 
     output_path = Path(output_path)
 
-    censored = original.copy()
-    draw = ImageDraw.Draw(censored)
-
     redactions: list[tuple[tuple[int,int,int,int], str]] = []  # (rect, category)
 
     # --- Primary pass: exact / clipped phrase matching ---
@@ -469,12 +491,9 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
     zone_candidates = find_zone_boxes(boxes, img_h)
     for rect, category, word in zone_candidates:
         logger.info("  Zone candidate '%s' [%s]", word, category)
-    approved = approve_zones_interactive(original, zone_candidates, img_w, img_h)
-    for (rx1, ry1, rx2, ry2), category in approved:
-        if category == "cuesta_park":
-            rx2 = cap_right_at_color(original, rx1, ry1, rx2, ry2)
-            logger.info("  Capped cuesta_park right edge to x2=%d", rx2)
-        rect = (rx1, ry1, rx2, ry2)
+    approved = approve_zones_interactive(original, zone_candidates, img_w, img_h, redactions)
+    for rect, category in approved:
+        rx1, ry1, rx2, ry2 = rect
         if rect not in already_redacted:
             redactions.append((rect, category))
             logger.info("  User approved '%s' @ (%d,%d)-(%d,%d)",
@@ -483,9 +502,7 @@ def censor_image(input_path: str, output_path: str | None = None, _frame: str | 
     if not redactions:
         logger.warning("  WARNING: no phrases matched — output will be unchanged.")
 
-    for rect, category in redactions:
-        color = COLORS[category]
-        draw.rectangle(rect, fill=color)
+    censored = render_censored(original, redactions)
 
     # show_side_by_side(original, censored, input_path.stem)
 

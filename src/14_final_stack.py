@@ -10,8 +10,8 @@ iPhone screenshots are Display P3, so they are converted to sRGB and the video
 is tagged Rec.709. Without that the orange comes out desaturated.
 
 Usage:
-    python 14_image_stack.py [folder]
-    python 14_image_stack.py [folder] --out <video.mov>
+    python 14_final_stack.py [folder]
+    python 14_final_stack.py [folder] --out <video.mov>
 
 <folder> defaults to strava_data/screenshots/uncensored/uncensored-removed and
 must hold badapple-strava-<frame>.jpg files (see 13_rename_uncensored_screenshots.py).
@@ -27,6 +27,7 @@ import numpy as np
 from PIL import Image, ImageCms
 
 DEFAULT_FOLDER = (
+    # screenshots that aren't censored but have banners removed for consistent height
     Path(__file__).parent.parent / "strava_data" / "screenshots" / "uncensored" / "uncensored-removed"
 )
 
@@ -65,7 +66,7 @@ def main():
         print(f"Error: '{folder}' is not a directory")
         sys.exit(1)
     if out_path is None:
-        out_path = folder / "stack.mov"
+        out_path = folder / "stack-final.mov"
 
     # (bad apple frame, path), in playback order
     shots = sorted(

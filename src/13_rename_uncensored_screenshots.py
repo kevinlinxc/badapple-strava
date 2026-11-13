@@ -1,4 +1,4 @@
-# rename uncensored strava screenshots to badapple-strava-<frame>.jpg using OCR, for the final video
+# preprocessing for uncensored screenshots into the final video
 """
 Usage:
     python 13_rename_uncensored_screenshots.py [folder] [--dry-run]

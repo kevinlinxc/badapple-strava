@@ -1,38 +1,23 @@
-# in one shot, convert bad apple contours to gpx files
-from gps import x_y_to_gps, export_to_gpx
+# first pass: pick a contour for each bad apple frame and save them to contours-15.json
+# fix the bad ones in 4_contour_editor.py, then make gpx files with 5_json_to_gpx.py
+# WARNING: rerunning this overwrites contours-15.json, including any manual edits
 from archived.map_to_image import get_map_image
 import cv2
 import os
 import numpy as np
-from dotenv import load_dotenv
 import shutil
 import json
 
-load_dotenv()
 skip_frames = 15
-out_dir = f"gpx-{skip_frames}"
 points_dir = f"points-{skip_frames}"
 frames_dir = f"frames-{skip_frames}"
 
 # delete old files
-shutil.rmtree(out_dir, ignore_errors=True)
 shutil.rmtree(points_dir, ignore_errors=True)
 shutil.rmtree(frames_dir, ignore_errors=True)
 
-os.makedirs(out_dir, exist_ok=True)
 os.makedirs(points_dir, exist_ok=True)
 os.makedirs(frames_dir, exist_ok=True)
-
-# park coordinates from app.py
-bottom_left_lat_long = [float(x) for x in os.environ["BOTTOM_LEFT_LAT_LONG"].split(",")]
-top_right_lat_long = [float(x) for x in os.environ["TOP_RIGHT_LAT_LONG"].split(",")]
-
-# Default parameters from app.py
-angle = 0.0
-skew_y = 0.0
-skew_x = 0.0
-x_scale = 1.0
-y_scale = 0.9
 
 cap = cv2.VideoCapture("badapple-small.mp4")
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -100,20 +85,7 @@ for frame in range(0, total_frames, skip_frames):
     cv2.imwrite(f"{frames_dir}/{frame}.png", frame_img)
     img = render_points(xy_list)
     cv2.imwrite(f"{points_dir}/{frame}.png", img)
-    
-    gps_list = [x_y_to_gps(x, y, 480, 360,
-                          bottom_left_lat_long=bottom_left_lat_long,
-                          top_right_lat_long=top_right_lat_long,
-                          angle_degrees=angle,
-                          skew_y_degrees=skew_y,
-                          skew_x_degrees=skew_x,
-                          x_scale=x_scale,
-                          y_scale=y_scale) for x, y in xy_list]
-    
-    output_path = f"{out_dir}/{frame}.gpx"
-    export_to_gpx(gps_list, output_file=output_path, 
-                 name=f"Bad Apple Track Frame {frame}")
-    print(f"Exported frame {frame} to {output_path} and rendered visualization")
+    print(f"Rendered frame {frame}")
     xy_list = [(int(x), int(y)) for x, y in xy_list]
     all_contours[str(frame)] = xy_list
 
