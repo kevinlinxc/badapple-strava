@@ -97,6 +97,7 @@ df = df.with_columns(
 
 output_folder = Path("strava_data")
 output_folder.mkdir(exist_ok=True)
+# the csv is gitignored because it has some activities near my house
 df.write_csv(str(output_folder / f"activities-{latest_date}.csv"))
 
 

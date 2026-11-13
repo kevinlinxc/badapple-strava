@@ -10,6 +10,14 @@
 .strava.secrets
 **.csv
 **.egg-info
-strava_data**
+strava_data/**
 polyline_renderer/public/uncensored-removed/
 stats_video/
+!/badapple-small.mp4
+!/polyline_renderer/public/badapple-small.mp4
+!/contours-15.json
+!/polyline_renderer/package.json
+!/polyline_renderer/package-lock.json
+!/polyline_renderer/tsconfig.json
+!/strava_data/bad_apple_activities.json
+!/polyline_renderer/public/bad_apple_activities.json

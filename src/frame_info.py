@@ -18,6 +18,7 @@ print(f"Frames left = {n_frames_left}")
 
 
 def stats_by_frame(max_frame: int):
+    # the csv is gitignored because it has some activities near my house
     csv_path = Path(__file__).parent.parent / "strava_data" / "activities-2026-08-24.csv"
 
     days = set()

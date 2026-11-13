@@ -5,11 +5,20 @@ description = "Making bad apple with strava runs"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "folium>=0.19.2",
+    "google-api-python-client>=2.202.0",
+    "google-auth-oauthlib>=1.5.0",
+    "numpy>=2.2.1",
     "opencv-python>=4.10.0.84",
+    "pillow>=11.0.0",
+    "plotly>=7.1.0",
     "polars>=1.31.0",
+    "pytesseract>=0.3.13",
     "python-dotenv>=1.1.0",
+    "requests>=2.32.3",
     "selenium>=4.27.1",
     "strava-client==1.0.7",
+    "streamlit>=1.41.1",
     "streamlit-folium>=0.24.0",
     "utm>=0.7.0",
 ]

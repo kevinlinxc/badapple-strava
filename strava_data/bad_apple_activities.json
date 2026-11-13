@@ -1,0 +1,2576 @@
+[
+  {
+    "frame": 0,
+    "date": "2025-05-18",
+    "distance_m": 712.0,
+    "time_s": 587,
+    "start_time": "2025-05-18 20:22:20",
+    "end_time": "2025-05-18 20:32:27",
+    "polyline": "wnbcF`tbhVDAlAFN?VBR?DA@@r@AH@t@EAHBDAd@BLG|@?zAC`@Bx@Er@Hn@CVGRC@AJYEI@GAS@MCIBa@CKDO?EEB@WFO?MBGAU@CE?QBIEQByACYF[IeADuE"
+  },
+  {
+    "frame": 15,
+    "date": "2025-05-18",
+    "distance_m": 733.9,
+    "time_s": 581,
+    "start_time": "2025-05-18 20:34:27",
+    "end_time": "2025-05-18 20:45:46",
+    "polyline": "anbcFrsbhV@FBDPBDBZ?@CB@DCDG?HJDLAD@FCJBHCPDV?LEJIFB@DDAFBBE?BH@DNABDl@Cv@?XETBLAr@EF?^Hd@Ej@@^A`@EF?HCB@@BABBBF?HAHIIIDUIe@JIEO?G@@BAGCAW?ECi@BGIODOAO@CGE?EFBAB@@CCKI}@DQBA?MCMBG?O@B?EA[@C?KAEA]@ICM@SCSBW?aA@SD?GY?c@"
+  },
+  {
+    "frame": 30,
+    "date": "2025-05-21",
+    "distance_m": 723.8,
+    "time_s": 544,
+    "start_time": "2025-05-21 20:04:33",
+    "end_time": "2025-05-21 20:13:37",
+    "polyline": "wnbcF|sbhVF@@BFADC?DJBT@@BDABBP?XG@@HAL@RALBVAJBPEX?Az@BPCH@n@C\\ENAXFr@AVBZA|@DPGJ?n@E`@K@CCO?SEMDOCGCg@Fa@Ea@@QCQ@IA@g@Co@DwAAO@OCiBAI@c@Jc@My@@Y"
+  },
+  {
+    "frame": 45,
+    "date": "2025-05-21",
+    "distance_m": 720.3,
+    "time_s": 483,
+    "start_time": "2025-05-21 20:16:26",
+    "end_time": "2025-05-21 20:24:29",
+    "polyline": "unbcFbubhVPGTBDCFBTA^HPE@BHCFD?B@AXBTc@RBNODHH?BD?HFL?XCAAF?TELBPE^EJ@NCXDl@CTADHNBjA?z@G\\@NAFGBSCIBGISDMC_@@i@?IBEC[@e@GM?CIDc@AMCEDOAM?MCa@Hg@?YAoBCM@KDUCmA"
+  },
+  {
+    "frame": 60,
+    "date": "2025-05-21",
+    "distance_m": 811.8,
+    "time_s": 609,
+    "start_time": "2025-05-21 20:27:54",
+    "end_time": "2025-05-21 20:38:40",
+    "polyline": "unbcFrwbhVF?C@@AJPB@BELDFHPDBOGY@G@?HFLD@BH?@Q@E@@?EB@BEDMLSLAFC@FDEFAB@LCF@ACPCAWDMF@HHND@h@E^@n@C`@DXGNBTAV@n@C`ADRC\\Bt@CNGBEAEGUGI@ECKB[AGBAAQ[I?WKCDDDL@NRLF@FCBC?CCC@IG[?I@ICC@YEKES@EG?MBEC_@BQCOA_@?_@DY@i@Cg@@m@Ca@@EFECI"
+  },
+  {
+    "frame": 75,
+    "date": "2025-05-21",
+    "distance_m": 702.0,
+    "time_s": 555,
+    "start_time": "2025-05-21 20:43:13",
+    "end_time": "2025-05-21 20:52:28",
+    "polyline": "{nbcF|ubhVNIA\\HEH@XVVCDGHFNu@HBJGTCFBFCD[DBFCDDHBBCFA@DR?FKD??Z@LCh@S@ECOACDHHH?^PINGT?PCRBVEF?JBHALDV?nAKOg@SAH@BINEBK?UQGKEUBCECKHMOOH@FCDKI_@AIQQDEHC@AmCCc@DS?u@"
+  },
+  {
+    "frame": 90,
+    "date": "2025-05-24",
+    "distance_m": 657.2,
+    "time_s": 483,
+    "start_time": "2025-05-24 14:10:54",
+    "end_time": "2025-05-24 14:19:15",
+    "polyline": "}nbcF|wbhVJHLAB@JXFA?DFBFCRBFFLGBDFK@BPKF?FSB@BEB@FC@EB@TAFIn@@EP@t@AJc@ISDFHHBHF`@CCFB^E@AVDPAACH?f@CPHd@@Pa@SUYc@MG@GJECAG@?CIWGAOMMIFICCBQCKCBNIHEAMOE?ATGBEC@w@Ag@BSC}A"
+  },
+  {
+    "frame": 105,
+    "date": "2025-05-24",
+    "distance_m": 553.4,
+    "time_s": 419,
+    "start_time": "2025-05-24 14:21:00",
+    "end_time": "2025-05-24 14:27:59",
+    "polyline": "snbcFnybhVFBHJR@?P@BHEB@LLTGFLDAAOJIBIJ@J?TKB@JQLIVBDDLKFDCP@LBJCx@@bAG^@FDH@VE?KGELE?SYMKG?QGAHI?CSCC_@DIWM@KJSACNWMAP]BCa@B}C"
+  },
+  {
+    "frame": 120,
+    "date": "2025-05-24",
+    "distance_m": 617.2,
+    "time_s": 575,
+    "start_time": "2025-05-24 14:30:30",
+    "end_time": "2025-05-24 14:40:42",
+    "polyline": "snbcFhybhV@EFA?@@AHBJ?@@CXBUGK?FB@AD?DBBDKJ@BNRGLGF@JAJBJGGECG^EHIBBH?BCDMPGH@@JHDLCL@GJAJ?f@BJAVC@D\\Ch@GBIA?LGDEEKAGKKCACEAEBOGI??DBBFC^RNADBERK?]GKOG@OMQY?@CCILGGKFIMEHQD?JIAGJK??KIO@[DC?EEC?EBMIG?C@[CMBG"
+  },
+  {
+    "frame": 135,
+    "date": "2025-05-24",
+    "distance_m": 593.2,
+    "time_s": 573,
+    "start_time": "2025-05-24 14:42:58",
+    "end_time": "2025-05-24 14:52:31",
+    "polyline": "inbcF~xbhVDDBADFDCJRDEB?AFB@DADE@IB?@FFCRB@GH@DA?IH@BDNMDBFAHMD?FIHD@DHAHEFBFGJDGREFK@ITMAK@MCGDICI@IBAD?BJCHFJCPBNEZQN?CPDH?NCj@@b@AHMEEDKCIHOCC@CDC?OM@AOGC?OGCFCACMIIIFYYCLG@?HC?MMBPC?GDOACDGY@SFI?CEGDIGI?M@_@FE"
+  },
+  {
+    "frame": 150,
+    "date": "2025-05-24",
+    "distance_m": 449.5,
+    "time_s": 404,
+    "start_time": "2025-05-24 15:03:07",
+    "end_time": "2025-05-24 15:09:51",
+    "polyline": "_nbcFxybhVL@BDJF?BB@BL@IBFD@A@?CHDFEHD@BDA@BRADUHKNITAF@FENDDHRBDE?NFPAHCF@f@Et@E@EFDDADWIIDICGHIMUSOEKFGKO@SSG@O?CNOMDNIFKAKIAEHm@AMBEGIBYNW"
+  },
+  {
+    "frame": 165,
+    "date": "2025-05-24",
+    "distance_m": 623.2,
+    "time_s": 565,
+    "start_time": "2025-05-24 15:31:14",
+    "end_time": "2025-05-24 15:40:56",
+    "polyline": "kmbcFdzbhVC\\AKHBAKHK?HBHBCFAJHH?BF@SFKAAFBD?DOPBFIF?NKDAHDBDP?@FBBFEBBDGNKBbAAb@CH@FCLDPC@GEAIUCCGGAKEQA?MKFGAOBIBADDBFAD?FGJABJHBFADHH?BBJAHPFBENGBSMIBGK?FE@IKGBYEE@ECM?WWMDCE?EIAE@?DCBIDELIFE?CSA[HOGI?KGGA[FC@EN@HCF@BBCB"
+  },
+  {
+    "frame": 180,
+    "date": "2025-05-24",
+    "distance_m": 481.3,
+    "time_s": 456,
+    "start_time": "2025-05-24 15:57:21",
+    "end_time": "2025-05-24 16:04:57",
+    "polyline": "qnbcFrybhV@KBA@EBBDA?CJBDPFMHNJGBBDHHAFMD?RD@CCC?IBCHHPETUJAFFFGJDBELB@A@@@GFBCNGHE?GBB@HGLE@@EbABf@BJGNEBQE@LWBAB?HWCEBQUGE[IEQUFA@KOQFI@DJECELMDGAEOBO?MEU?KGKBS"
+  },
+  {
+    "frame": 195,
+    "date": "2025-05-26",
+    "distance_m": 563.6,
+    "time_s": 463,
+    "start_time": "2025-05-26 19:02:25",
+    "end_time": "2025-05-26 19:10:08",
+    "polyline": "_nbcFrybhVXJDJHCHNLEF@FMHABK@@FABIN?BDFM^F@AH?NN@?LO@NOJIBIHK@?BMEGDIEQDBDHEHFLCL@LEF@FKJABILACR?f@BTAt@CFO?YDMEKDMSOCIGIFCMSGEMECO@FDYC?LIACK@LK?EBKCC[FGBSCI@MCMFK@U"
+  },
+  {
+    "frame": 210,
+    "date": "2025-05-26",
+    "distance_m": 610.4,
+    "time_s": 533,
+    "start_time": "2025-05-26 19:12:18",
+    "end_time": "2025-05-26 19:21:31",
+    "polyline": "knbcFnwbhV@E?L@Gf@BBH?NJIJCBB?JJDN?CHJ@PC@QRIBKCID?@BNABMBGJGBGDCHBHIPABx@ABCBGAEFC@KAKHG@EJBBN@ZG?TBPA\\Bb@AHBPCXEIOGEGI@GGG@IRICKOGFSDCEGBCAOKYCGH?AQEAHIHCCYHEWBOCQ@GHSEG@WEYBOCGDI?I"
+  },
+  {
+    "frame": 225,
+    "date": "2025-05-26",
+    "distance_m": 607.0,
+    "time_s": 627,
+    "start_time": "2025-05-26 19:23:57",
+    "end_time": "2025-05-26 19:34:24",
+    "polyline": "knbcFbxbhVDGD?DIAMDCDBD?DG@KJKDAFDFEHANKBDNAHGF?BBFCB@EHJAGHID?BHCPA@BIHFFH?DDNA@EEQBKDPDDDCDKJC@HANBRCHC|ABjACHQFAHCF@DELIHI?EBEAEYA@GE?BFCEM@CD?@EPCD[AIDGCK@MKEO?COOKI?EGEBK@?JIDEHG?CGG@EPOBGKC?GIGADQICKUC@IECCBKAI"
+  },
+  {
+    "frame": 240,
+    "date": "2025-05-26",
+    "distance_m": 602.2,
+    "time_s": 672,
+    "start_time": "2025-05-26 19:35:38",
+    "end_time": "2025-05-26 19:46:50",
+    "polyline": "{mbcFpxbhV?CHCAK@@BC?MHEJ@NKH?DEJ@JEJDFCHBJG@BCFDAGJDACBFHHKDHFGXIC??G@MFL?HFAH?@A@CD?Bb@G|@@RABO?@BPHAn@B|@UGGEI?CC?EGACBDFEL@DEFKFQACE@ME@AGBBBECMDC@CF@DIB??KDI?I@@?I@CEUEEC@CC@OK@KEIBEEEF?HMD?BIAE@?NK??DGGMAMKAGGEDKSHIICMHI@QFACG"
+  },
+  {
+    "frame": 255,
+    "date": "2025-05-26",
+    "distance_m": 638.0,
+    "time_s": 677,
+    "start_time": "2025-05-26 19:53:31",
+    "end_time": "2025-05-26 20:05:10",
+    "polyline": "_nbcFnxbhV?EHK?ECA@GF@DKFBJIBBHKJ?FEP?F@JCT?GNJCONTCDDDACLJG\\CDC?KEIFKDL?HFBHOAz@@JAL@h@EBFFA`BK@IGIDMMI`@KFEAGFGGGQE@FGEEBODAHGF@DSDGFWGIK@CMHKCAMDAEO?A?@FG?I@AHC@G??DIAACE@B?AD@DGHA?B@AAIBBBADCIE@CEG?CIKC?IGECMGFQGBGCKDG@OFC?E"
+  },
+  {
+    "frame": 270,
+    "date": "2025-05-26",
+    "distance_m": 728.1,
+    "time_s": 578,
+    "start_time": "2025-05-26 20:09:26",
+    "end_time": "2025-05-26 20:19:04",
+    "polyline": "cnbcFdzbhVGFCCG??g@FG@MDC@CEE?ELO?ID@AKH@BCAIHI@HDC@@HEDBVIHBFCF@PGX@IJ?FDMFC?BUXJKJCGL@@JIJ@CFGBBFXMHDHCF?@KQIAI@IH@DLDB?BBA@VCrAAZK?FDCTH^A@@p@MBUSODGRKFIAGFKMEUEGDGAMHKL?F@@MJE@EE@?C@MFIKIGAQLKAMHG?ETGOC?GTC?CDGBGCGME@CFGASi@EO"
+  },
+  {
+    "frame": 285,
+    "date": "2025-05-31",
+    "distance_m": 703.4,
+    "time_s": 684,
+    "start_time": "2025-05-31 19:55:33",
+    "end_time": "2025-05-31 20:07:30",
+    "polyline": "snbcFrwbhV@GB@?MD?AKBGJADO@FXQH@HED@NIVBJCJ@LCJ@KHFD?CHCKJIBCHPCJ@HADBQJ?BRGHB@CLEDIH?AIAAEI@O@DD?AJHNEL@^GdB@HG@DFCFDFCJFF?PBNOEI@GCS?IKGNKLC?KBUC@KGEBGEEE?@ADA@EAMBA?@FKD@HEB@BINEFKE?GIC?GFCAGDCEE@CHG@A@AHICCFGIGAGVGDAFGA?DQMOUEECOK]GHE?@QCGBGCSHK"
+  },
+  {
+    "frame": 300,
+    "date": "2025-05-31",
+    "distance_m": 725.2,
+    "time_s": 703,
+    "start_time": "2025-05-31 20:09:55",
+    "end_time": "2025-05-31 20:21:58",
+    "polyline": "wnbcF~wbhVDOFGAKHGCIHCLMJFTKH@JABEDCB?DCPANBXE@GB??FMNHCAJKBEH@@DEHIHDCDPEHDIFGCCHBBJIF@VIH?EMDGIUDFDA@NAJDJCR@PCNDv@ELBV?BWCHJHFBRAT@?ALY@GKG?MEEDCGANKLC@ICIDIC?GEEA@AEAKC?FICEBM?BJOD@HCB@@IF?DKFEG?AEGBQ?ADE?EFMD?H?CKFEKG@?FOLAFKC?DACIAQS?ASY?QEIG@A{@"
+  },
+  {
+    "frame": 315,
+    "date": "2025-05-31",
+    "distance_m": 742.9,
+    "time_s": 722,
+    "start_time": "2025-05-31 20:27:30",
+    "end_time": "2025-05-31 20:39:32",
+    "polyline": "ynbcFzxbhVHKCKFM?KHADMD?LKJA@EAEP?JEJMBJb@IT?JEB?GHELNK?DEFOLD?DEB?DK@@EF@BJCD@DAMHBHFIHBFGTCBQG[@CBFBC?LFNAhACn@@LCL@RIEEBPL?VCLBTCFKEKBGCE?GGE@AJOLK?EDEGE@CC@BC?CG@GIMCBBGASNQTCDIDA@EHACKEGIFCAG@CDIAELI?CPC?IIADC?CJEDBHIEADKEBNEKI?GIME?OKCCIIQEJABECAcA"
+  },
+  {
+    "frame": 330,
+    "date": "2025-06-03",
+    "distance_m": 774.1,
+    "time_s": 682,
+    "start_time": "2025-06-03 19:14:11",
+    "end_time": "2025-06-03 19:25:48",
+    "polyline": "{nbcFhxbhV@EJA@GHID?@B@OJCFEHMAEBLDAFGX?BB@EJICJDKBFEFBDLSF?GNFGLIAFHE@@EBEH@@DCADC?EDG?AF@DHILEB@@FBIFBDO@AHDCNGBCC?DHIFBJK?B@?DBNKD@BHERBDAZEJ?DEB?D?DFABDCRFl@AJAr@IC?^ABACCRGFA??AUDE?IG?KEA?IBYHC@IDBHCBIAKFC@MBABQAKEDCCSIMBGFEKEDIBCEGBECEPEEA@KACN?PGDANE?KGI@GIIBEIMMIJAHBDA?CBEHIBC_@BWCYDc@Gc@BK"
+  },
+  {
+    "frame": 345,
+    "date": "2025-06-03",
+    "distance_m": 521.9,
+    "time_s": 457,
+    "start_time": "2025-06-03 19:28:31",
+    "end_time": "2025-06-03 19:36:08",
+    "polyline": "smbcFnxbhVDYBIA@ACBEEKBQBGRUD?HEFBDGBBFGABZE@BJ?BBHCFDH@DE?BDAHMRMF@T?FT?JIXBJA^BRERWEG?AICEOD?JK?CFBFD@?NB??DJJHABFCHF@@FFBFFE?CBAGGJEAIOE@KSKACEE@CCC@ALGACC?HINEDI?ADGGE?CIC?CBECAEIACIGCAKIFMC@MIK@SFQ"
+  },
+  {
+    "frame": 360,
+    "date": "2025-06-03",
+    "distance_m": 673.4,
+    "time_s": 589,
+    "start_time": "2025-06-03 19:38:23",
+    "end_time": "2025-06-03 19:51:12",
+    "polyline": "qnbcFbybhVDQJC?BB@FC@ED@DEH?@@TE@HD@TOHBHEDBDEF@LK@KDA@_@HA@GB?ODQIBOCCKBCCK?KM?GBA\\IN?HFLEDBR@JEFDJ@BHCFAJFNCD@LC`@A??C@BEAEGI??BGFCNIHCJDHCPDF?LBJAA?F@LCL@JCJC@ATIB?HEHKCG@CDG?OGe@EGDI?EBE?EGGDM?@GHK?INMBKA@@CS]NILRF@BAAIGEDEKMF?EOID@EIBACSIMBMGI?BM"
+  },
+  {
+    "frame": 375,
+    "date": "2025-06-03",
+    "distance_m": 160.6,
+    "time_s": 140,
+    "start_time": "2025-06-03 20:02:59",
+    "end_time": "2025-06-03 20:06:00",
+    "polyline": "embcF~ybhV@BHB@IBH?G@CB?HHDAHJB??JJB?FAA?HBPA@IBF@?NGLA@KCEDEEG@IIGACKGA@g@DY"
+  },
+  {
+    "frame": 390,
+    "date": "2025-06-03",
+    "distance_m": 204.6,
+    "time_s": 195,
+    "start_time": "2025-06-03 20:08:37",
+    "end_time": "2025-06-03 20:11:52",
+    "polyline": "ojbcF`zbhVFEC??EH@CC?EJ?@MBAB?DDDCBLF?@D@IJI?JED@BBEHF?FFN?FEHDFSj@KAOHKGE@?IMKGSCA?KDCEQ"
+  },
+  {
+    "frame": 405,
+    "date": "2025-06-03",
+    "distance_m": 211.4,
+    "time_s": 209,
+    "start_time": "2025-06-03 20:17:17",
+    "end_time": "2025-06-03 20:20:46",
+    "polyline": "gjbcFn|bhVAAD@DNGHCSGBGNEAEFKMGBCCAEDKKE@OCCBEACE@@CEI@KAEPWAGBA@BH?@EDBHEDBFELN@LF@DT?PIHBLOJ"
+  },
+  {
+    "frame": 420,
+    "date": "2025-06-03",
+    "distance_m": 244.5,
+    "time_s": 218,
+    "start_time": "2025-06-03 20:22:08",
+    "end_time": "2025-06-03 20:25:46",
+    "polyline": "mjbcFp|bhVGLC@KAE@?BQCCE?OC?AA?E@B@CCAA@BB@ICKCAEDMCCOBABADDF?AEBCGKDI@IBEAEFEEILCHBBAHBBGNHFE@FCABHFDAHFHGJ@JB@FKCHDBEDBFAHIHAHGAG@"
+  },
+  {
+    "frame": 435,
+    "date": "2025-06-03",
+    "distance_m": 289.9,
+    "time_s": 321,
+    "start_time": "2025-06-03 20:27:59",
+    "end_time": "2025-06-03 20:33:20",
+    "polyline": "akbcFr|bhVIBAKKCDICM?@BEGGCQDCBOAMJA@E@@CODC@GB@BGDCDHFADJFB?CCDBH@CCGBA@HAGD?AKBC@BBAHDOR@@BGBJDA?HAF@?@BBE@@AJBHAB@DAFIL?FGD?FEBCAAFEDC?EEIHI@CG@GE@KEGA?WEO"
+  },
+  {
+    "frame": 450,
+    "date": "2025-06-08",
+    "distance_m": 807.1,
+    "time_s": 665,
+    "start_time": "2025-06-08 13:32:47",
+    "end_time": "2025-06-08 13:43:52",
+    "polyline": "{nbcF`tbhVBAZ?@DR@DFHCB@NGDHC?CJJP@BLI@DGLBFCDEA?B?RGH[B?NEFDPGHAVDRPKAD@FFAHMA?@IDEJ@BD@?VUDBLIDBDPFGDBCPBDF@@FC@DTKFCF@LIFELE?ILIBMCG@AKMG@EMCFCAKGKG?WJMCBPGH?DG?CHGEE@EC@KGQCfAD?GD@rACdAEIByACUJgAE{@BMCQBe@EYDa@Es@EE?[BKHA"
+  },
+  {
+    "frame": 465,
+    "date": "2025-06-08",
+    "distance_m": 800.4,
+    "time_s": 684,
+    "start_time": "2025-06-08 13:45:23",
+    "end_time": "2025-06-08 13:57:55",
+    "polyline": "clbcFbtbhVDEJBBHHER@FBLET?F@NCF@AJ@CACHKEHDFCDC?HLC?HDAA@B?C?DKC@C@@EC@JGLBBCNCFGA@JF@CF@TIJBJ?JITBB@NCLB@?BEDE?AB@PF@ARBFCRFFARA@@IDA@@HGATD@@DG@?PM^G@CH@HAFDF?HGJ@DAVAECBACEDG@O@O?AEIAODACK@KEEFACMDGFE@ACGBKKO@CCDGDABMZ[@CCMDGACKBEKUS@IGWNGJKHADEBADBFKACD?DGDAFGHN?Q@@BG@@?g@EGB?@KCODCEKBIKKB[GMBG?IIm@JGEGBC?QCOBA"
+  },
+  {
+    "frame": 480,
+    "date": "2025-06-08",
+    "distance_m": 1228.8,
+    "time_s": 1140,
+    "start_time": "2025-06-08 14:02:45",
+    "end_time": "2025-06-08 14:22:39",
+    "polyline": "kkbcFrtbhVB@HELHN?BF?GDI?MD?@BLA@@EL?XJEC]h@EHBDCH@?LDT?H@B?BEC@D?HCH@BAACLFTC@AHBJEJ@JCFBTCLDLCB?DFLC?CH@ZAj@EDFF?\\EHBP?LEH@FCZBPCJG?ACOBEE?GDMB[I_@HKEGMK@GCCESG@CE@?EEM?AJOFCD@FKDABALILCVGJAFIHECGFS_@ECAI@GDOLSBAHBFEB?BMAEB?HGHS?IIDEB?BA?MIC@?IECC@@EA@B?E@KEA@AAE?GJMC?DFD?BGHE@CNQFEECAAQB{@AaBBYEGHQ?Q@AIw@DIFHAEE@CCL@EU@ILA@P?MDPAI@GBCB@Gp@@FAFBSFC@M@LAOA^GR@P@OHOB?HQ@HFAEHETCB@HC?BNCBBEFCEM@ADDBHAGAJBD@AD[FN?VAGDM@SPECc@DW?O"
+  },
+  {
+    "frame": 495,
+    "date": "2025-06-08",
+    "distance_m": 778.4,
+    "time_s": 674,
+    "start_time": "2025-06-08 14:27:30",
+    "end_time": "2025-06-08 14:38:44",
+    "polyline": "yjbcFftbhVVG@BB?VD?AFCD@H?F@JCHDF?DBG?@JF@?JA?BL@NAL@HAACVE?CDB@FP?HCDFNGBFFELEEADK@MJICA@@DE@CDK@IJI@?PALEFEA@NI?CJMEQ[AIHMEEFCCGHC@KLFAGB?H@?G@CD@BMROOCCE?IK?IKG?EGELIG?DDV?DK?AFMJ?DCDC?@BCHGFCPEDA?CPACCF?JKF@FITM?@LGBGFCI?QF[AKB]CKBUCU@c@GYFo@E{@BKH??IJGXDDATDJ?HC\\?"
+  },
+  {
+    "frame": 510,
+    "date": "2025-06-08",
+    "distance_m": 712.0,
+    "time_s": 652,
+    "start_time": "2025-06-08 14:40:12",
+    "end_time": "2025-06-08 14:51:04",
+    "polyline": "albcFbtbhV@@BAH@VAFBNAPHLEb@CDBHCBBH@@j@Cj@FTCRBPCJ@HE@E?EHMCCDE@KA@NIf@CBGA?NIFUQEQIF?CBE?@AGA??HC?CQEC@TE?GCEPI?@JCCCBDLEBELG@CROR?JGFCHGF@DGMELCQCJAMFYMLC?AE@q@B]FBH@HKECBGAK@?@IEI@GCI@AQK?CAAAM?MFk@?BCSEIDQCIASFAASBCLEL?DBJGCRARHAFBDCAK?EDA?M"
+  },
+  {
+    "frame": 525,
+    "date": "2025-06-08",
+    "distance_m": 971.9,
+    "time_s": 859,
+    "start_time": "2025-06-08 15:04:55",
+    "end_time": "2025-06-08 15:19:14",
+    "polyline": "kkbcFxubhV?H@?JEDM@D?CDEAGDCD@AMF?BJB?BOBFIX?DBAAPGJ@FAOBG@?BRCLATBEVEFGAGC@ME@QJ?Ie@BQDCNCFBDENAANH@CC?IBCHF?dAFNEP@d@CXB\\C?EGAQOQANIGAHI?CD@@H?BJD??JD?BDHBBFDBATEFc@i@BDCHMGQBSAAFDH?HIFE?IBEIAGAFAKAA?GDID?DGHD?GF?BEAAKEEGAHQ@FD?BABCAADAHGCARGJANEFEPEB?NIBGACEBEAE?LGBAGMABWEADIBMD@HDBC?GEGBG?EKIAIIGDIIKAOBGAMBGAQFUT_@?MFBCd@GRBLF?FELy@NY"
+  },
+  {
+    "frame": 540,
+    "date": "2025-06-14",
+    "distance_m": 683.0,
+    "time_s": 564,
+    "start_time": "2025-06-14 18:01:58",
+    "end_time": "2025-06-14 18:11:38",
+    "polyline": "{ibcFntbhVPEJ@?ND?BDGN@LE?ABE`@A@FRIXEFDLFKFCJPEHIECBB@BFIFDLIR@PKZB`@E`@BPAJCBBD?DBDCC?B@@BK@B@DIK?BB?GAEIAeBOa@EA?LQ?EJC?AFOOCAH@DA?EEEFWC?GH?DB@ABCBI@?LIH?JA@GADMGBGADMDA?DB@BKKWBMAKHMDOANAD@@L]F??KBCFFCDALLHBDDCEO?OH@JEEU@GFCFKCYBMIKFWPO?G@A"
+  },
+  {
+    "frame": 555,
+    "date": "2025-06-14",
+    "distance_m": 406.4,
+    "time_s": 317,
+    "start_time": "2025-06-14 18:13:00",
+    "end_time": "2025-06-14 18:18:17",
+    "polyline": "ujbcFnwbhVFBBNGZ?LGRBBH??HADIB@LEGB\\GLFPCh@GNCI@IGYHWAG@KKKGBI@B@AFE@?SF?@CGCE?IN?ZA@EACI?K@IFE?EAECAG@CCDMJKBRCFAAFGACBAHQD?@HDAHU?IFDALD@?IIYDICI?GBCHDHG@C"
+  },
+  {
+    "frame": 570,
+    "date": "2025-06-14",
+    "distance_m": 291.9,
+    "time_s": 271,
+    "start_time": "2025-06-14 18:19:52",
+    "end_time": "2025-06-14 18:24:23",
+    "polyline": "sjbcFzwbhV@XKJDLGNBHH?CPGCCBBJ?JEHAC@L?T?@BCEP?JEPB?ABC??_@BO?GBG@IOGAGADI?AHCIBIC@GEKXGKD@@CCOBMHKJG@GFFB?BC@OHS@UCKF@@GHB"
+  },
+  {
+    "frame": 585,
+    "date": "2025-06-14",
+    "distance_m": 362.8,
+    "time_s": 346,
+    "start_time": "2025-06-14 18:26:18",
+    "end_time": "2025-06-14 18:32:04",
+    "polyline": "{jbcFjxbhVB?APED@XKH?BHFHC?@?BMFABB@AXCDBE@FEV@JCD@M@FEJBNGF@JE@@QDO?_@B?@IQWGACH?JECC?@GCBAACDBJEFC?AGEC@AB@AGBAIC@MCIHE@I?FEBDB@CAGFGD@?GFBANDC@EGC?CDCFB@Q@INCKW?QNGDBBD"
+  },
+  {
+    "frame": 600,
+    "date": "2025-06-14",
+    "distance_m": 340.5,
+    "time_s": 362,
+    "start_time": "2025-06-14 18:38:01",
+    "end_time": "2025-06-14 18:44:03",
+    "polyline": "ujbcFhxbhVH??BEHC?DHOXBXDC@@?JG@CBB@BB?PGDBL?HDF?L?AGNBFAF@C?@EAC@BNI@EGBGAg@FI@GIKEAE@CDCE@M@@CAKJIPAG?FCA@MBEEM@ODMBJC??DDOFIFB?LDCAIHAAIBC@GFEEI@G?SDED??K@CBDFD"
+  },
+  {
+    "frame": 615,
+    "date": "2025-06-14",
+    "distance_m": 364.0,
+    "time_s": 342,
+    "start_time": "2025-06-14 18:45:52",
+    "end_time": "2025-06-14 18:51:34",
+    "polyline": "mjbcFbxbhVFLILDFC@?JIH?BHBEHBA?HEBHTCJG?BBCLBBBJ?BCA?NEJBBCNGJAACa@@SDKCI@CCKMCARA?EAAE?EFA@GCAG@AB?FGBEN?IGB@KBIGGBKFGAG@?@NB@DCCSHIDTBAAI@AHA@ECODCBHBEES?U@EJCDGDDCF"
+  },
+  {
+    "frame": 630,
+    "date": "2025-06-14",
+    "distance_m": 369.3,
+    "time_s": 347,
+    "start_time": "2025-06-14 18:53:02",
+    "end_time": "2025-06-14 18:58:49",
+    "polyline": "ujbcFpwbhV@LDJKN@XEJBBHA@@CHEBAACDBPCNEBBTEL@FDIAE@FONHBANEFACDICODGBWEKBECEGDGGKDADAC?DCEBAEAF?BGGDCIGVCDC?AQBB@MEOJI@KA?EL@BHEHQFFB?BQDM?JBC@IEG?SHSAINHDC"
+  },
+  {
+    "frame": 645,
+    "date": "2025-06-22",
+    "distance_m": 431.8,
+    "time_s": 401,
+    "start_time": "2025-06-22 14:06:13",
+    "end_time": "2025-06-22 14:17:07",
+    "polyline": "{kbcF|wbhV@KBCAJBBFAGMBIEKBGAIBICCHKBB@G@AHBDJ?NCRBDE?ALDJAA?DAC@EB@AA@@C@?B?AFJAA?BAA@GAB?C@BAD@IDAAB@BICBEABAA?HDIGA@XBI?FC@?BBBGA@HIFCND@A^A@?F@B?BAE@NAHEB@ZCBEIBGAILWEEAa@II@GCDWBKJ?AAVCC@GMFHCCA?ACB?DCAACBIB@BA?KA@EGES?EFO?JBC?KDDDALOFDB?@S"
+  },
+  {
+    "frame": 660,
+    "date": "2025-06-22",
+    "distance_m": 743.7,
+    "time_s": 640,
+    "start_time": "2025-06-22 14:20:22",
+    "end_time": "2025-06-22 14:31:21",
+    "polyline": "}jbcFhubhVLGA@@@F@AFLA@BCH@LCHFBG\\J?A?EDAJ?EA@DBGH?FAFDFADB?EDAVGFAFKSJWCA?AE?IMEACLAEMBKF?DB?@FI@GKCOGIC??GHK@@CDJC@UHADB@VL@@UCCCQJHBA@IEQD[Vi@HCLBHAPAHB@AJ@FARB@VGTDHBzABDARBZALBTAT@^Cp@@NEZ@REF@LED@HCD@TGAKHYEBa@OCG@GGFGBKDAJBBAD@?C@BBCD@@BFA@CT@"
+  },
+  {
+    "frame": 675,
+    "date": "2025-06-22",
+    "distance_m": 842.8,
+    "time_s": 622,
+    "start_time": "2025-06-22 14:33:52",
+    "end_time": "2025-06-22 14:44:14",
+    "polyline": "_gbcFl}bhVQ@CIM@OEKFCJA?BDJAL@IR?TEF?ZBF?DC?ACMCA@@BFDJ??DIBKICFALC@IECLEAF@?DB?DFDE?TBCF@PECRJFTKLBDOCGAa@BI?m@AIBUAU@]CKBq@E]BeACaADg@ADK?KC?ECAS@MCe@BCDDbAFJEJDD@BGBAJHEEPAAEDADF?BCHHMPG@?PEEEFAACKBIG@GKCJGCGDCCG?CBFD?FICCADKAEOOHIFDBMCID@BFLE?JBA?@EBFBBEACG@AICA@ANBDC@IIK?EJQNJFCDB@F"
+  },
+  {
+    "frame": 690,
+    "date": "2025-06-22",
+    "distance_m": 807.2,
+    "time_s": 779,
+    "start_time": "2025-06-22 14:53:51",
+    "end_time": "2025-06-22 15:06:50",
+    "polyline": "sjbcFvwbhVDGH?GD?VDFE@ALDFGHBFABMLEKGG?EEAIHIAGBABBJCABEQEIO@GJGFUPPF?@DBIMODAAK@B@E@B?AACHADDD?HIFAJOBc@Gc@FQL?JDRCDBL?JE?@BC@HFA@DC^DVAVCBDN@ZCJEDDDJr@CJD`@CPCBSEI?e@CIDAJJFLAFDKFCHBTGJBLCFAA?@MB?BBBAAB?E?@@F@?FJD@EABBA?FM@KCCB@JC@KICDAJIEDDJE@LJBAH@DDCJ@BG@B@ABBBC@ECFBXF?HEDAHDBCC[FW?]@ABIESBMC[Dc@"
+  },
+  {
+    "frame": 705,
+    "date": "2025-06-22",
+    "distance_m": 832.1,
+    "time_s": 679,
+    "start_time": "2025-06-22 15:32:35",
+    "end_time": "2025-06-22 15:43:54",
+    "polyline": "yfbcFx|bhVEB[IK@MCI@B@MBCD@DPGH?@CBBET@RKV@LADG@?HK@BLDBF@@CBHC@MCCCGBAJAA@DI?CDC@FB@JHA?JJ@BHLA@D@P?CLADCB@RA?IDK?QEOBK@i@EaB@uAKA@B@KCK?MFc@AeAD_@CGI@QECDS@GCEBQCER?VIJCb@BDHB@D?TGJBAHBST@BJA?DMN?NI?EMCACKAGB?EFG@ALGGGBECHJCHAAKICSG@CGLIF@CSBGB@DNACFC?ND?@KCKND@C?_@@CRCHV"
+  },
+  {
+    "frame": 720,
+    "date": "2025-06-22",
+    "distance_m": 826.3,
+    "time_s": 726,
+    "start_time": "2025-06-22 15:58:26",
+    "end_time": "2025-06-22 16:10:59",
+    "polyline": "_kbcFbxbhVDQHIBBBPHBCA@\\FEG@BPKLD@BE?JGLE@EF?IGGEKE@GLKMGD?TA@K_@G?ACBEFCBGCCJAAED?@CAHNHEIDEF?DSACFGAGBOCC?QHM?g@BGDCD@@CTDTC@@BCV?PDBFABC^?`ABTA\\JzAWBSCQ@KAKJRFNAAHIDBLGp@BFKCIH@JDBB@FG@H?EDDAA@@A?CFC@KEOBCD@LICEHEIAB@FFGDD?FJBBPHBBAN@AP@DF@^EBB@CAg@BI?OBG?S@CGy@B}@"
+  },
+  {
+    "frame": 735,
+    "date": "2025-06-22",
+    "distance_m": 845.2,
+    "time_s": 685,
+    "start_time": "2025-06-22 16:12:01",
+    "end_time": "2025-06-22 16:23:26",
+    "polyline": "{fbcFf|bhVU@IFMQG?IDAEEDE@CC?DJHJALBKL@RGb@BFADMCKL?DH@BLFC@@BC@DAD?DC?QEC?GHCLGCGHEA@B@A?BF@BHLEBXVC@NFJR@B@JED??@DICIC?AI@KFIEGBC?YBIEy@Bw@Ee@BOCe@BMGYDEEKA_@B?Ac@BKCM@GAMS?GFKAEBKIMFGCI@Fx@ADEDE^?FDFAHC?@JD?@@EFIHCADFF??LIFCLICASICG?GLI@IEBDAJEIGCAB?MGGBENGCIBKBADNB@?FB@DACI@EDC@F@ADWFE?KPFF?FJ"
+  },
+  {
+    "frame": 750,
+    "date": "2025-06-24",
+    "distance_m": 815.6,
+    "time_s": 517,
+    "start_time": "2025-06-24 19:55:34",
+    "end_time": "2025-06-24 20:04:54",
+    "polyline": "}jbcFhvbhV?N@INGB@@JFD@NENDHEFBJGn@GA?IY?EIC@CP?KCCE@KGGB?FBJI?CGBKSGDMFCAKJGAEFBLP?AD@@IAMBJB?@K?[@AJCDIDA@ICa@FSDAl@BHEDD^EBBFAATH`AC\\@x@AFBN?VKEU@ICKPBLB@PB@BNEC@?LIXE~@IJ@FFFGFKEG@EN@LI@EGC@CDAFEACDJB?LNCBFAJFDl@AFC?kAFa@Ee@DO@UDGIo@"
+  },
+  {
+    "frame": 765,
+    "date": "2025-06-24",
+    "distance_m": 642.3,
+    "time_s": 474,
+    "start_time": "2025-06-24 20:07:42",
+    "end_time": "2025-06-24 20:15:36",
+    "polyline": "}fbcF`xbhVB?EFIGWHG??CHKAOQQBIACCACDACMAEKQLICKLO@ADHN@VCTDHABE@ADKLFFCKFHJ@BA@FED@DACE@KECDD@CFDD?BE@ICCG@IGO@EB?@OFE@IACABAU@?C?BAIGCOGB?SMAIHECALDRCF@JKB@FISKK@KBA?KKIAOKI@QCMG?CK@GJOLARDd@C`@@TDNCRDPCV@TANDDCAFBFCh@DPA`@"
+  },
+  {
+    "frame": 780,
+    "date": "2025-06-24",
+    "distance_m": 559.6,
+    "time_s": 456,
+    "start_time": "2025-06-24 20:18:05",
+    "end_time": "2025-06-24 20:25:41",
+    "polyline": "_ibcFb{bhVBD@TANS?QFCFBFEHE@OECIIGBAAEMY@MIUL_@AID[HM@GI[?C@D?KMI?EBGCGE@ACAG@ICCA@?CGEE?CEMBGA@TGLKFUTC@ACDAEIA_@BYBEH@RCl@FNCH@j@@AHA@AC@BDT@\\@DANDNEL@JEPEB@FGRGB?FEDEJDNJB@J?MH@@ADBRDHI"
+  },
+  {
+    "frame": 795,
+    "date": "2025-06-24",
+    "distance_m": 629.2,
+    "time_s": 523,
+    "start_time": "2025-06-24 20:28:35",
+    "end_time": "2025-06-24 20:37:18",
+    "polyline": "aibcFb}bhV@@AKBG?NBCFADD@B@IL?@EHE@GDDHOCE?MEGCAOXCEG?AFCBKKC@ELDHOHKIOBKCMFCC?@SANBGLEEE?DBFH@AHDCDI?GBCE@CGC?DFDFPEBEKC@AHCGIG@SIQDO?S@WCEDK@OHIEQDUEIFIB_@JKAIBIKU?OBGX@VAB@F\\EJBPGP@BGB?`@G?ETEDAD@BELQT@TFBDC@B?DGDKEC@BDAFEB?FJF@J"
+  },
+  {
+    "frame": 810,
+    "date": "2025-06-24",
+    "distance_m": 131.0,
+    "time_s": 127,
+    "start_time": "2025-06-24 20:42:45",
+    "end_time": "2025-06-24 20:44:52",
+    "polyline": "clbcFl|bhVHBBFBCD@DFDCF@HIB@@PFA@@?HK?ANA@MCEIKDGAEFGBA[CEFOAG"
+  },
+  {
+    "frame": 825,
+    "date": "2025-06-29",
+    "distance_m": 125.5,
+    "time_s": 101,
+    "start_time": "2025-06-29 18:47:50",
+    "end_time": "2025-06-29 18:49:31",
+    "polyline": "elbcFb{bhVAHGBOIIZE@?DGJC?GMAQEIHELQDA?KHOLJ@BNFAL"
+  },
+  {
+    "frame": 840,
+    "date": "2025-06-29",
+    "distance_m": 108.4,
+    "time_s": 80,
+    "start_time": "2025-06-29 18:52:17",
+    "end_time": "2025-06-29 18:53:37",
+    "polyline": "_nbcFtzbhVE@EEGQGIBQAGBMAE@AD?JHDCA@N?DFA`@EH?HAFID"
+  },
+  {
+    "frame": 855,
+    "date": "2025-06-29",
+    "distance_m": 248.1,
+    "time_s": 201,
+    "start_time": "2025-06-29 18:55:21",
+    "end_time": "2025-06-29 18:58:42",
+    "polyline": "_lbcFt|bhVKWBAEC@GLC@CG_@DG?OFE?QLEBDJ@BDA\\GJ?JDFCF@LCF@J?FBFARHEBJHDEVO?CHC?c@]AEDE?KHC@CACIA"
+  },
+  {
+    "frame": 870,
+    "date": "2025-06-29",
+    "distance_m": 319.9,
+    "time_s": 257,
+    "start_time": "2025-06-29 19:01:07",
+    "end_time": "2025-06-29 19:05:24",
+    "polyline": "ukbcFj~bhV@IBPDKHJHIDFFC\\JH@JCHDHID?FBCTDA@IB@BFAFG@GCC@AJTBAHJDAFGDGIGAABBBE?MIYEGGGAA?B@C?AIIBCF@DD@@DIFE@CDKWQOSFGEIODSBEJEH@"
+  },
+  {
+    "frame": 885,
+    "date": "2025-06-29",
+    "distance_m": 386.8,
+    "time_s": 320,
+    "start_time": "2025-06-29 19:06:39",
+    "end_time": "2025-06-29 19:11:59",
+    "polyline": "wkbcFf~bhVBLD@?KBCBHF@GL@DHGBFD@BA@GFIVFXED@HKLLLEBGB@@DET@JGBAD@?@CD@@PCH@LGCQA_@IKBCEIA?DGB@RE@CBA?GQI?GGK@KGEBIGK@INIGEFAMGKHOAKEDFSJEBKF?ADDBF?BODE"
+  },
+  {
+    "frame": 900,
+    "date": "2025-06-29",
+    "distance_m": 393.3,
+    "time_s": 311,
+    "start_time": "2025-06-29 19:13:36",
+    "end_time": "2025-06-29 19:18:47",
+    "polyline": "{mbcFh~bhVCJCEBOJK?KDALDFAJGLQHLJKB?FNB?DILLRILHJEF@LEN@HEHFCP@b@Ev@EEK@OOg@OABDJADIDECG?EDC?AC@MEGKHQKIFIIIDG?CJKBEI?OM?E["
+  },
+  {
+    "frame": 915,
+    "date": "2025-06-29",
+    "distance_m": 455.0,
+    "time_s": 376,
+    "start_time": "2025-06-29 19:22:54",
+    "end_time": "2025-06-29 19:29:30",
+    "polyline": "kmbcFn}bhVAAFFCDE?CEC?DQIA@IEC@KAO@ABNACC@CEBG?M@AF@DEBECCD@@JFGFJFEAOBGJKD@FHF?JB@JB?BMD@@BEN@@DGAEHIDNJ?DDDIFBFCN?@DHKBDD@LKDBCJDLANBN?`@CLEA?B@EECE@ICK?GGK@CEM?QCEHIEGBGMGFGBIGEHIMIBGEGRGC?CCAAB"
+  },
+  {
+    "frame": 930,
+    "date": "2025-06-29",
+    "distance_m": 428.8,
+    "time_s": 387,
+    "start_time": "2025-06-29 19:32:08",
+    "end_time": "2025-06-29 19:39:13",
+    "polyline": "ombcF~{bhVCD@I@UM?DIGIFKCIBHAFAOEF@KFGL?DKB?BHJB@FB?CEHKAIHEFDEC?EJOD?@DBBALDEB@@D?HDFB@@C@F?CB@?HFKBD@?HAJGNAFENDHKRBARBRATBNCZMCOBUCMEWAGC@@A??CE?IDIMMDKIGBEEGACFI?CGB?AFEJOGCJAE"
+  },
+  {
+    "frame": 945,
+    "date": "2025-06-29",
+    "distance_m": 555.1,
+    "time_s": 464,
+    "start_time": "2025-06-29 19:52:36",
+    "end_time": "2025-06-29 20:01:00",
+    "polyline": "anbcFvybhVG?DDCLCMPQF?@MDBFGNHBEFCFIB@?MDCPJB?BB@?BKB@BH@N@@JO@HIJFG?EL@ABDCAALABDJALIJBNIJFC@B~AKNCAA@C?OKWKK@CAI@GGCKAABP?LFACLGBOMKCIND@CBB?Ad@DBAHCBFFGPGAOKAEGAEEDIBYAI@IGGAI?QIDCZC?CEO??CCFEE@SMIDQAU"
+  },
+  {
+    "frame": 960,
+    "date": "2025-07-17",
+    "distance_m": 569.1,
+    "time_s": 441,
+    "start_time": "2025-07-17 18:48:14",
+    "end_time": "2025-07-17 18:55:35",
+    "polyline": "{kbcFpxbhVBA@MFBDEA@HHBAB?ABDFNQHDFCD?@LHCPATLHCHBFEB@KrA@ZADSIIB]IIJIKIAEDBFEBGEA@?FE@ECFF?HBDEN@HDDBZCNCBQC?H@B?FKFCG@QEC?QDWCM@KEO@OCGEIG?AEKCC@BTK?EFC?EKDE?IACK@OSBOAGKJC?CGD?DQHG@QBEJ@JCH@VKDHBA"
+  },
+  {
+    "frame": 975,
+    "date": "2025-07-17",
+    "distance_m": 484.7,
+    "time_s": 376,
+    "start_time": "2025-07-17 18:57:55",
+    "end_time": "2025-07-17 19:04:11",
+    "polyline": "{kbcFjwbhVD@AD@CJ@BAPHAEHHDADIBAFAJDDID?HDJKHNB@DGFHPCATBXAL@XC\\I@FFAJG?GGS?KGQCCNMGGUCCIFEA?EEACFE@EGCBQA?NACG?E@CD@DF@E@BBCLC?CGFKC?EE?ECCC@EJ?IAAS@AQBEAUGVC??EBWDCCKDA@GAU@INGRCD@?BHB?MCC@EDD?H"
+  },
+  {
+    "frame": 990,
+    "date": "2025-07-17",
+    "distance_m": 559.7,
+    "time_s": 472,
+    "start_time": "2025-07-17 19:05:07",
+    "end_time": "2025-07-17 19:12:59",
+    "polyline": "elbcFdxbhV@EEDHD@EHIHDDAAHHGL?f@[JAl@DNADB@BENEBDFAL@HAPBTCb@E@KEMBGGMBEACNJB@NLH@FJDBF]NABLFHJAFUKGDCEWi@Ic@IKAOCAC?@?C@AAOCABKA?HKAELB@ABBFK@CABMCK@@C?EJEAEMEBEOCAAFB@GACICAF?BEAIDO?ODKEI@ED@PGNA@GBFFC"
+  },
+  {
+    "frame": 1005,
+    "date": "2025-07-17",
+    "distance_m": 617.1,
+    "time_s": 529,
+    "start_time": "2025-07-17 19:14:21",
+    "end_time": "2025-07-17 19:23:10",
+    "polyline": "ykbcFzvbhV?BDA@NJCLHHCL?@CDCBDH@HI@FPEDBDFH?FH@ABBBEDJAAF??DAb@BD@p@ADCCMDMAQBHABFFBHE?DCHG@IEKMGCCGEB?HADGEMCKKIC@BGRIb@@LDH@LDDEDG@Q?IC@^QJCC?K@YAKDOCE@GPg@AIDOC@@ADE?EO?EEC??LI?ANIBCQ@MGCA@BPMICIBMUKBEFAAKFIAULKDMFEXBDD"
+  },
+  {
+    "frame": 1020,
+    "date": "2025-07-17",
+    "distance_m": 705.1,
+    "time_s": 554,
+    "start_time": "2025-07-17 19:25:58",
+    "end_time": "2025-07-17 19:35:12",
+    "polyline": "slbcFvubhVBAL?HGJBNIP@FGNBFEJAJGZGNGH?E`@DRHx@?n@Ax@EJEBDD?DMBGME@@DHFDJDAB@@HCDE@MOMICO?EGBEMCAEXKJ@BFA@B?DGH@DK?MOKEWPKICFMK@KHKGEADEAEGLC@AFFFEFLDEB@BGFEBI?CEO?KG@EDQIFCBGKAMLI@CH@HI??C@FANUEAAFEMS?OMACM@IEACK@KCCA?GP@CEMDAFSBA@MNKAMTK?BBAABHC"
+  },
+  {
+    "frame": 1035,
+    "date": "2025-07-25",
+    "distance_m": 784.3,
+    "time_s": 465,
+    "start_time": "2025-07-25 20:07:44",
+    "end_time": "2025-07-25 20:15:29",
+    "polyline": "slbcF~sbhVLATD`@AHJHCEFb@GVBDE@EF?DAL?DA@HAPBPEDBJAl@BL?^BPCD@JEZBZADU?L?JHCH@NCNC?MKSAENU@KLKKG@CEGFBJCBKICEBSII?C?BDA@EEMCAIMBCKEBCDBNNRBDJHCDJDG?GDELA@CACDKAIBEEIGEAEa@GODAFK?ECOF?JKDALBJC?EF@?CFIC?GEBCC?CHEAICCIDAACUCEC@SSKE?SKQBGB]AKG]?OBOFEVBJKF?NK"
+  },
+  {
+    "frame": 1050,
+    "date": "2025-07-25",
+    "distance_m": 777.0,
+    "time_s": 598,
+    "start_time": "2025-07-25 20:16:12",
+    "end_time": "2025-07-25 20:26:10",
+    "polyline": "klbcF`tbhVF?@@RGZALB^CHFFCVAFEBDNAF@@HEV@VAZB^C^ELCj@CFFJDJAX@HC@SEGD?NADKBCFI@EHOBEFGU@JAGFJGHEB?FGDOSAMK@LGBEACGGG@AGSKHOJDBHD@B?PILHD@BA`@o@EMDE?GIIAMOHICCGQHMEI@GEEDCPCCEAED?TCJDHGCU@EC@SAGEG?IEEIEIBGIAOMIDa@COB[CWD[BID?N@LCFCN?"
+  },
+  {
+    "frame": 1065,
+    "date": "2025-07-25",
+    "distance_m": 429.7,
+    "time_s": 285,
+    "start_time": "2025-07-25 20:32:29",
+    "end_time": "2025-07-25 20:37:14",
+    "polyline": "wlbcFp{bhVZKNO@@?CHBAJ@CCEBADBDAEMZQH?RDLA@BHB@OHOLGRWBBAZBPG\\DRC\\Y\\UNCBS@ABJ@KVUAGIQABKAESAAGNMEAAGHIAMG@KJS?EDGEEAGFO?AAFO?OD@DEJB"
+  },
+  {
+    "frame": 1080,
+    "date": "2025-07-25",
+    "distance_m": 437.5,
+    "time_s": 342,
+    "start_time": "2025-07-25 20:42:57",
+    "end_time": "2025-07-25 20:48:39",
+    "polyline": "okbcFr|bhVAILBDA@CDM@UDCBJD?BG?IHCLMXFPq@JIRW@F@x@Hb@K^BNABGDMTKDELKB?NIJ@HG?CEUGEGG?GIGBEEAIJYAKEAEVONE?IECHSPGEADC@EECCHQNGLSF@DM"
+  },
+  {
+    "frame": 1095,
+    "date": "2025-07-27",
+    "distance_m": 782.0,
+    "time_s": 626,
+    "start_time": "2025-07-27 16:15:00",
+    "end_time": "2025-07-27 16:25:26",
+    "polyline": "{lbcFftbhVHEL@XHZ@ZEHDd@ADAd@?GRAP@@G\\DPALBJ?TDb@SVI|@EHKj@O@KNQKKBUGGEFKH?AEA@DGFJB?AEBAAMDGAEOACFI@EKBID@BCBKHDBGAGE?AMGA?KGCA@?KDEDADUV]CEGBGOCO@ID?OMBKIOAMEE?CIAB@@B?DEL@FABFB?AIA@HCDHJABACM?CC@RCKOIARABEC@BGV?RE@CDKICME?CG?QCGID?CG??a@EMDIEWBIz@?B@"
+  },
+  {
+    "frame": 1110,
+    "date": "2025-07-27",
+    "distance_m": 886.5,
+    "time_s": 778,
+    "start_time": "2025-07-27 16:28:46",
+    "end_time": "2025-07-27 16:41:44",
+    "polyline": "sjbcFbtbhVVFTCFB?PFRGVBB?FDNQb@ETLHJCHBBE@FAP@FPKFDHG@BCLD^?XBJANIBM?OIG?API@EGQ@?BDVELDLCDDHGNGDBF?AA??LF?HHG`@DVCFGMCM@ECCCKGAUa@EACCHEFS?OLOAKBKAMKDAKIK?GGUEP?D@?@BAF?AABKCGMCD?NEF?DIEABAKCGC?OBEKEBEAA]@ICGA?B_@FGEQ?WGKHEBDDAFGAIH@BJ?FLCBR?FG@@JDOHFDCDBBC@?BHCJFF?JHA@ECKDA@KF@?MFAHGA]DMCQBCK]@EIG@KEICA@G@?"
+  },
+  {
+    "frame": 1125,
+    "date": "2025-07-27",
+    "distance_m": 900.1,
+    "time_s": 802,
+    "start_time": "2025-07-27 16:44:25",
+    "end_time": "2025-07-27 16:58:59",
+    "polyline": "khbcFjtbhVBH?`@EDAHMHDJCN@NEHBLADBHADE@AFLDPGBDEVWLD?JKBBNEDDF@JEDn@CRBRAREGI@AEKDEKc@DGJI@BJJRCNBBGPD@@TDLIBGH?JF?EDAHFBBHBB_@?GIECCIOKFAB[NOFOAEB@ECDC?QBMCQECAGE@KIBOEI@OAAIP?DKBBFD@KD?BGKC?GDBB@FCDG?EWG@KCGIG@BGIQ@OAMFC?KHG?KFIA?AMDIFBDMDN?FDEB@IN@BBE@IJ@AHEDD?DEB@CJFK@@@HHDEDDNB??MT_@D?BEAc@@EAEGEC_@ACE@AEPKBILCDONOCENQJL@?AE"
+  },
+  {
+    "frame": 1140,
+    "date": "2025-07-27",
+    "distance_m": 895.1,
+    "time_s": 834,
+    "start_time": "2025-07-27 17:00:30",
+    "end_time": "2025-07-27 17:14:24",
+    "polyline": "yhbcFdtbhV?NHJIJKB@JED?FBDCHDLCLDNEJAJCF?DCFFA?@LLFKN@ATLCDMFJFEBEBAAZ@NCRDVGJBJABGGKAC?ABC?AGGCCB?LEBQAEFC@GEDN?JNTAJKH?LAA@??BI@LA@BKRAADLCDCA?DBFF??HBFEJ?HM?GMCM[c@?E?EJE@KHCAEFE?GDGCQ?GDGAKUGGg@BEECEH@DINBFIAGGENG@ADMI?GG@GEG?AKEE?E@CEo@FGAEHIAGIEBINEDIHG?\\BC@CDDGN@?DKF?@JABDA@DJKDACPD@AFF?CHD@?DBUD?@G?EEG?ADDBE?E@CD@@IFE?GCQQIHKEG@QGQEC@@HMFE@IHAFYR?"
+  },
+  {
+    "frame": 1155,
+    "date": "2025-07-27",
+    "distance_m": 889.6,
+    "time_s": 911,
+    "start_time": "2025-07-27 17:20:00",
+    "end_time": "2025-07-27 17:35:11",
+    "polyline": "ejbcFjtbhVLEDEHF@@EDBDB?I@?NB@CBC?AFBJFFEJ?HHREJAHEDCRBBAJDAC?B?DGB@CBDDF@BCLAFLCF@@FEBIB@BJFEBKB?BC?j@CFBFAHBFET@FKCCFE?[K@@F@?LCFIEGBICEHFBAH?FEHBNAJBDEBEFCJ@DDBGBADHB@FD?@BIZ@XC@CCSq@S[BIIGPO?B?MLQAKDQECAGKA?EGSAYC@ADBFC??JAAA@CNCAG?GGANBBGHCACIIGM?GCA@KOAIBOCI@SFYKKDMLBFMDBHIBRELDG?GD@@NFEDDHG?DB?@ND@EDBHFCBOE@@EDE?GNIBOECAOBECMDGCI?QIEAKECAKGILEDGAGDED@DGDCAH"
+  },
+  {
+    "frame": 1170,
+    "date": "2025-07-31",
+    "distance_m": 828.6,
+    "time_s": 571,
+    "start_time": "2025-07-31 20:18:56",
+    "end_time": "2025-07-31 20:28:27",
+    "polyline": "cjbcFftbhVb@ANIFB@DAF?PDJIH?b@BF?FENAXMLF@BLB@DJVD@D?LNA@@CPFNITFRA`@OOICIDFJADKFU??HGHELKB?JHB?DAHQP?FEEEMAUQIEMD?FECCNe@F@BCAIE?IMDGCCE?AMBME@BNEBGRA?EAEMGCEVGJ@JCAAIGGCMG?III?EAAOEE@IC]Hc@BEGQBKCO@KRABQH?BHC@PF?TDVDB@EHFD?DDFCBBEL@B?NHMHWHBBEJAAEFc@CIBMMg@Ik@AABI"
+  },
+  {
+    "frame": 1185,
+    "date": "2025-07-31",
+    "distance_m": 864.5,
+    "time_s": 632,
+    "start_time": "2025-07-31 20:29:18",
+    "end_time": "2025-07-31 20:39:50",
+    "polyline": "{hbcF`tbhV?@J?FER@DRHD?DUZAJKRI@CFBJER@@NC@LJA@FDBDADIFA?dADR?BG?MEGB?RG@ORIPMJABDFCRGDELC@MEE@@YAWJG?S@EHGDG?GJC@EMME@QQ?QKGBKMCEBDHAHEFCCGDBJI@GHAPGFBFG@?BCBGEEI@I?CKGIACI?EMGCI@MGK?K?CE@COBSE]F?HKD?BTDW@C?GJJ@HHAJDHKD@?OHBBNA@DFLFERj@@?CCI@AEISAEIOEBGNCDIJKDO@?BBJNADGBAFD@JLBA@KEC?IHM?CB?AIIO"
+  },
+  {
+    "frame": 1200,
+    "date": "2025-07-31",
+    "distance_m": 810.3,
+    "time_s": 578,
+    "start_time": "2025-07-31 20:40:55",
+    "end_time": "2025-07-31 20:50:33",
+    "polyline": "qhbcFftbhV?IREN@JD?HIN@HBDA^@BNE@FENAPB?C@CHDN?LGROCEBBTCNFJKN@HABMJKXK?ED?NIFDNIJERABKKG?@FF?@FGDECEFEQAYFOAGFS?QBAB?BKFI?Gd@c@Qi@IK@QCOBGIACMMDDNIP@?ADI?IJMKA@?DCB@B@LECILHHGDK@EDIU@MAGIKIECMGG@MECIW@KEI?IGK@MBK?GDCn@C@BJEPBb@CHBBBBRDFNHFCBBB?JCBGIKM?EEAId@A"
+  },
+  {
+    "frame": 1215,
+    "date": "2025-08-04",
+    "distance_m": 764.5,
+    "time_s": 522,
+    "start_time": "2025-08-04 19:10:14",
+    "end_time": "2025-08-04 19:18:56",
+    "polyline": "{jbcFjtbhVDCDBJCVDHEH?LBFJNADHHCB@AXBLCFBHADBNCd@EAGIEAMBGCIHBJENJPED?PEDCLILGTIFOTFHCLDJGJDHALG@EF@LEBGACKSJAGBE?GEIAHC@BGGSHWAEFIAOLMBWHOJC@KAEFEBMFI?GB?EACWMOBOK?BMIWDE?GICIBEA?FDNEFE@?HK@KNOOCHGBAFC@?PUDGG@CGM@M?KAC@EGKCO@G?OGSFSDAj@DFABERAJDZ?BF"
+  },
+  {
+    "frame": 1230,
+    "date": "2025-08-04",
+    "distance_m": 182.3,
+    "time_s": 139,
+    "start_time": "2025-08-04 19:21:56",
+    "end_time": "2025-08-04 19:24:15",
+    "polyline": "ohbcFhzbhVNJDADHFAB@@PFFEJHVE?@FE?DJ@PCDC@A?ADGA?TGAGFG??@Ee@DMEO@IEEDm@AU"
+  },
+  {
+    "frame": 1245,
+    "date": "2025-08-04",
+    "distance_m": 236.2,
+    "time_s": 196,
+    "start_time": "2025-08-04 19:25:47",
+    "end_time": "2025-08-04 19:29:03",
+    "polyline": "skbcF|zbhV@\\EABDCAALEDBLADMAADE@AJMCOHAEMFGQBKIE?IBG?MBQAEDEASFMHCAKEIJQF@?FL@BPHHB@@A?DEPDHH?BD"
+  },
+  {
+    "frame": 1260,
+    "date": "2025-08-04",
+    "distance_m": 245.4,
+    "time_s": 196,
+    "start_time": "2025-08-04 19:30:33",
+    "end_time": "2025-08-04 19:33:49",
+    "polyline": "ikbcFf{bhVAGDIDAAGHA?g@DAAGFAAKPCDF?DFBCF@f@FLAJDELL?\\I\\AFIBKCIBENC@E?IGMJIAEE@SDGAO?SHW"
+  },
+  {
+    "frame": 1275,
+    "date": "2025-08-04",
+    "distance_m": 585.8,
+    "time_s": 484,
+    "start_time": "2025-08-04 19:35:20",
+    "end_time": "2025-08-04 19:43:24",
+    "polyline": "wibcFj|bhVB?BSHCLM@O@ADW?HDBJKE?AIKK?OIIA@DG@@?GEOBCFDFG@CCMVMH@ADFPGN@JKD@LCHJNEBHHA@BLIJ@DHNDA@IAFBBAB@TGf@IHAFKACHIIMD@LGFALGDEAIFCCGHCGE?CC@CI[GCGOG@KAAEJA@AJFHEB@?FLFDJDD@DAL?CHAHOIDGEJEBIFC?ODKAEFAJKJ?FI?KILGAKGGDMCEFGCIB"
+  },
+  {
+    "frame": 1290,
+    "date": "2025-08-04",
+    "distance_m": 1008.9,
+    "time_s": 875,
+    "start_time": "2025-08-04 19:50:53",
+    "end_time": "2025-08-04 20:05:44",
+    "polyline": "oibcFlxbhVBQDGCMFA@KE?AEDIAQJR?X@DB?BTAJDDD??BP_@B@JGHCEABO?GEC?IA?@ACEOBI^OHAFDB?VHB?JDJ@CNAJMDBFRO\\ABI?IFM?HFIFEBACCBEACGME@GGKAKCBLE?BHO?HR@BGAA?DJCFGF@BMHAAX@VF^CD?PEHAb@GJK@ELI@IBIf@CFAJ@AGHK@CFKJEAAGNI@MJI@@ECAOEHAKFI@?JSDe@NQACCA?GF?Db@@SDGAKBKLBABD@A?@EFACLHz@@p@AX@?G`@@DCTCJEB[COBKAQ@KBU?E@SEc@?E@GCC?BGBUCKAWMQKGAHHF@D?l@HJ"
+  },
+  {
+    "frame": 1305,
+    "date": "2025-08-04",
+    "distance_m": 148.4,
+    "time_s": 122,
+    "start_time": "2025-08-04 20:08:46",
+    "end_time": "2025-08-04 20:10:48",
+    "polyline": "mkbcFx}bhVFGBUGIHCHOKK?IBIEELMHD@H@@KNBFEJBEDACF@FENAA@JEH@PGDGG"
+  },
+  {
+    "frame": 1320,
+    "date": "2025-08-04",
+    "distance_m": 164.5,
+    "time_s": 141,
+    "start_time": "2025-08-04 20:12:10",
+    "end_time": "2025-08-04 20:14:31",
+    "polyline": "ekbcF`}bhVE?KHEAEQ@MEEABLIFYDAVDNG@IF@FACRGLG\\A@EAGNGBOEKACACG"
+  },
+  {
+    "frame": 1335,
+    "date": "2025-08-20",
+    "distance_m": 232.9,
+    "time_s": 219,
+    "start_time": "2025-08-20 19:20:08",
+    "end_time": "2025-08-20 19:24:20",
+    "polyline": "gkbcFxxbhV?GDA@FB@BVGNHF@NLFGF@FBFD??BBA?BED?LG@BCACBNEJHJBJ?FEBG?EEBKCI?KAGCCI@IACIBC@IG@CADIEEDKAA?MBA?BBEHWAQIKFA"
+  },
+  {
+    "frame": 1350,
+    "date": "2025-08-20",
+    "distance_m": 278.3,
+    "time_s": 260,
+    "start_time": "2025-08-20 19:25:25",
+    "end_time": "2025-08-20 19:29:45",
+    "polyline": "akbcFdzbhVBEB?BBDCBDH@D@@EB@AFEFFBAHDEFBFC?@BEF@EFB@DG@HAFWFAAE?EFC@@LCFSDIHECGKSCAJIFAHCACDC?ADKIBIEK@EBAN?JIFB?EB?@EKEBKAGJGFQDCD?FI"
+  },
+  {
+    "frame": 1365,
+    "date": "2025-08-20",
+    "distance_m": 717.3,
+    "time_s": 791,
+    "start_time": "2025-08-20 19:30:54",
+    "end_time": "2025-08-20 19:44:28",
+    "polyline": "{jbcFnzbhV@KACFS@A@DD@ED@FABADD@B]DA?EBC@GD@HE?FBA@FHC@JB@BCBLH?@RHH@LFBAHDCD@?FBAITA@MAARIXKFEHODE@GECQKE?CBGESKECF?JE@ANFHGBJNDRA??ECCA@@CBBDNCBDB?C@J@@BC?FB?BJFBBREDE?HL@NCBEGEWEC?FEC@OEE?IECBIGKCGA?CSEACMIAGEBECYGGCDEACDOBECGBCKCAIO@KAIN]@AJ?HIHACGBKCEFEAM@IIOBKEQC]FMDR@CJh@CZBLJZELBFFA@G?DF??BF@"
+  },
+  {
+    "frame": 1380,
+    "date": "2025-08-20",
+    "distance_m": 372.7,
+    "time_s": 365,
+    "start_time": "2025-08-20 19:49:33",
+    "end_time": "2025-08-20 19:55:38",
+    "polyline": "sjbcFh{bhV@SBJ@GNKDABICCFC@EDABIH@@EL??NK?CD?JIDFDL@DCJBBABGHDJGBjAAVG@IGE@GCEFECG@AGE?AMEGIEWVGAGBGKITQEKFGE?GI@@MCCEADQAADOAE@CBA@BTB@BPIFNB?"
+  },
+  {
+    "frame": 1395,
+    "date": "2025-08-23",
+    "distance_m": 451.5,
+    "time_s": 479,
+    "start_time": "2025-08-23 10:29:06",
+    "end_time": "2025-08-23 10:37:28",
+    "polyline": "{fbcFf~bhV?B?AECEQCAG@GKOEGGIZEC?CHG?KSEI?E@?HDHIF?J?ACBFJCFGBOS@IEWDKAKCB?CKAGNEAEEKBEA@IEK@IBIJG?OV?BAFV?CFEB]H?HEBHJHBNDBFEAUDORJFFCJGAAB@@PKJANMFt@GtA"
+  },
+  {
+    "frame": 1410,
+    "date": "2025-09-18",
+    "distance_m": 423.3,
+    "time_s": 365,
+    "start_time": "2025-09-18 19:13:13",
+    "end_time": "2025-09-18 19:19:18",
+    "polyline": "embcFrzbhVCAJIFKB?@?ADFFDCJ@FBLNL?DD?CB@HHJABDBMFGDOD?RJD?DL?IFCN@@BCv@@H?RC@OCI?IGEBMI_@A?PMBGEG?AD@LIT@P?ZEBCG?MIKAG@QFM?MDECU@MKAIHQGGIK@CQEE@EBC"
+  },
+  {
+    "frame": 1425,
+    "date": "2025-09-18",
+    "distance_m": 447.5,
+    "time_s": 392,
+    "start_time": "2025-09-18 19:21:22",
+    "end_time": "2025-09-18 19:27:54",
+    "polyline": "cmbcFxzbhVBQBEJ?@BNKB@DLBEFFDADPHD@@FCHJL@DOFEDIF@DGF@DDJGLBBKB?B\\@f@CZI@ICE@OCE@ICKHIAK@KEGDFPGDCCEKUGGPID?HIFAJI@EHC?MM@ITKB?CMVSHUACIEC?AFE?MQK?@OGEDG"
+  },
+  {
+    "frame": 1440,
+    "date": "2025-09-18",
+    "distance_m": 425.4,
+    "time_s": 366,
+    "start_time": "2025-09-18 19:34:01",
+    "end_time": "2025-09-18 19:40:07",
+    "polyline": "mibcFz}bhV]@OOEQK@ICCPIJGAC@IKMJGCCDCG@OCCAIFMASJ]PU`@CPLLUJCDGJGD@?DDBLEFFJGF@@BLWFF@JH@BDGNDDATBPClA[WEDM@ELQ?MJSCIO"
+  },
+  {
+    "frame": 1455,
+    "date": "2025-10-04",
+    "distance_m": 663.4,
+    "time_s": 577,
+    "start_time": "2025-10-04 14:49:50",
+    "end_time": "2025-10-04 15:00:08",
+    "polyline": "{fbcFp{bhVDOCRI@GHGDCAIHKCCGFUFMJIAGKGEDQ@SRGBIGSCGHCAKHCRQFA?@@UOABMGG?CK?UEODa@FSZW@BREJGTHBKH@@GKCOKKEW@CBE@@FEMm@HG?EGFAXBJEF@BC?QBD@LBQRCFGN@@KDEDBBJRD?HJBBHVNBQAIN?D@BALDB^ANFB@JE|@Fn@"
+  },
+  {
+    "frame": 1470,
+    "date": "2025-10-04",
+    "distance_m": 633.1,
+    "time_s": 607,
+    "start_time": "2025-10-04 15:03:18",
+    "end_time": "2025-10-04 15:13:25",
+    "polyline": "yfbcFl{bhVICWPKBEBGc@DM?M?@CCE@ICWFk@EELK?GROFQEAD@BEBMSIFEQ?UEKR_ARMVIBA@IDBHNNHNIDIEEG?COKIUAGCODAFEIUBGEIB?EHEJDBCH?@EAI@AB@BLBEAELCLIL?DGBAXRNRJBJTFBDCDB?MDEBGH?BDR@BL?R@@BAFTCL@V@HAVBFAd@"
+  },
+  {
+    "frame": 1485,
+    "date": "2025-10-17",
+    "distance_m": 147.9,
+    "time_s": 141,
+    "start_time": "2025-10-17 18:04:49",
+    "end_time": "2025-10-17 18:07:10",
+    "polyline": "cjbcFt{bhV@VCNFB?DADE@@l@CXCBAJAQ@YCYBIAEK@?C@GHEAMBICGFA"
+  },
+  {
+    "frame": 1500,
+    "date": "2025-10-17",
+    "distance_m": 234.3,
+    "time_s": 220,
+    "start_time": "2025-10-17 18:09:30",
+    "end_time": "2025-10-17 18:13:10",
+    "polyline": "}jbcF|{bhVJIAC@QDGCGBG?I@GCM?k@BUCW?}@AEI?C??RCL@LAH@^CJBj@Aj@BTGL@??FDH"
+  },
+  {
+    "frame": 1515,
+    "date": "2025-10-17",
+    "distance_m": 1260.7,
+    "time_s": 1189,
+    "start_time": "2025-10-17 18:24:44",
+    "end_time": "2025-10-17 18:44:33",
+    "polyline": "cgbcF`cchVIAIBW@MAm@@ESG{AMgABQAUEQEE@IEICa@KUAMX_ANQFMZ[@IMCS@EBIAID[A?LBHCHOEAOIUBENF^@dAAF@?NDCLAh@HJJDJEFMJODIAKFa@SGPH@l@XDB?DIAMFM?KFSDYQIDMTDNDFJIJ?NI\\P\\BHD@DCDS@CDODS?KFOEIMA?ARBBBJD`@FBD?FMFABGDA\\LLHTDDD@FC@G?EAMFO@[HKGE?CAEGEFDV?LHXF@RGPALFJCHFLBDBCJM@MHECI@UHUGEEC?AJ@VCXHHLMB@LELHJ@THH?BFAF"
+  },
+  {
+    "frame": 1530,
+    "date": "2025-10-31",
+    "distance_m": 1291.9,
+    "time_s": 1150,
+    "start_time": "2025-10-31 17:57:05",
+    "end_time": "2025-10-31 18:16:31",
+    "polyline": "elbcF~zbhVFFFAHFVH?RCAIHI?GGG@SOEL?FIIG?GIIAAMBMFAIGGMCOAUDc@HGBKDCP?JENEFLBPFABJB@HABKP[HCFG?GEQ?SBEEUH@?RRGJ?JDFAHJBCCEBJAB]DGDQIE?ATDFAJ@?DCBI@?HHXH@@PEDDHA?pA@z@GDQEIBMGQCEBMAAN@VTGFHJALDH??DCBIAEFKAKFIIKAADEVF@LEJFJ@DDFABBE@KCOHGAGDQGA@OVJAPJF?RHE@GAO?IBECGB?BEGEAO\\BD@HZGFFLAFDNA?FS@IHSBMGABJf@PELDH?JB@DY?m@AAMGK?OEGAKIYPc@DG@IR_@NQ?e@DOCECEIAIMIc@IEKHJJGFK@?HCDMAC@"
+  },
+  {
+    "frame": 1545,
+    "date": "2025-10-31",
+    "distance_m": 1335.6,
+    "time_s": 1161,
+    "start_time": "2025-10-31 18:18:05",
+    "end_time": "2025-10-31 18:38:09",
+    "polyline": "elbcFb{bhV?BB?DHHCD@R?DHAVKBW?YWCF@LIJOOKOAIBIFIOKC_@DGEAB[FI@M?AL?NC@MFAND@RDJHDHEHBD[FGBILE?g@CMBOCIr@?CDG?IBWEABFP?BPGP@ZJ?DKHIAKFO?MM@HERBJFCFBBGLHHALHP?NE@HI^BJAd@BPCd@WAOKM@KAG@CBG@@`@TIJHN?FHB?EBW?OFMIG?AJBFCHL?DCHDPBBDF?@@A@KAIFK?IDE?GII?CJIDAJRCDFR?LJS?GDEAEFG@EIOGMTDH@NHEH?JEFDNBHFD?MH]FQKA?ADFJH\\HGP@RJ@Fk@EY?@KGe@Si@La@NSBIJGJQD_AEEIACC?MIEE[ECCBILDJIBIJKACB"
+  },
+  {
+    "frame": 1560,
+    "date": "2025-11-23",
+    "distance_m": 1315.4,
+    "time_s": 1154,
+    "start_time": "2025-11-23 13:55:08",
+    "end_time": "2025-11-23 14:14:50",
+    "polyline": "kjbcFhtbhVB?ARJP@LGLDPAJMHCPIBKGGMMGAMG@ENIDGAGEG@MPALGD?PCPB\\D@DNPNBHL??LHCDKD@AIFYPO@CJCBLFBHTBBBC@@EHBRAHm@jAKJDJ?JFJ?LBH?LDJCRDLFCES@ID@FJJCFDHMJADIMCIIK@EEKFEHCA?OGI@OD?@FBBHEJDFGF?FID?AGUECGEAEDMEGLI@ASJG?MDFL@FDFEP?DKHE?CEAIBAII?EIIHEEC?EFBFAEBKHA@KHDF@DHDAF@FIFBJCFGACGAEEK?EG]F?EFQ?GJHBFFEDDBABILBFIUKI?GGKHG??EBIHJBID?HDZBNJF@BKAgAD_@?YCCKCCBYEUDCA?AF?LIF?IGMGG?ICEFG?ACBECWBDJDNIH@NOECE@IGKDIIQNAGBI?IJDJCB@HA@CCCe@?EEEB"
+  },
+  {
+    "frame": 1575,
+    "date": "2025-11-23",
+    "distance_m": 1316.0,
+    "time_s": 1217,
+    "start_time": "2025-11-23 14:19:03",
+    "end_time": "2025-11-23 14:39:20",
+    "polyline": "{jbcFbtbhVM@ADPZBNDB@TF@CFC?CNDFCLFJ?FGBAHI@CHEBAFMCQ]@KCAKBALA@KEEFIA?LMH@JENBHAV@FDD?LJNLGB@@HD@DD?HJC?GCKFGAKBEAAH?DCBIDKDPXRGv@g@~@BNXl@@LFRBBJ?H@BAAGECQ@EQLHHED@HEHD@Ea@WIBK??KCC@AHDJAPGFGa@QIDGAIFGKHCBKPHf@UAEM@OGI@GAABJYH?PHTCPIMMM@IIEBGAEBDK?IB?HLJIHBRIAGSGK?EEE?GH?MF@BCJ?FCJBDCDHTVJ@DDBU?MDQEEAc@BM@o@CEIAI@ECO?[@GEEBOCGHAEBKAI@?B?FDDELDNEDGEEMAEEOAMFAA?O@AHBDEP?BEJC?GSCGEO?ODIQ@CVBFGL??COK]AEDEC"
+  },
+  {
+    "frame": 1590,
+    "date": "2025-11-23",
+    "distance_m": 926.9,
+    "time_s": 827,
+    "start_time": "2025-11-23 15:00:44",
+    "end_time": "2025-11-23 15:17:05",
+    "polyline": "mjbcFhtbhVAH@FS^FLCPDTFF?D?TER@LMD?@DFAJEDAFCBKGIYNBBADBBCGCB?FG?@BA?@ACE?DA?A@BC?AKGEAGIAE@IASD@IAAI@@@A@C@EECJGBA@?JFDBJIF@LKNBFGLFN@NL@DFHGBHH@@BBKFCBELB?EGGFIDA@@DVCFFE@@BTCHBHAL@LKP?NIB@NIF@BF??LDFERD@FHRAA?BIAIKGCi@CQBKCTFH?JB@Jc@AG@GGKHK?EAGKEB]BALBHEHBFCLJHEJHF?PFDA@GAK@KE[Be@?_@AGGAEBICMBIEEBGAODQCIBCMHMB]MiAFKAKFEBECIO?"
+  },
+  {
+    "frame": 1605,
+    "date": "2025-11-30",
+    "distance_m": 1171.7,
+    "time_s": 1095,
+    "start_time": "2025-11-30 16:18:17",
+    "end_time": "2025-11-30 16:37:08",
+    "polyline": "mjbcFhtbhVF?@P@DD?BD@FHJ@FA?GII?AKIIGLC@BBDJFBDLF@?BC@GGG@QUGD?DDBBJF?BJJHBHC?KKA@?JFB@JFCJVGCGIGAELHDH?FXA@b@ILEh@GBnACNAn@GAISK?IGQBMCFVHHDRAHDFCF?LIPC?ACDg@CSIMQBGFK@?RPCHID?GDCJGDAHQH@@DCJDOL@FM@AHEHFAAH@@DC@KFAFEJAADGBMPI?FD@DAJFDBABMH?FMFDW`@O??BO_@OUFODYL]CI@QCK@MQ]FEEIQFBDIB?NE@CDC?CFCKEAIBEEK@IO@MCO@e@@EFEAGHI@MRCJDDABEF?BFDBBFB?EBK@EH?HHHCHDHDCJc@JG@OA@@@?EAc@I_@EKEUP_@BOFK"
+  },
+  {
+    "frame": 1620,
+    "date": "2025-11-30",
+    "distance_m": 1265.5,
+    "time_s": 1081,
+    "start_time": "2025-11-30 16:38:38",
+    "end_time": "2025-11-30 16:56:39",
+    "polyline": "ojbcFdtbhVN?N@EJGBB@DA@HOF?NM?EFBJDIJ?FCBBMJCLOBBLFBHIVCBBCDG?CLQ@CB@TFA@@LAHBILYD@PB@b@Kl@GDCL??`@DZ?jAKKK@SK]CK@ABFBHADPHB@NFB?NDJADBZED@NEDCA?EDM?OAEE@?DEC?OBKAMIICKKI[CE@APNIPHEFKACHOGBDARB@BGD?BFNJBDA@S?AAABC?KKA?EP@DH@FFNH?BCBS@QMARBFJGFHL@FJY@C@?DFDFEF?NVEDY?KSCOOYL_AH[CSBOAEGEGO?MI?SZBDIC@HEBEKW?QQ?m@CQLUCKNQRCFDPCPL?BMBIHDLHBBHB?HUHEBg@A]GQAQGG?GLm@DKDC"
+  },
+  {
+    "frame": 1635,
+    "date": "2025-12-07",
+    "distance_m": 1599.3,
+    "time_s": 1413,
+    "start_time": "2025-12-07 14:46:47",
+    "end_time": "2025-12-07 15:11:01",
+    "polyline": "whbcF`ubhVW?GCCGCAELEFL?HJLBKFK@IAGOC@CFABD@DJD?DABHJ@BD?@_@@GI?LHL?FPKDFJ@BFA@K?IBKG?LCLD?FKFBJCBHKBIJKEAPJAHFLIF@BMFI@IJOGADUBDJa@BJ?NIJAHGF@FGH@HGNAJQN@@JGHDFKL@DKJ?BGD@@BGJFJ?LBLEP@JAl@SEKKIAEEYAC@NN@JHDXp@@TEJ@RADGDAOBOEOGFECD[EUGCAOICGKI@ECOB?PHEBDL@FLBAGDKAEBIGE?ADDND@DEDHH?FDM?MHKIC@KR@DDGHHHCHDDC@B]HOEANEHD@@DDEJABDJABDJAI@GDK?CBGA@HFHFGHFHCDDHA@BCBQJ]AK_@KMAKEC`@kA?GEI@IAKFKOSC??KGQCBALEBDBKD?HG??FGIABFFKD?@EOGCC?EDMGE?@KEAAC@KE_@DM?KLI@EEE@EFE@ITEFDFEFBJAFDHCBJIJSBGF?@JBADBDF?ABGBDFD?JYNICOBG?QBGI[?QIM@GEI?EJKBMHE@IFGFDF?FHHBBJB@"
+  },
+  {
+    "frame": 1650,
+    "date": "2025-12-07",
+    "distance_m": 1454.0,
+    "time_s": 1296,
+    "start_time": "2025-12-07 15:13:54",
+    "end_time": "2025-12-07 15:36:21",
+    "polyline": "shbcFntbhV[DQKC@GVHGFFJ@FHI@GAKDGGI?CHDFADH@DABBJBFDDA?BS@EFGAGG?JFDBFLEHJJ?FFAB]DGGEF@NLC^ZDE@QHKBSAKDC@DEB@@BMF_@FF@BAPMTENANGLKf@D?LCFGHAFGL?@@CJDJ@r@Cl@SCKGMAECQ?@DLJ?FHHAFHFJ`@@LAPAHEBCH@MCWA?EDAAD[EOKO?ICAWFG?EFKC?\\LGZJM?GFI@IAECCLGB@FB@BGBFF?DBFADDOFGDMGCLGDFJRIDFHCFBBAEBGACFGCEDGG@HFF?LLEHBFAJ@CFq@BGWOYHQAKL]@KHGEG?QCO@KMWCWMCA@ADB@?BAPICCPIG@RCDOSMFOKAOGI?q@HWHIEA@OHCFITBJEBBFCHDFA@HAFK?GHI@FPLDBDCEHEDIJ@BKCG@GAOBOCWEIAQGE@KEG?GL]FGH?JGLBZA"
+  },
+  {
+    "frame": 1665,
+    "date": "2025-12-07",
+    "distance_m": 1498.5,
+    "time_s": 1324,
+    "start_time": "2025-12-07 15:39:30",
+    "end_time": "2025-12-07 16:01:34",
+    "polyline": "_ibcFvtbhVILKDK?OEED?DG@?JBDJGD@DDHEBFF@EBQDGEC@ANFF?DB?FGF@FCFFHC@D?@M@GFUCD\\HGJFLADDABOBIDSCABBLJ@FBTG@KDC?SFC@MDI?MDC?JD@@A?MHMEI?G@?B@AJFFAPIFETID@NGH?HGF?LEDHDHARMPE@@APDVCjAABSE[MOFHBBHLNDNFF?PDJAPBHEJ@FIJCC?CBC?KBEGKCHCKFSAGIIAOIAAC@OM?IGIBCICBADGC?RLCHFFCDFEDEAEDQGEVBDFABBF?BDJ@BDI?EFEEK@EGEBCLED@BHADDJADDF?DF[@GDKGE?CNHJB?JIFFL?HH_@LGK?HDHG@QWIQDG?MTw@Ci@@OOWCUOGATIDBJGDEEEPEDGOMBOCCAIQCs@J_@HGCS@EH?DMNBHGHDFIRLF?AJIFGDK?FND\\J??IJULMAQBGEKBOGM@OCOEGEa@HGHMJCDFFAFDHA@@"
+  },
+  {
+    "frame": 1680,
+    "date": "2026-04-18",
+    "distance_m": 1458.3,
+    "time_s": 1197,
+    "start_time": "2026-04-18 13:10:59",
+    "end_time": "2026-04-18 13:32:14",
+    "polyline": "ojbcFhtbhVJAEJFAJJH?FDSBEFKGE?GL@FB@HEDD\\JEBKAQHKI@FFDHLJCHHFCHD?BEBKAOFICALBJD?HGPHN?FK@OI[DIAGBLB?BGBWEGBE@BBNDB@HMdA@JGVMDGHBBPCHDJITI?TBPCHBPEt@A@GIMCKIM@B?OCCBZ\\LnAE^KREABABGAGBKGKEF?FC?CEDIF[?SGOKBKCKDMECF?ZJKFD\\HCBE@IEIBMGABDDABA@IECDGVLGP@DDDA@@ADQBIFQGCXJA@BHKHFLABDD?ULWB@@HBALC?GAAKKKEODK?QFM@KDGFUCK@OEMBIAGMKEIEYGAC@?JFDGB@FIAEJCDEGGVCKEES@GGI?G[Ai@Jc@FI?GBQFEJ@HCLBHERDJF@BABKBAHIAIHHRHBCJBDD?@IFSLIDOEIF_@?UCGE@AAC]Oa@HM@GFA@G"
+  },
+  {
+    "frame": 1695,
+    "date": "2026-04-18",
+    "distance_m": 1530.4,
+    "time_s": 1289,
+    "start_time": "2026-04-18 13:38:59",
+    "end_time": "2026-04-18 14:01:12",
+    "polyline": "ckbcFftbhVC?EL@@HEB@RC@FGDG?KLSCE@?TBJF?LINBJCDDQJOBABMC?JDJTID@DATJUHGFCAEIKABLCFJ@FFH?BDFARFKFBDJGRALYBKNKAGGGO[H@BWASD?HE@@HTB^C^MPOl@E@IPLFN?JGJAD`AGt@YOG?MAOBXPHVNTBZEH@HCHCRBJCJC@K?BO?QKIC@BKHQI_@GI?ICAWGGFK?MBOEA@?ZJADFJDFGDHC@IEADBDQ@G?MGC@EP?BLCF?FFRF?FMAMBG@IGG@?FABBFLAJBRJDHEDGCGBSE?HH?DB?DEBOE?QEECYGGPy@@c@BSDK?OGWCAC@AJIDALUDEJG@CACOC?UI?IIO@cAFMLMF@JCF?LCRFH?BF@JJDG\\EDCCEWOYKE[CGUBIJ?NEb@BFBA]IOCMGGEOFQDUHG"
+  },
+  {
+    "frame": 1710,
+    "date": "2026-04-18",
+    "distance_m": 1383.2,
+    "time_s": 1186,
+    "start_time": "2026-04-18 14:23:34",
+    "end_time": "2026-04-18 14:43:20",
+    "polyline": "ylbcF`tbhVJDGF?D@DN@HGTXL?DHANECI?IEK?MOAHJRD?@GBCNJJBTRi@DEEE?C@BJF@FFH@DFJ@DFN?BBJID?NIJY@KFEBOFI?MW_@HFH@DQH@BPCL@REb@@JS`@EREACJK@CFNFFCT@HCARBfAAn@C?IGOCG@KGIBGAA@@DHBJHNJBJJHJX@HCFCh@@LERI@ECCHI?F[DCHUAEGWCE?KGK?IMIIAOGG@IAQJABW?GEE@Ad@JCDIHFV@HBG?GBABI@IHOAKCE\\DCDKLDV@MHMLWDCJEDIADINyAAMB[LG@GKa@?KCEGAAFCB@DCBCHG?EF@JGGAPC?ESE?CB@JABI@EFGGDaBCeBAG@WBAb@HJAJ@JAF?MeAIODM"
+  },
+  {
+    "frame": 1725,
+    "date": "2026-04-18",
+    "distance_m": 1513.1,
+    "time_s": 1394,
+    "start_time": "2026-04-18 14:55:37",
+    "end_time": "2026-04-18 15:18:51",
+    "polyline": "yjbcFftbhVEPI?IFG@]AAD?FHHP?d@N?PDR@\\?^CN@JCb@BH@PGX?R?NJ^?LIf@MG]DIEKAGZBXXGh@PDB?BET}@@GOSCFM?MD[AI@SA_@L?BKE_@MU@KKBKCCTIACNG?D}@EwBDWDFAJJ?@BAPJPCDE@FFFLD?FONMDOWYBa@ACGCe@D?SCe@BCd@?AW@C`@@TAj@Dn@ARBNCF?DB@V?PBJAb@CBM@ORJLD@TTAR@VBJBf@Ct@Ib@g@IKBRVRNF?DFCH?PITBHA^EI?GEKASGGs@WBKEIBKCM@SCi@CIBcAGSC}@D[LEJMd@OJa@DIDQ"
+  },
+  {
+    "frame": 1740,
+    "date": "2026-05-01",
+    "distance_m": 1203.1,
+    "time_s": 811,
+    "start_time": "2026-05-01 18:55:51",
+    "end_time": "2026-05-01 19:09:52",
+    "polyline": "klbcFdtbhVFBDA?@PCL?B@@@CLBh@CTDv@AHDPAHEDBn@EJFPCNAp@@f@Eb@@dAEBQCm@DWCKBQAACDI?GF@@CGGKB?EBI@MAuABcBC{ADcAE[FKIE@UBEZDJEn@Af@DT?@@ET@rAADDJEXB`@@|@GlA?b@CJCb@?NDHAXBN~A?DECK@GCCM@CI@CB?HDJG?CCGCkADw@C_@?QBSFeA?u@Gi@@H?CGCFA@CEW@OAEUCG@m@CW@"
+  },
+  {
+    "frame": 1755,
+    "date": "2026-05-01",
+    "distance_m": 571.9,
+    "time_s": 483,
+    "start_time": "2026-05-01 19:10:58",
+    "end_time": "2026-05-01 19:19:01",
+    "polyline": "yjbcFhtbhVe@AJV@PHDBH?`@C@@HEBBJATCA?BDFCn@@HAHFbBAbAB^A??XFN?HDKCw@BcACu@@KA@AcAFg@AIFBACGCBG?UFKDSJYBUD@BHHC?QJADQHAJDFGNCuB?"
+  },
+  {
+    "frame": 1770,
+    "date": "2026-05-01",
+    "distance_m": 1524.1,
+    "time_s": 1213,
+    "start_time": "2026-05-01 19:20:36",
+    "end_time": "2026-05-01 19:40:49",
+    "polyline": "sjbcFjtbhVi@AMCE@AHBn@G\\BDIB@LE?GDCA?CJEFQAWKHMGGBIOE[@CHEBIHE?ECAKFSACDBLAd@BXCxA@~@C@FBAAA@@b@G~@@`CDBHCN?PD`@?d@@FA@MFBBJB@VANDx@@BEAIBk@A_@B_A?s@Bc@IIEKA@@HDDCL@J?BE@COEBAC@G?e@GKGCCD@DEBCH?DGL?NGF?ML]?ICGFCDKGE?KMAEBICI@CAEFS?BFIFALGF@HB@CB@RAHDd@?XEJBLCHBRCPBN?JKWBKEMBKAk@@Q?YCKFMAAC@?C@SABECFCAUBCMc@?QGIBGHD@KJFBA@IHBFGPLFEJ@BELDKo@AODELD?JDJBXAJFENBGEBK?IFG?ODE?IFEAG?FEFAPDHEBAHEH@DNK@CCG@IC[BK@]CEKDGE[Fa@Cm@@"
+  },
+  {
+    "frame": 1785,
+    "date": "2026-05-01",
+    "distance_m": 1586.9,
+    "time_s": 1383,
+    "start_time": "2026-05-01 19:46:12",
+    "end_time": "2026-05-01 20:11:31",
+    "polyline": "yjbcFjtbhVUCG@k@CM@UCI?CB@RCf@@ZAFAt@BRFKHULK@KF?@KFKCIBA@KHCDIF@CHIB@HEB@PIDBJIJAJGFCJKJ?JGB?BJ?@@CJDHCJ@FINO?CB@F@AEp@Bt@CfBDHZC`A?F@DAVBFAJBLAHBBEEMBGEC@KAMIFEIGDGAKBIEEB?GGBIAESFEJDHCD@BMF@AJHCN?HI@DEFHC@F?VDRA`@@Bf@EPBAMF[?]E}@BKAQBGGODEEBCKGEAIGCKQCHFHCHF@C@@DCJCACQEDAEF?E_@@IIGEDDHCBCAAPGPC??MDG@IEIDGB?@GEAAIKEKBEEEHECG@ARGADLCHC@BD@Z?fAGO@UCK@MCECQ?q@CEAa@@KDABMAIBKD?JDQF?DBBH?FCFDBJ\\AIk@BABDF^JJBE?ODU@ODE?VEN?RFOVYF@?HDBBF@wAAk@BOo@BWCW@[AI?"
+  },
+  {
+    "frame": 1800,
+    "date": "2026-05-04",
+    "distance_m": 1680.0,
+    "time_s": 1667,
+    "start_time": "2026-05-04 18:59:13",
+    "end_time": "2026-05-04 19:27:00",
+    "polyline": "kmbcFbtbhVTHXGJBRCJDx@CR@FAB@HAJ@Bl@C|@BFAJ?j@AH@\\[FCLBJCJ@BF@BHHA@DD?DY?g@AMI@KCEBGGCD?IGSEAEDO^ILE@?w@CIAz@EJQ_@@ICEC@Q\\GD?DCF@@C?SWMD?NBFEH@NJPF?CCFE?BGJ?HOTGNED?LLFAHBFMr@IJQMBEGGHYFG@GPOAIT[BKDGD_@DCJJT@HA@KD@BHENBLG\\B@DA@I?[DEEGBED@Vr@?QIQBEFBL?BC@GJ@BDHADDHBE`B@d@AT@FAHO?GBg@ACM@i@EWGBBGOAGDM@AME@CFIDABEEI@CLBHFABDFED?DBBHHMDBHCDB@DDA@GBJAF@FAZkAAWBc@GEBAFC@AKU?A[BECk@?uABSA_AFI?G`@ADKE[KIE@@GFENWCGCJQTELEBAFGH@FCBAG?w@BI?]A}ABCh@?"
+  },
+  {
+    "frame": 1815,
+    "date": "2026-05-04",
+    "distance_m": 1531.7,
+    "time_s": 1595,
+    "start_time": "2026-05-04 19:28:33",
+    "end_time": "2026-05-04 19:55:08",
+    "polyline": "kmbcFdtbhVf@AdADv@CF@JAXBCz@ERDJCJDJ@l@ATDPGTC?ID[?EDG?EEA@KAEDKBHm@CKCDIr@GFCGCg@I@FZ?PCFMEQ@DSGFECAFC@i@GAJBHAFJX?DFBQb@JYD?@INGCCDGJNf@TCPED?JJ_@D@BNCH@DB@AHB@HKAGCABMC]LJDHD?HFHABIDCAMBGVBBEDBDAFt@CRBTCDE~@?NeAC@QAU@UCWEBCOE@ADIAKBIGGJCACBKAGH?HHFJAFD@ABBDEFBHAF@BDDE@@@f@BD_@Dc@Ae@@[?MEEDICG@EC@MAmBDyBASPM?GBE@W@ECKBI?UF?BEHC@WGYMCMFENAt@@FAHD\\CJ?JGDAYD@?CEI@cD@Ah@?"
+  },
+  {
+    "frame": 1830,
+    "date": "2026-05-11",
+    "distance_m": 1572.6,
+    "time_s": 1500,
+    "start_time": "2026-05-11 19:36:22",
+    "end_time": "2026-05-11 20:03:03",
+    "polyline": "mmbcFbtbhVB@BCLBXCXFJCLBNCL@LAT@VCTB@dAA\\GTBX?NBt@OICHGEE?CHGKKEKBCFE?GFBa@AGDICCC@Ef@GVGE?QEM@KIDCLFDAHDH?FQEE@EAHOFE?KNMEADMFCLQDABGLIPU`@[BIGCC??AA@CAITKFCJGBELI?MJAJGBIPEBK??DGH@BCHIBGLGBBNEB?FCG@EICC@@II?CEG@?BG?BDAFFJAXFJF?@DDABED?CEDETXHBHE@EB?@PEH?JCB@F@OFUHA@PEFDV?L@AD@DSIu@?IFFF@DDJ?BDL?@IVFBAF@DC@h@ATBb@CN@^E^k@BUCBUCg@CUC@E??ICAEBG?CDI?EIGFG?ADECABCEC@CH?JP@FDF?@FFGTBDABBBGDx@cBAs@@?@[C@sBAM@i@BOCaA@aANAFGBIDECMBECIDIGUG@AHCAAHGACcADYd@@"
+  },
+  {
+    "frame": 1845,
+    "date": "2026-05-11",
+    "distance_m": 985.3,
+    "time_s": 1032,
+    "start_time": "2026-05-11 20:06:54",
+    "end_time": "2026-05-11 20:24:58",
+    "polyline": "wnbcFnybhV@c@CIHCDKDCA??S@CD?AFB?BEB@@JHDBHDD@FDGDBCJ@BFC?LDJ@JPTDJ?DFD?HLLLEF@BQDC@IBC@MDM?NIP?HCFD?DGRKHFDLHCDGH@DADDB?AHO?CDE?GFC?AJ@VJDDAFDFCBDAFYDIACCADIB?DG@SIEGK?DXP`@?LFJE@DB?BDRCFIEBA?K?ZBn@GK?i@C??BCBCCE?GAGBECADCACDEEGACCADKGAOFA@CN@FIDHFAB@FEDBHG?DBB@EB?AIESGEE[K]M@O^?HEE@EPa@GCIBGGIAK[ED@FE@CBQMGSBGCEDIA@KEE@?CFEHAJHNA@KIa@GKCOBYII?ICAEIE@AFMV?DED@FALELC?"
+  },
+  {
+    "frame": 1860,
+    "date": "2026-05-12",
+    "distance_m": 1095.4,
+    "time_s": 1231,
+    "start_time": "2026-05-12 19:06:53",
+    "end_time": "2026-05-12 19:31:16",
+    "polyline": "mlbcFftbhVBHF@?JBB?HHTCPDNCH@FAHBD@TEPE?AB?BDDCBC?@HED?JA@AAAMKG?ECCWFKIWDJDFADFDC?FIPFHCBDLAFJHD??BJBDA@BBGD??IGEDGLN?JFDAFFBDABDF@DFHALB[v@@HNOFOBMBE@ID?AKFABFB??HBBLl@@XDFFb@U??WGHCC@GAEEDOCKBGIEDAHKAGBGAGPDFJ@?BBEB??DDALDB?@GJ?DBFADBFEFh@DCACA?@?ABDKCO?MFC@JB@DE@@BRDD@SCOFEE@?GEGAMCEA[EGCOK_@AKB?JJF@@B?CPJH?DECe@BsBG?UNGBGH?EFI?KFM?MFKACDMAKGD_@dBIAEDMBAMM]AQIQ?IKUDGECC?BCAKEKEACMSk@I?"
+  },
+  {
+    "frame": 1875,
+    "date": "2026-05-12",
+    "distance_m": 1172.6,
+    "time_s": 1285,
+    "start_time": "2026-05-12 19:44:13",
+    "end_time": "2026-05-12 20:07:03",
+    "polyline": "ukbcFbubhVCIDH@PDFBJDH@JHJ?JDBGZ?RGBCXA@KCGL?FIF@DADEBEE?WKACEG??GM@MO?BGDGAEDFDRXA@ACCFAVDFAFPPL@JAFD?IBAEEFA?AGK@ADB?DDB@JDBAFDFFAFD@GLDBFHANKBIBABB@DI@BBANIl@EH?J@@@CE?AB@IAJMNSBECERB@BDBAFD@ITTBGD?BB@EP?D@@DDG@?B^BFBA@GEo@CKGD?Kc@AGC@CF@?KHQHc@?OBEBB?ACGBKDDJBBB?HHFAHFXFL?JH^EFACC@@FFA@EDFBPBA@g@EG@GQs@M]BALDL@BAC{@@wAEEC?CDG@AFIBGHG@DSAIBCJq@AWGESrBCFE@Q_@GWFE?CI?DGAGCEK?ACK_@MYAICCBAJADCDMc@B"
+  },
+  {
+    "frame": 1890,
+    "date": "2026-05-14",
+    "distance_m": 1230.5,
+    "time_s": 1322,
+    "start_time": "2026-05-14 19:31:54",
+    "end_time": "2026-05-14 19:54:13",
+    "polyline": "skbcFhtbhVA?A@JZFJA@KE@ICEA@?CCDFJECAGEAABLL@HF@@BIFCE?KA?AFDF@JKBKCGJBFC@AHEBHCDDKHNGFDDRDB?LDDEBSAEC?KEMDL?DADGCCQEE@QGI@EBXE?EME?F?BBCB@DGBHA@BFB?HUIJBLHDJH@EJCABBDAABE@FBCDIECHCAKSQKFDFJDABHEDB?GFE?AEGTEKG@?@B@@JGFEJCB?JFH?^D@?JHAAFHB@JL@AFJH?DFF@HF??HHFF?@FRC@HFH@FJABHH?DID?NGHKBO?SFEA_@CG?OFIE_@@KCSICACDI@QBABBBARHHAFFB?BCAc@K?GEIBIACFSECIHYA?CHAGBOCECJ@DEF@FAFGI?GCMGIDEHAAODID@JCBDHAFFJC?KFB@CNECKQDCQEHI?IF?KJK?CCCIRM?AEAFMHS?ADDFAHB@@DAJCBYaA@o@?JC?AKGEDXFFEHEQGEAKECAEC@"
+  },
+  {
+    "frame": 1905,
+    "date": "2026-05-14",
+    "distance_m": 1077.0,
+    "time_s": 1142,
+    "start_time": "2026-05-14 20:07:27",
+    "end_time": "2026-05-14 20:27:00",
+    "polyline": "_kbcFptbhVFPB?CFLTGBGGG?GC@BD?GBJADFGDJGD@BFG@@?LCALFD?RBBDNGDCA?KG?AA?OAFEGCDGQBNGAAC?CDF?NA@ECDFCAFJABECCGC?DICEBC?GCAAPGK@EGCBDCFAAAC?@FJAH@@DABBF?AHB@?DBDBL?DGA?EIDEEBIKQ@@AFBB@JGEAKE?BCCK@UGK@IDj@GE@GGKDJAFD@BLC@IIAG??HH@DHJBJ?CAPEMABHFAPICCEGAKO?FHNA?EACHK?CDECCRGB@JEDAj@HPF?CFBBHCFBD?BHAJBBALBFCFDBHN@JD@AHH?@FFEFBFCBNJLF?BHFADBDCFB@EF@HMBIPC@PFDFAD@?MDG?[CCG?AIG@GG@SEQBMAIDI?OEM@ICKBGEKBICIBIDBH@BFH??i@ECIDGCGDCIGDEC@KECEUGGM[EE@OGQ@OEAAKCBIKAUCB?FDDAFGO@DGI"
+  },
+  {
+    "frame": 1920,
+    "date": "2026-05-19",
+    "distance_m": 516.9,
+    "time_s": 459,
+    "start_time": "2026-05-19 17:26:30",
+    "end_time": "2026-05-19 17:34:56",
+    "polyline": "wkbcFp|bhV@@@CDC?DE??@@DD?HIB@`@_@CTFB?BE\\DB?ODCF@HIF??ECCJABHD?BACIBADDH?DENC@p@ECI@J@@BAbABPGh@BLCF?LE?IECDOIM?EGKEGDEWECA@BFADOCC@@DMACDCMOCIXGAEDE[UCOMIQ?}@CKBE@OHGBI@AJADGJ@FCFF?G"
+  },
+  {
+    "frame": 1935,
+    "date": "2026-05-19",
+    "distance_m": 542.6,
+    "time_s": 481,
+    "start_time": "2026-05-19 17:37:40",
+    "end_time": "2026-05-19 17:45:57",
+    "polyline": "wkbcF~|bhVD?C?BBVIFHDAPBNOFABIPBFMNBXQAf@@vAAj@KAGJNDAj@C@KEEFIEAGGAGBKIG?CEGDMa@?MCECBAJDb@EJDJALOSCKIAGGGCEBG\\I?CFCm@OCIBIGIA?MCG?KQ[?MPIBQJUHEFKH@FAL@JEBD"
+  },
+  {
+    "frame": 1950,
+    "date": "2026-05-19",
+    "distance_m": 566.4,
+    "time_s": 513,
+    "start_time": "2026-05-19 17:51:10",
+    "end_time": "2026-05-19 17:59:43",
+    "polyline": "ykbcFt{bhVNGHHDMH@?DHBDAAC?@ACF@GFDBCJDE?KFKH@?FHMF@DA?KHJBEDABKDJDAHIBBDCAd@Bd@Eh@BVCX@b@CRGOCAGIG??DQ?KGEBKOMAGI?C?@C?BABI?GEECF?VFFAHEFDF?Jg@YMAG^M??SEKQDSIIOEU?SMQFABGD]HK@KJEBKJ@DCHHHIHDFC"
+  },
+  {
+    "frame": 1965,
+    "date": "2026-05-19",
+    "distance_m": 513.5,
+    "time_s": 477,
+    "start_time": "2026-05-19 18:03:46",
+    "end_time": "2026-05-19 18:11:43",
+    "polyline": "ukbcFf|bhVJ?ACHBBCH@JE@GDCARH??BE?DBDKDJBECKBEAGBED@FEFBFCFDFEHDHGHBAt@ABIA@BHB@BEtB@d@SIK@KGIDIIIAEEAFC?GECUGNFFEDGEW?YICNGHKG?QWIWe@@k@GGEUJIFABKFCDIB?JEF@DAHBNC@DBA"
+  },
+  {
+    "frame": 1980,
+    "date": "2026-05-19",
+    "distance_m": 678.0,
+    "time_s": 569,
+    "start_time": "2026-05-19 18:13:01",
+    "end_time": "2026-05-19 18:22:48",
+    "polyline": "ukbcFh}bhVDJR?JIJABGLCIHHPJG?EGI@MCI@_@EG@KAGBG?OLe@@@Rm@FCBG@DFFBNFHL^C^Dd@AtAIEG?BJNBCH@J?\\C?CH?DHFETB`@E^O@o@GIFCE?KEEAOEMA@CDFHCFAPFD?Bc@EECUEAPOCGBEQMAOSESEA?i@KQAMNCBSLUH?DGF@DAFDJ@FKFB"
+  },
+  {
+    "frame": 2010,
+    "date": "2026-05-24",
+    "distance_m": 656.9,
+    "time_s": 627,
+    "start_time": "2026-05-24 18:17:44",
+    "end_time": "2026-05-24 18:28:27",
+    "polyline": "albcF`{bhVPADHTIDOHCDIB?GLDD@NILDB?VFD@UDG?GFICSFA?KFK?UAEDGLk@HGBKLABKHABCC`C@r@DRC`A?nACTSYE?ABMCSI?GGCKAACA@@DABAA?BFJG?AIG@GEAFKIUAC\\K@CUU?OGKACC?IG[?_@GIGCEMZO@KFEDIFAHGF?HEHDBCP?"
+  },
+  {
+    "frame": 2040,
+    "date": "2026-05-24",
+    "distance_m": 692.8,
+    "time_s": 727,
+    "start_time": "2026-05-24 18:30:01",
+    "end_time": "2026-05-24 18:42:08",
+    "polyline": "klbcFv|bhVJBFCDLDB?FL@DEADRPCF?LB?BIAMJK@MNQF?Cm@BU?KDIBe@^u@JGJM@p@AfABPAd@Fp@Eh@?d@ENS@FH?DLFCj@KGUACGM@MKMDEGG?ABFHBHDBBFDBADC@GAAKi@[G?@HI?CEK@IFMBMAGESs@Gw@I??APO@KHILGD?HOCMFKHFCF?BNB"
+  },
+  {
+    "frame": 2070,
+    "date": "2026-05-24",
+    "distance_m": 652.6,
+    "time_s": 627,
+    "start_time": "2026-05-24 18:46:27",
+    "end_time": "2026-05-24 18:56:54",
+    "polyline": "skbcFr|bhVPJDAHBAHF?D\\FEFk@DMLBDIJ?@IDBLABIEEDSEY@]CIHg@@UHIBQHA@|EEb@Dl@CT?XCn@IEO?CGS?CEKLGEG?CEUEECK@@HKEEEMJOFUEGOEAEUGGEu@K@AGPMN[NAF[AMLDAJDBJCLN"
+  },
+  {
+    "frame": 2100,
+    "date": "2026-05-24",
+    "distance_m": 409.7,
+    "time_s": 394,
+    "start_time": "2026-05-24 19:08:16",
+    "end_time": "2026-05-24 19:15:44",
+    "polyline": "glbcFf_chVH@HEE?FDFHL@BBJ@@FDBPIFB@CJK?BILFBFABIBA@NCFNL?NFHBCAKBG@q@HIL@GNBXCJBJCP@`@CHC@gBA[@mACHM@MDEBKV_@@[?UBA@D"
+  },
+  {
+    "frame": 2130,
+    "date": "2026-05-24",
+    "distance_m": 153.8,
+    "time_s": 167,
+    "start_time": "2026-05-24 19:18:33",
+    "end_time": "2026-05-24 19:21:48",
+    "polyline": "klbcFjzbhVBED@R?FFTFNNBFHBJJ@RG`@OAMGEIG?EIEAAGWWGMGU?I"
+  },
+  {
+    "frame": 2160,
+    "date": "2026-05-24",
+    "distance_m": 355.6,
+    "time_s": 426,
+    "start_time": "2026-05-24 19:25:11",
+    "end_time": "2026-05-24 19:32:43",
+    "polyline": "_lbcFpybhVAGBAFIDOAEB?FJD@A@LVR\\@\\DJ@LDD?LFHCJFLCB?HIPGDGJCDGOCc@QII@BBARHRE@Ko@CDEG@E?OGM?EFXF@@DFIB?B@GKKIE@?FEACK@AFB@EF@DHBA?KECAE?SMY@OCK"
+  },
+  {
+    "frame": 2190,
+    "date": "2026-05-30",
+    "distance_m": 513.8,
+    "time_s": 461,
+    "start_time": "2026-05-30 15:04:01",
+    "end_time": "2026-05-30 15:12:36",
+    "polyline": "kkbcFpvbhVDBH@DHFA@FH@JFHPF@@DABBNEB?DBPALFJEHARJr@IJCLOV@VGBEJBFEDAHIFCCBc@Ig@RcCE?ALC@AAAFC@EGIEAKOIED@DMA?TTFHCRBCBS?GBEAAEKFSIBO@A?EEA@G?GFGHDBGDB@MB@?HB@D?HEFAFE@DF?BCE_@EE@IEQIEEG"
+  },
+  {
+    "frame": 2220,
+    "date": "2026-05-30",
+    "distance_m": 931.3,
+    "time_s": 817,
+    "start_time": "2026-05-30 15:15:26",
+    "end_time": "2026-05-30 15:31:03",
+    "polyline": "klbcFnvbhVCe@CMBGCMfABNJDHHDHNALLV@RHRB^FF@ZFTANF\\?NDNA\\Dd@@VIX@FCJIp@UDIEI@QCu@B@IKuCDq@FOCKIEIBEL?DACEF@HCH?HGJ@NCH@DCDC?EKGIEFEEIMAMIIAUEKCfBB@HCNJL?JK@I@F?DQPMBU?EFAUFkBCmAJIJ@DCJ?BCB@FNHADBH?HNDICg@EKC[AYEM"
+  },
+  {
+    "frame": 2250,
+    "date": "2026-05-30",
+    "distance_m": 1227.0,
+    "time_s": 1111,
+    "start_time": "2026-05-30 15:37:43",
+    "end_time": "2026-05-30 15:58:11",
+    "polyline": "kkbcF~xbhVD\\EFFFDCJBDGH@BA?GRUHHDILGFDDEH@FEFLDE@IEK@KEC@QGG?_@EGCUBICQFAF@FA@?@r@A~A@L@`AAJBR@`AD\\Ed@GFGACGEAG]ENGBAQGGI_@GIEMGICKW[EAIFE@?HEHE?GEG?MIM?BLSN?NGJ?JOn@BNHDDF`@Pf@BDEJ?RIPADHL@FDDGPAJMB?KZOFe@?QBKHUDIFg@@QGE@GEQEIGIBCC?OD[HOP}@?KL_@IGANGDGMMEEy@FM?IHADEJBHVJBBc@DECGFg@AOLu@Bk@FGD@B\\GVEXJPDf@AFBB@F"
+  },
+  {
+    "frame": 2280,
+    "date": "2026-05-30",
+    "distance_m": 865.4,
+    "time_s": 783,
+    "start_time": "2026-05-30 16:14:40",
+    "end_time": "2026-05-30 16:28:47",
+    "polyline": "akbcFrybhVUj@A?@AAGCGID?GCBC?GIC?CFIBCN@NCXDBBHH@BDD?FFF@BFQ~@A`@GJGh@DDLDHAFDr@FNALEH@DGZMLAFEJ@BKCQIGIBACIFIAIFK?GD_@?W@QAMEGCGK?ODe@DKB_@DG?KRMAKDGH?TVLAL_@D?h@f@JRHDBA?q@C}@@KCQ@OGAIBCC@EG?ADOLELC@ECCJQCBUEa@Qc@OK?OLk@AKGBEv@@BAHED@DAL@NKx@EH"
+  },
+  {
+    "frame": 2310,
+    "date": "2026-06-04",
+    "distance_m": 978.7,
+    "time_s": 792,
+    "start_time": "2026-06-04 19:10:48",
+    "end_time": "2026-06-04 19:24:00",
+    "polyline": "ikbcF`tbhVAb@EX@PGH?NCPEBKEG?GGE?EBI@AJGHBLENJ\\NJHTH@BJCHBFEJAVGT?FG`@CBANCB@Rt@Tf@BZEFCNCx@c@DS@WCCEAc@NULMCCDK?CDECK@k@ISKACDOAIHu@LMCS@OAIHA@EJA?KD@FEHRHCJ@@MFI@EBCFAHLB?DBTd@FPDBHN@EGy@?y@FuAAAE?IFCEC@CJI@EHKCKJW@J]A[II?IQAGDDJ@NFJAFCBCAC@CHGFI@ACN}@AIOA"
+  },
+  {
+    "frame": 2340,
+    "date": "2026-06-04",
+    "distance_m": 497.5,
+    "time_s": 301,
+    "start_time": "2026-06-04 19:26:33",
+    "end_time": "2026-06-04 19:31:34",
+    "polyline": "ckbcFhvbhVOGUC[EQ@[GA@Bd@Cl@@HCzCD@DAFDb@@HBHCNBLAPBb@IPBdAG@EAQBi@A]J}BWE{@DOCI@YEKB"
+  },
+  {
+    "frame": 2370,
+    "date": "2026-06-04",
+    "distance_m": 684.3,
+    "time_s": 537,
+    "start_time": "2026-06-04 19:36:22",
+    "end_time": "2026-06-04 19:45:19",
+    "polyline": "gkbcFhtbhVc@CIB}@EA@@LELBJCvCBj@@@HCFBj@AJBJCZFNAH@LELDjACDn@QAEDIAIFKCAFKE?FFFEHSWEMIIEY@SJ]HEDSJIB?BNADDAHFHAHFFAH?BCDo@Aw@@KCKB{@uCB"
+  },
+  {
+    "frame": 2400,
+    "date": "2026-06-04",
+    "distance_m": 769.5,
+    "time_s": 630,
+    "start_time": "2026-06-04 19:47:51",
+    "end_time": "2026-06-04 19:58:21",
+    "polyline": "akbcFbzbhVPBBHJMNEH@@BCB@@LEFBNCLDBIH?FE@H?l@CF_@GIFQ?_AKO@MAM@IAQBIBKA[@?XEdB?hBDBBAZ?VD\\ENBHCFDZANBTCBB\\?DDFADG?QHe@AMBOCI@e@Em@WKMDSAKFWCOOOHEEM?GHCKQ@AYGOFK@G?QAEJEHFDM@?@FBGL?"
+  },
+  {
+    "frame": 2430,
+    "date": "2026-06-04",
+    "distance_m": 851.2,
+    "time_s": 796,
+    "start_time": "2026-06-04 20:03:08",
+    "end_time": "2026-06-04 20:16:24",
+    "polyline": "gkbcFptbhVIEc@EWBYCMBBJB|@?h@CR?TCJ@x@J@PA`@BZAB@PAh@Jb@Cf@BND?j@SEm@UUAKDOCCEELGBQII@EC?GC@DKAKE?AG@Q?OBIFGF@JQDCFDD?CBD@?FHNELB?BGAKJ?@ACEBMGCBCCGFMf@i@FB?BKP@HOJ?D@BCL@BFFBPNEH@PWFBB?DHBQC]BW@q@ES@Q?QMCYD_@EY?o@F"
+  },
+  {
+    "frame": 2460,
+    "date": "2026-06-11",
+    "distance_m": 775.7,
+    "time_s": 576,
+    "start_time": "2026-06-11 19:57:55",
+    "end_time": "2026-06-11 20:07:31",
+    "polyline": "wlbcFftbhVq@CK@ADDnAEf@D|BB?HCLDHAh@DEERHFEDDHCLHLE?JIEG@GIK?QFKEGBKCIBI?GJDDV?JCJ?DCXFHFRFL@HHRAJFHAJBPQ@g@sAAGC@CLEAKDOD?BBFIFJHADBHIL@BCHqBAeAAS[CU@UCuBA"
+  },
+  {
+    "frame": 2490,
+    "date": "2026-06-11",
+    "distance_m": 930.2,
+    "time_s": 750,
+    "start_time": "2026-06-11 20:10:07",
+    "end_time": "2026-06-11 20:22:37",
+    "polyline": "gkbcF~ybhV?RDZAH?DCBDJADKDCE?OKEIACEELIA@JEDCR?h@P@@B?JB?BCAIFJB?BODEO?m@Ec@@AZ@lCLCRDL?jAEJAx@DRE^?BEAG@G@O@qAIAg@MKBEGI?EIE?GCK@GFC^EH?FEF?LCFAG@IAEIAAYA]FS~@HFCHBDCFBHCHBHEJ@@I?MDE?SCKG@CCOWCAMNII]GFIJCD?DFBEAEQ@GFIGK?ENE?ADCLK@ACBE@QGa@BICA"
+  },
+  {
+    "frame": 2520,
+    "date": "2026-06-11",
+    "distance_m": 99.9,
+    "time_s": 92,
+    "start_time": "2026-06-11 20:24:17",
+    "end_time": "2026-06-11 20:25:49",
+    "polyline": "qjbcFpwbhVHm@Ds@CCM??d@I\\H\\"
+  },
+  {
+    "frame": 2550,
+    "date": "2026-06-11",
+    "distance_m": 362.8,
+    "time_s": 354,
+    "start_time": "2026-06-11 20:28:07",
+    "end_time": "2026-06-11 20:34:01",
+    "polyline": "gjbcFvybhVKAKDK?GF@BABC?CEGBCFE@EFI?MHIJEPGDCLFACFHA@DDEDJJEDDBSD?DKJHDFD?FBTGDBLEHBDCFDDCf@J^C?}@EOKBIEU?IDGAEBGAWFGEDMI?JIEG"
+  },
+  {
+    "frame": 2580,
+    "date": "2026-06-11",
+    "distance_m": 454.4,
+    "time_s": 444,
+    "start_time": "2026-06-11 20:35:18",
+    "end_time": "2026-06-11 20:42:42",
+    "polyline": "kjbcFtybhV]R]@WJCJG?CHI?EHIF?BDFADJ@?N@?HCBJDBFHHCFM?GFCBIDA@CBFNHD?FBF?@BHADB?f@DLAJDBAHDB@KHNFDDG@MEK?KKA@KIg@BCF?FAH@FAJBX@BWCS@i@K@GCEBKCE?IGC@SKEBWGC?CD"
+  },
+  {
+    "frame": 2610,
+    "date": "2026-06-11",
+    "distance_m": 479.0,
+    "time_s": 481,
+    "start_time": "2026-06-11 20:43:59",
+    "end_time": "2026-06-11 20:52:00",
+    "polyline": "qjbcFxybhVSJMDIAEFICGFIAKHADIEEFGBCLDFCDJF@TB@FE@HJ@BFJG?KDCD@BIBC?A@@AE@@?ALLD@@HHHF?BFH@E`@EF@PGRBDGFFAADEBFC@HHWAEDSLMAODQAMGEAICEPCHBDC\\?JBDCDBD?BMBm@AWc@?GIM?CCI?CEM?IB@GCAKBCD"
+  },
+  {
+    "frame": 2640,
+    "date": "2026-06-11",
+    "distance_m": 713.4,
+    "time_s": 705,
+    "start_time": "2026-06-11 20:54:44",
+    "end_time": "2026-06-11 21:06:29",
+    "polyline": "sjbcFlybhVB?K@AFGGGBCJKAUJMBEBADGKBGCOM@IJHVBZGZ?ZXCCKBCCGLHHBNAHBFCB@CLD@B?@INPJ@DDBAIX@HCD@HSEGGE@AFGAAFDBIFAFJJHE@FJEDIFBALDBEDD?Je@@IFI?QDMAG@GCKOOJ@FBLCF@DAPLb@FBoACo@AAEDICGHI?AFM?IHEKEANK?KH@FCJL@IEMQEODC?CJOL_@?HIH?G?GBCAFEGB"
+  },
+  {
+    "frame": 2670,
+    "date": "2026-06-12",
+    "distance_m": 649.5,
+    "time_s": 582,
+    "start_time": "2026-06-12 20:17:48",
+    "end_time": "2026-06-12 20:27:30",
+    "polyline": "yibcFrwbhVANDD?PARIDMAODEFEBGLC@GCCGMMU@GGM@Bb@Ol@?BJ@DHDA@IRLF?^JH?DHH@DLJDCZ@HE@EACEC@?IGEC?IJGAC@@LGDH@BFF@?DEBBBLCJ@@QFACD?LDHHQAOFQHECO@IHM@GBCHDFGICBGF@HFD@ZLD@BGAw@Bi@C_@E?GDG?OFWRICIDQGTI@c@BO?OEC?KGAEB"
+  },
+  {
+    "frame": 2700,
+    "date": "2026-06-12",
+    "distance_m": 770.2,
+    "time_s": 772,
+    "start_time": "2026-06-12 20:28:54",
+    "end_time": "2026-06-12 20:43:00",
+    "polyline": "kkbcF`xbhVF@?DGB?BMGI?IEKDABBBCHDBEBCJDBDA@BT?DIF@@EDC?DJDENA??EE?GLKEEH]@IHCCBKCKY@FXDd@?DEH?HEH?PB@FGL@?WD?DHJAHBJCFDH?CNL?@ABB?BG@CJIEEMB?GDCGI?KIGB@FEBAJFBEFK?AB@@PCH@DHHADGH?BECVBF@MHALMF?FMH?@QGIBELDAJFA?MFBHAJBFDFAHFDADBH@@GEw@@}@AIODI?CBI?AHI@?FC?Q??GPB?GE?MG@GCAC?CNCCE?HEAOIIWGEMG@AGC@"
+  },
+  {
+    "frame": 2730,
+    "date": "2026-06-12",
+    "distance_m": 806.8,
+    "time_s": 710,
+    "start_time": "2026-06-12 20:46:02",
+    "end_time": "2026-06-12 21:08:48",
+    "polyline": "ulbcFhtbhVIAL`@GPKFG@AFIHIEM@CBAbABHCV@j@?TF@XCF@DON@FCBDFEFBBGAAJXFDAFBDEHGGG?[QGHKDKPCA@@SBMDAzB?HFBBF?FIL@FFB`@CTGJ?NEL@DBNALEBGHA@IF?HEBFFABIHCJIHMAGHBLCDMCG@IA]Di@ESAgAFgAEMQG?ECCCOW[GFCACFKEIAOK_@GMKGKKCCGMD"
+  },
+  {
+    "frame": 2760,
+    "date": "2026-06-12",
+    "distance_m": 702.2,
+    "time_s": 486,
+    "start_time": "2026-06-12 21:11:01",
+    "end_time": "2026-06-12 21:19:07",
+    "polyline": "ylbcFntbhVu@EEFA`ADXCVCdACBF\\AJ@r@E`ABx@En@@FJBZGb@ALDb@?dA?T@XAH[Da@CODQCk@?k@CUB{@Ce@BmAAEAc@DWAYCCU?g@Dq@AsAB"
+  },
+  {
+    "frame": 2790,
+    "date": "2026-06-15",
+    "distance_m": 931.6,
+    "time_s": 800,
+    "start_time": "2026-06-15 19:47:15",
+    "end_time": "2026-06-15 20:01:48",
+    "polyline": "yfbcFd|bhVMDGHOBGPI@[TI?EHICG?[[EIE@MIi@EMBIAIDGj@BHA?AFAf@Bz@CTBDAFvABDCj@BHAL@JA\\Dh@CBA@ECOBIAE?a@DI@OECG?E@AFLD?DCBI@GH?HGFCN@NQIIKI?CKKGAGMIEDAFBAACB?DJD??HBHI@EIG?DDEFBFKBEAI@YOGBGEMBKGCD?JEACEMT?MBE?[H@CMDMAGH?@@@CLC?FBADEBKFC@KHIHBPATKDBBADGLEL?BEHBDCFBHCBN@B?XVCDmAG]"
+  },
+  {
+    "frame": 2820,
+    "date": "2026-06-15",
+    "distance_m": 1053.9,
+    "time_s": 997,
+    "start_time": "2026-06-15 20:04:07",
+    "end_time": "2026-06-15 20:21:14",
+    "polyline": "{fbcFp_chVAMBYCEDa@CcACIIB?LGD?LA@ICIBCHGBKJGP?BFBEHI?EJECAKQ?EGMGQ?EHCC[@@QGWI?GKUKM@EzA@BHCDOVBNENXP@BBHADPD?DIJCJAHBp@UBBHCN?D^?ND@BCBNC`@@j@GXO@KCI@QC_@AMDECm@DKEk@?GAEBQCCC@KDEGOB_AD?PFFAFHFCB@MFBDEB@NGBAd@BJ@QBED??HB?DEAMVAJ@b@VX?FB?MMODB@EDBBEFBDEEEG?AIO?ECG?CEE@P?AGK?BCLBf@RBDLF@FDBBJPEBKCKHKCKBCBBFA"
+  },
+  {
+    "frame": 2850,
+    "date": "2026-06-15",
+    "distance_m": 993.0,
+    "time_s": 1001,
+    "start_time": "2026-06-15 20:25:10",
+    "end_time": "2026-06-15 20:42:19",
+    "polyline": "{fbcFb_chVEIE@?]GOECWAMJIAIFEAKDI?GFMCQKEDKPADGHEGKBGCEBCTCDCECB@PEDARB@@ABQFJB?BIHDD?HBBHNHDHJHD?HBDHJ??MEC@GIWDCKCMKBEF@BDBADFH?DHPD@EGGAKKG?AB?BDLDHNJFDJNJFHFY?KFGBOD@BK?GEADKAQF[?k@CIAS@UCQ@UDa@?GGCM@Ib@A@IEIDECIBMEI@a@EOBMCIECMOKG@CBC@IEE@GMCQGGBEF@UM@GHEFHADDDD@FIF@LEJIPIBIXMDD@HOPDBR?FEJ?RQL?FEH@@FADHF@JDJ?LD?FE@@?LI?AF?DHAAL"
+  },
+  {
+    "frame": 2880,
+    "date": "2026-06-15",
+    "distance_m": 885.3,
+    "time_s": 913,
+    "start_time": "2026-06-15 20:43:32",
+    "end_time": "2026-06-15 20:59:08",
+    "polyline": "cgbcFhybhVS?GBGNIXIL?HIDDD?HR\\BL?BZAFBBD@RCjAKKME_@?YIG@EEO?@@CA@C@DEEGBU@IIGBGGICEKECEa@I?A@?IDOGOKEMUF@DLHDBEECAC@CB@BNJDDM@?D?ALFBBC@EPBDGDRDD@H@BBHDALKFADEFF@GEM@OQAAMCADGHA@MFE?OGGO?EGICIPCAEFCPM@ACG?EGE@EAEHIA?FIDACAGNCQ?BETQ@e@NQDK\\MH?FCFBLCBCf@EHEF@HABOHK?IFCHMB?DC@FEd@@n@CPB^C@"
+  },
+  {
+    "frame": 2910,
+    "date": "2026-06-18",
+    "distance_m": 999.5,
+    "time_s": 1029,
+    "start_time": "2026-06-18 19:34:22",
+    "end_time": "2026-06-18 19:52:05",
+    "polyline": "olbcFfxbhVC?ECGMIAGEDA?CEIEB?JK@AFL@@PFABGF@FNCBAJGDFb@MH[KC@@DXHDAF@FEDDPDV?HBHACTCF?DJDLE@A?CUCULMEA@CAA@GACJC?EJGFE?CIE??NEJK[E?ABDH?LKE?F?BNB@BIHIRD?FIB?APDE?KHODRFF@QD?RNL?HAB@TCb@AHBFADB?I@?TNBHFBDHH@HH@ABG@}AEAKBQAGIN?@IEKCAI@EDI?GIOECGHADKJCJ@DA?AD@FE@@CEI@CCFCBBFICAABO??GDBDCECBAL@FBDCD@@qCIBKNUr@GLIBICKBGCEBOBGCG@UCKEE@IACB"
+  },
+  {
+    "frame": 2940,
+    "date": "2026-06-18",
+    "distance_m": 1037.7,
+    "time_s": 979,
+    "start_time": "2026-06-18 19:54:33",
+    "end_time": "2026-06-18 20:11:25",
+    "polyline": "ulbcFlvbhVA@BC@EEEa@LIHMDCf@AtCCx@JX@PBF@THb@FND@N?FEF@DABKJIPGH@JAR@DCF@j@MLKH?DCDGBQ@c@EgAB_@AcADe@ESBMAOBGAcAMAGHJRBJ?NEF?HGHGIMCCB?l@CDCUMM?GQ]GEEBJZFD?JJF?DJR?HDJH`@EHBNCPEDAHKVKNG@GD]IEGICI_@IG?IHWHCFJDCLHBNDD?HL@DCHU?WCKFW?IIOCGGECGICCKYIMKI@KCIDGGDC"
+  },
+  {
+    "frame": 2970,
+    "date": "2026-06-18",
+    "distance_m": 731.9,
+    "time_s": 655,
+    "start_time": "2026-06-18 20:14:55",
+    "end_time": "2026-06-18 20:25:50",
+    "polyline": "qlbcFftbhVE@CVBTDC?IJEFMD?FGDDFABDTEBBHCFBHAPFL@HHXJHA@IACAYACEAM@IBa@@{@CK@SCSBQ?c@GQ?CD@tGCx@B|@ArA^Ch@@PAHBX?Hi@Ao@ESWu@_@e@MCIG_@@G@CAA@"
+  },
+  {
+    "frame": 3000,
+    "date": "2026-06-18",
+    "distance_m": 664.0,
+    "time_s": 626,
+    "start_time": "2026-06-18 20:28:50",
+    "end_time": "2026-06-18 20:39:16",
+    "polyline": "wnbcFf~bhVCp@@jBL@^AT@JANBF?Ay@Kk@Qa@QOIAEGe@CDq@Cw@@c@T?DCTDDABIN@BK@@BCDOVHFHFGPIDBJ?DFH@JFFAFDFAFDT@BWCYB]CI?e@I@QHEJM@CDIDCHOGc@CGBKAGDECIB_@\\Bb@GFDJ"
+  },
+  {
+    "frame": 3030,
+    "date": "2026-06-18",
+    "distance_m": 715.9,
+    "time_s": 689,
+    "start_time": "2026-06-18 20:44:34",
+    "end_time": "2026-06-18 20:56:03",
+    "polyline": "cmbcFjzbhVFG?BABF?JID@DCBKF@?ADJHFBHB?@EDFBABL@PFTDG?KGE@IEI@IEE?GCABGL@HDXBFFDAFJVBHEBA?UBGA{AE@ADG?EFGCGJGACJE@?BUIGBGCG@ICYJIACDK?GJKAEFE@I\\@JELQ?YB@ZEdB@pCX?HCTBDAf@@@u@EMAMEIAIECCQSUMECESCKBIC"
+  },
+  {
+    "frame": 3060,
+    "date": "2026-06-18",
+    "distance_m": 724.9,
+    "time_s": 700,
+    "start_time": "2026-06-18 20:58:18",
+    "end_time": "2026-06-18 21:09:58",
+    "polyline": "qlbcFb_chVDDL`@@LDL?ND\\AHED[CYBU?S@AG@g@A}@?q@L@NCRFFJJ?DHFCHK?MDECGFEACLYC_@FM?YD??DH@DEAK@AP?JDRARP\\FFDBQ?w@B[C]OFEHE?SHOL?GFGACEDDEECKBADWAEBI?CFM@EJMCCJW@EBIZ@AC@@BARD?DE@HJABIFBDKHBAF@HIFDHCBFJAJ?JCXEF?FCD?FHE"
+  },
+  {
+    "frame": 3090,
+    "date": "2026-06-21",
+    "distance_m": 721.9,
+    "time_s": 688,
+    "start_time": "2026-06-21 20:21:36",
+    "end_time": "2026-06-21 20:33:04",
+    "polyline": "embcFrzbhVHCD@FCTODB@\\DRG\\AVBPF@CODGCG@SFKAKHa@AGDBDI^EPDHLRHJ?DD@ADBDA?e@Dy@A[K?OFSPWEUFOCe@NECK@AFI@MJI^?JCHGBc@@EB?~AB@TBXJd@p@Jt@?R@PAFc@@CCM@MAS@MC?{C"
+  },
+  {
+    "frame": 3120,
+    "date": "2026-06-21",
+    "distance_m": 717.8,
+    "time_s": 682,
+    "start_time": "2026-06-21 20:37:11",
+    "end_time": "2026-06-21 20:49:27",
+    "polyline": "wnbcFh~bhVXAJ@DDD?DHD@BHB?^v@?f@BJCVICi@@WEUBEACEBg@C{AF{@CyBBs@BKXDLCF?FEEU?OL?@HHAR`@FSPOJ@DCBBAFD@D?@CF?HGPCBILCFGRID?@@AN?dCGFAAGIECEIKEGMI?MJKCWFI?EEQ?GECGG@QOI_@"
+  },
+  {
+    "frame": 3150,
+    "date": "2026-06-21",
+    "distance_m": 313.1,
+    "time_s": 278,
+    "start_time": "2026-06-21 20:54:07",
+    "end_time": "2026-06-21 20:58:45",
+    "polyline": "ulbcF~vbhVRTBTJT?NDTCLCl@GPKNCHIJKDAFKDQ@[?Dm@As@BIE[@WAMDi@@k@L@FCHDF?HHD@FH"
+  },
+  {
+    "frame": 3180,
+    "date": "2026-06-25",
+    "distance_m": 606.4,
+    "time_s": 479,
+    "start_time": "2026-06-25 19:49:22",
+    "end_time": "2026-06-25 19:57:21",
+    "polyline": "skbcFjtbhVBAAJEA?HGLKLCHC?EDAFIBCDE?OFQA@QEg@B_@D@n@Cr@Dz@Ap@@^CB@CNChB@r@Fb@@REHBHCJGB_@AKDECE@IGOBIAGBM@CIOGG@CJIHKEEIA[BELCJKJALIJBHGR?J@FA\\FNGH?DC"
+  },
+  {
+    "frame": 3210,
+    "date": "2026-06-25",
+    "distance_m": 581.3,
+    "time_s": 497,
+    "start_time": "2026-06-25 19:58:11",
+    "end_time": "2026-06-25 20:06:28",
+    "polyline": "_gbcF`zbhVCA?@QDMAEBc@CKBGAI@IASJS?MFIND`@DDNDJYD?F@BDd@NNIDBHALDB?BIXFLA?CCOA_ADi@CeA@w@AICCSAIBq@?CCEBwCGCBADBHAXBXTATKBIHELQDO"
+  },
+  {
+    "frame": 3240,
+    "date": "2026-06-25",
+    "distance_m": 356.0,
+    "time_s": 325,
+    "start_time": "2026-06-25 20:08:41",
+    "end_time": "2026-06-25 20:14:06",
+    "polyline": "yfbcFxxbhVBrBCD_@?a@HMAQIKMGBBGCIAEGCKDMVE?CHE?CDIAGGGAGIIc@DMCQJIFOHEh@CPBRE`@?NG\\FPAHB"
+  },
+  {
+    "frame": 3270,
+    "date": "2026-06-25",
+    "distance_m": 647.5,
+    "time_s": 573,
+    "start_time": "2026-06-25 20:15:02",
+    "end_time": "2026-06-25 20:25:32",
+    "polyline": "ufbcFlxbhVCRBnB?|@E`@?TA@EGCFHBAL@h@EL@PABYAMBMC?MAGQe@KQB?AAKQAKEMGq@GSCAU?KCGGGCKQKCOo@?KCM?QDKAOFOJGDMD?DEF?FCH@DALPFAEFLB?LF@BDP@?@C@D?DGJy@DED@RYRONSDC@B?TCH?V@b@EF?LCBFHAB"
+  },
+  {
+    "frame": 3300,
+    "date": "2026-06-25",
+    "distance_m": 588.2,
+    "time_s": 590,
+    "start_time": "2026-06-25 20:28:29",
+    "end_time": "2026-06-25 20:39:30",
+    "polyline": "yfbcFpybhV?fABTAH?NA\\?~@CBSOIKAKOKG?EMGCGKECGc@S?GEGJUBCC?MFE@GE@GGG@?AEAABG@ICK@GKDEH@BEDBDCRD@AB@AGCGG@GIQKGM@??G`@TFHH@BA?ICAIMA@@CC@@?AIEAGOBMLJHVDB@DDDKe@BSFDLl@DBFAHHH@R^DCHSVUHDFCFJ"
+  },
+  {
+    "frame": 3330,
+    "date": "2026-06-25",
+    "distance_m": 704.5,
+    "time_s": 622,
+    "start_time": "2026-06-25 20:40:13",
+    "end_time": "2026-06-25 20:50:35",
+    "polyline": "{fbcFdzbhVDXAR?|@?XCDBf@KnBa@AK@KCe@Ag@DAASAg@@SCEBWABi@CoBDiAA{@@g@?_@Be@Es@B]jADRAj@B`ACHBPAJCBb@ANBbACP?t@"
+  },
+  {
+    "frame": 3360,
+    "date": "2026-06-30",
+    "distance_m": 468.9,
+    "time_s": 460,
+    "start_time": "2026-06-30 17:39:58",
+    "end_time": "2026-06-30 17:48:05",
+    "polyline": "}fbcFtubhVB`@CZIACKGDMAEDE]E?@BDA@IDA?GD@@DHAFFBMJE@XEf@AnA@XBDC^IAIDKIG@EACFIUBIHGFBDCBD@KF@J?DD?tC@VAHBHCBMA@KGIC@ANECIDEG?KG?DQFAPABHDGAID?BBDC"
+  },
+  {
+    "frame": 3390,
+    "date": "2026-06-30",
+    "distance_m": 792.5,
+    "time_s": 810,
+    "start_time": "2026-06-30 17:53:00",
+    "end_time": "2026-06-30 18:07:10",
+    "polyline": "}fbcFx_chVEHHFED?FC@EZILCJINBBCBKACIFI@UIWKGGAGGKHEAEDGMG?AIH?BGHGN@DHFGTDBCBKD@LCBEF@@FDD@MA_Bq@BGCG@GAALI?CEGHEG@OIAAGGKBCFA?IFFHA@DBC?EHB?JFAFDHIF@@A@ELM@GD?BNJAAFE@?LBJDA?LAEA_@BuBOIQGE?GGE@CFKACEGBG@ADEGE?CGC@JO@M@BFAFBDA@QWYB?NPFBF_@FAB@?LGJAPBBF?DDVI@GJG@\\CF@h@"
+  },
+  {
+    "frame": 3420,
+    "date": "2026-06-30",
+    "distance_m": 1352.9,
+    "time_s": 1344,
+    "start_time": "2026-06-30 18:27:33",
+    "end_time": "2026-06-30 18:50:36",
+    "polyline": "yfbcFzvbhVGTIEED?HD@AFGEBOCGGPAH@FCHBJALD?Md@BFCD@HCAE@CJe@I?FG?OKAGI?CKK@ING?CEGDEDMGADCIDGAE@CH??GFF@C@GGKBGGGBIDCBHADHBBGDFAD@NJEFDBCHAFIHADHFB@FD?DDB?HEBQDDABB?DCDI?KDIBSBWAIC?IXEKIAEEE?AGE@EXK@USAOA?CBCPK@@TI?CDECAI@IF?AYGAAFICGB@KGCAINMH?JD@_@AM@DBP?VA?h@@TCFHPEHBLEJB@KFC@RBFD?@^CZAfADf@?l@?RIp@@HAv@GFAHGDAHE?EE?WDIJ_@EMQEEKEACHIDAHKEEDCGC?CZKb@?HGJAHGBCc@?CFABYASIMQEAIGHEACBGCCBCOIEHKD@BGFBHADFB?@GPAFBHODAFBHOFH?LBD?JFBDGH?BCBED@@IFID??JFF@JELBTDCFK"
+  },
+  {
+    "frame": 3450,
+    "date": "2026-06-30",
+    "distance_m": 1383.8,
+    "time_s": 1370,
+    "start_time": "2026-06-30 18:56:51",
+    "end_time": "2026-06-30 19:20:00",
+    "polyline": "}mbcFd`chVHRJADEF?RJDPCTDD?T@DJCBIHGBMFIDU?ODCBB@IF?DEBGFJD@ADBF?TEJDRDHDRL_@Tc@FGJSE]GGC?IDEJCNE?BMCMCEI?AICBGCSLCFK@AFCAAOEIYNKJSCGDKKGBEGEF?HKDU?DsCDIDADTHCBDBA@@?NCDFFEH@FFEAA?IHBBEB@EUR@JHFADFJBHGJCDKLED@DJGLG?FAHOBLHC@J@BBCGOBGEM@GCC@IGMGLIGS?EFECCBMAGBGAKHCEIDGMIBECG@ECEHQAAW?e@C_@DY@[L?BCJLH?BFFAJB?HFRLCBMEGC@BBJ?@DNALNNOH@JFDAD@DC@GH?@NBBNOCMEBEH?QHCAGDE?IFCAKHI@OEACBELG@CJEBCJC@GKEAGJQAEBEAKOGDGAGHI@IEG?DO@[DGAGC?CNE@?HCDAJICCYCFBFDXA?GIGDEIGVGABD"
+  },
+  {
+    "frame": 3480,
+    "date": "2026-06-30",
+    "distance_m": 600.9,
+    "time_s": 588,
+    "start_time": "2026-06-30 19:21:42",
+    "end_time": "2026-06-30 19:31:48",
+    "polyline": "snbcFrzbhVFH@HDHBTDFJb@DGEK?IECBKAIBEESBIHCDJHD@HFD@D@AJNBX@BDBp@?DDNGH@HITCFBVGF|AEl@ELWWi@[GGEAE??BGEK@SJERB@AHDLCJk@JGAQq@QCGDG?KECMB_AFGBGBBH?BB@KYu@G[BK"
+  },
+  {
+    "frame": 3510,
+    "date": "2026-07-05",
+    "distance_m": 1140.2,
+    "time_s": 1030,
+    "start_time": "2026-07-05 18:45:44",
+    "end_time": "2026-07-05 19:05:15",
+    "polyline": "_gbcFnvbhV?AB\\C`@?NHl@C^EHMQGBGEEMIDCIEGGBKECB@FA@EIY?IHBB?DJRA\\C@CEID?EG@CAEB?BGC?DEB@HADAA@BMY?YDE?ABACKICKH?OCCAH@FQH?JA@CGGBCOHEAMFI?IBGE?EHAIGDAIGA?GBEEKBMCCEIBGDDJ_@D@@FBCGC?CDA@HBIBJJIMy@ES@ED?@B?HBZDFALBD?PB@DCFHH@@FBKN?HD?DHDBAFHFCABHDJE@HFID@JMRMDAFBFEF?DIB@A|ABv@AB?VBZGvA@f@El@?Re@?UKGISRMB[?EQA@?LEEKH]AC?IQE?GEDGF?BGFEBG?MLBBEL?DGDDB?FC?G@AJNJ@LALKBLHINCHCREDGH??A"
+  },
+  {
+    "frame": 3540,
+    "date": "2026-07-05",
+    "distance_m": 854.2,
+    "time_s": 785,
+    "start_time": "2026-07-05 19:07:32",
+    "end_time": "2026-07-05 19:20:52",
+    "polyline": "_gbcFb}bhVI@KEK@?LCBCJOEM@YGOBKL?JCBAIKMM?OFOKEF@JGHCLGI@EIAENGBBFD??HD?DD?JFDAVJ@NEDDF@DMRE@KFEBL@BF?DLJAFBFA@BFb@FTx@AB@D]AUBUAa@?e@AkADeA@o@Am@QEW?MECEI?GDCEYEE?CJC?CAAMEAS@IEM?GDAA?KKM?GCCEBCIFIDFFOL?FC`@?\\DRA@F@DH?BDNIBGLCF@HAP@@NI`A@J"
+  },
+  {
+    "frame": 3570,
+    "date": "2026-07-05",
+    "distance_m": 843.8,
+    "time_s": 913,
+    "start_time": "2026-07-05 19:22:24",
+    "end_time": "2026-07-05 19:38:29",
+    "polyline": "}fbcF~xbhVFbB?nACFBLAXGTAhAADMCSBEA@s@FEJWAID]DODk@CM@IGGCSg@JKE?LBHAHDFAJBB?LGDUAEDGAKGCGO?ECEIBGEC@GFC?JB@BCAFB@N@DED@DCHF?KGOAIEI?GC_@UPJAILICGBECE?MEGJSLBECKBKIYIK@GG@?DDBIEEHCE?ICCHC?GDG@K@EJADFEBCFCBALB??GDANYBQ@?LF@D\\CRD?DFBED?HB@B?@KBG?ADKBIHFHADBDCJJN?HDHAFF@JHA"
+  },
+  {
+    "frame": 3600,
+    "date": "2026-07-05",
+    "distance_m": 372.6,
+    "time_s": 392,
+    "start_time": "2026-07-05 19:46:12",
+    "end_time": "2026-07-05 19:53:19",
+    "polyline": "ufbcFx{bhVCFCrA@NA@E?KGC@DDD?BLMGIKGB?FED@FC?AFMA?FQAKE@ECC@KAOFWKAGIOu@BMFOAOFM@ILU@m@BERABKD@HJBE@NJD?FRE@EBD?BG@FF?f@Dd@CZ"
+  },
+  {
+    "frame": 3630,
+    "date": "2026-07-05",
+    "distance_m": 555.0,
+    "time_s": 522,
+    "start_time": "2026-07-05 19:53:46",
+    "end_time": "2026-07-05 20:04:05",
+    "polyline": "yfbcFz{bhV@x@?VCD?LCFICED?NAH?LDNCDGCCEM[IMI@MGEBKCAJG?YMKAQMGBEAGSFOHBDOHEBGHABQVO@EIOIICQGACGEEC@GMGAAGG@CQDMPBDGJCBGF@DEFAJBFCJJFAT@DIH??MJSAENMDJADKH?BH@@DEZF@FA@@Ab@Bx@CX"
+  },
+  {
+    "frame": 3660,
+    "date": "2026-07-05",
+    "distance_m": 375.6,
+    "time_s": 303,
+    "start_time": "2026-07-05 20:05:20",
+    "end_time": "2026-07-05 20:10:23",
+    "polyline": "ufbcFb|bhV?^GzAK?GJC?YGKIYKCGGCCKGI?SDa@MO@MCEBE?QFM?MDGEG@OCMT_@POJE@CNABEXAHBHHCd@@`@?`@APBLAZ"
+  },
+  {
+    "frame": 3690,
+    "date": "2026-07-09",
+    "distance_m": 600.7,
+    "time_s": 579,
+    "start_time": "2026-07-09 19:42:20",
+    "end_time": "2026-07-09 19:51:59",
+    "polyline": "onbcFdybhVKAB?HEBLTDH?HHFEJD@MDCDMFEHWDB@ED?FIFAFEH@JCF@TENFPAF@FCBDCRDN?|@ABBH?RDLARGj@YGC@GE]@CEC?K\\I?AHM?@@EB_@[AGKIEUM?OPI?CJOFCLEBELG@CGH{@HE@GDELED?HGT?BICG?GEAc@F]?AaA"
+  },
+  {
+    "frame": 3720,
+    "date": "2026-07-09",
+    "distance_m": 427.9,
+    "time_s": 496,
+    "start_time": "2026-07-09 19:53:34",
+    "end_time": "2026-07-09 20:01:50",
+    "polyline": "imbcFnybhVJD?HDH@AJA@GLG?EJBJA?EKWE@CEEFEE?C@CF?AIV?DNFDBVNCBKDE@K@DIPZBBDB?DALO?PBDHADDDEN@?VK@IFKB?HDNALADG?EHE?[MUOQGM@_@KODK@GCEIBCVFDA@EAEQAAGIACKBKB?"
+  },
+  {
+    "frame": 3750,
+    "date": "2026-07-09",
+    "distance_m": 598.2,
+    "time_s": 555,
+    "start_time": "2026-07-09 20:23:49",
+    "end_time": "2026-07-09 20:33:04",
+    "polyline": "shbcFfachVMCJ@IKK?GGAFQPI?IDADBNKNBNBB`AE?a@[CI@@LMDKXEBKCBSAQYZM@DOVUFI@G?_@BKCK?aB?QBMAQBMAUBw@?U@b@DZAPELBf@CFDRIr@Dn@AVBPCBRMBGHEBER@HFDF"
+  },
+  {
+    "frame": 3780,
+    "date": "2026-07-09",
+    "distance_m": 745.5,
+    "time_s": 694,
+    "start_time": "2026-07-09 20:35:01",
+    "end_time": "2026-07-09 20:46:35",
+    "polyline": "qjbcFfcchVKCI@ASEEBe@?YAE?{AGCIBEAEBG?IDUAGFO@GLDCCBE?@OAELCp@q@e@b@J?ADDG^KFED?DDDICIA@EKF_@FEBOAI@G?[C[Do@C_@@[PB?`@DNETFCFLDB?NIZ@@LC?JBDDC?FLMBF?JB@BE`@QJHJGBE@DAFE?CDBJAX@DDA?\\OLGJALKBAHOFEEG@GIUEY?GF?VBLAFBTFBAL@FAF?XIh@Db@"
+  },
+  {
+    "frame": 3810,
+    "date": "2026-07-17",
+    "distance_m": 1212.5,
+    "time_s": 1174,
+    "start_time": "2026-07-17 19:55:23",
+    "end_time": "2026-07-17 20:16:00",
+    "polyline": "qibcFhtbhVCB?HFNCJGDERBDH?BDGH?DBJ@HKTDAADDBJ?FDB?A@@x@JJDADKH@?ODC@IF@HF@h@DREXBFCR@TENIFBQCWEOGCGWIKGSGAAFEl@Bb@CHHT?FDNGEKAGDG?@BSFCFLPTTNA@GDBBCE\\EFHDOGGJBAHDXCCIHE@GBFBPD?BC@[DCG\\@Do@BMC@C?BC?KAQ@GAUBQCC@FADGDABE?OCKKITUAKFGCGIEUBIAACB?CEAWCCI@ELGFIAESECC@AJGDAFSACCDoBAwBFALFDHFBVr@?PBAF?PKDAFSHE?QHYACBWAEQCEGLCFQ?OCG@IEGAKICgA?@TCVIZGDGPCP"
+  },
+  {
+    "frame": 3840,
+    "date": "2026-07-17",
+    "distance_m": 756.8,
+    "time_s": 693,
+    "start_time": "2026-07-17 20:19:08",
+    "end_time": "2026-07-17 20:30:41",
+    "polyline": "ckbcFltbhVf@EDB?FKBAHCBEGEBACKOAEH@\\Ax@@LATB@B@~FKJUGK@ICI@KAKBG?MBKJGEIDICEBE?CBG??EF?BAR?BC?QK?AC?QBIX?LFNEF?HCL?HAHDALJ@HIP@D`@GvDCVKB]?a@C[BEE?KXC?IFCRHDDTM@BGNAN"
+  },
+  {
+    "frame": 3870,
+    "date": "2026-07-17",
+    "distance_m": 370.0,
+    "time_s": 377,
+    "start_time": "2026-07-17 20:36:22",
+    "end_time": "2026-07-17 20:42:39",
+    "polyline": "}fbcFp{bhVG?AFIDCFCBEGFGGGG@GC]COJIA?JQFA@B@ABKEBEMAIJ_@NEACGHEFBHGNALQ@I@ACIE??GC@AFE@@BOAEM?UDG@EPE`@BDDBCDBBEJ?DCHBBFPKFFLADDFEF@DG@l@AHEB"
+  },
+  {
+    "frame": 3900,
+    "date": "2026-07-17",
+    "distance_m": 546.9,
+    "time_s": 463,
+    "start_time": "2026-07-17 20:44:01",
+    "end_time": "2026-07-17 20:51:44",
+    "polyline": "}fbcFv{bhVBN?XSEE@IEG@y@KECCEIFIIADEBGI?CKEQ?ICS?A@GIFKL@BBFALB@BF?DAFBFGLCDMJBHKOOMAAF@ECCINGAG?CHGO@FE@EECHCGCB@B?EKGMe@DUAKHMBSBCVC@CVEJDJCNF`@Db@G^?BH?p@G|@Bh@EJ"
+  },
+  {
+    "frame": 3930,
+    "date": "2026-07-18",
+    "distance_m": 757.4,
+    "time_s": 716,
+    "start_time": "2026-07-18 12:57:10",
+    "end_time": "2026-07-18 13:10:15",
+    "polyline": "_gbcFjvbhV@?AJDb@?r@ACABDZAFMBWTRRT?ARCDBHCBBJG@CJKDEFIAIDICOBCCC@?MKI?FKHCRMNEGGACK[@?FC?CEE@?C@GEAFE?GDB@EB@CHD?AH@@NMBO?BNR@F@UDMNM@MD?PKDECGOBk@OQDCEKCKFGAAOFE@BD@FCB@?BJCRH^?DDB?DAAI?KCIICCKOCCDI?EFCAIBEGC?@HE@KCCBIEEIEU?ECI?]DOHKVUVEHDAAF@DCDDDADADDFAJDHIFBPAX@JED@"
+  },
+  {
+    "frame": 3960,
+    "date": "2026-07-18",
+    "distance_m": 468.5,
+    "time_s": 448,
+    "start_time": "2026-07-18 13:11:35",
+    "end_time": "2026-07-18 13:19:39",
+    "polyline": "cgbcFxxbhVHz@@fAGBWBC@O?Eh@GHBTEBAJE@E@QIAKABGGOk@CEGAEMO@EBCLCBGIG?AIQFKMKAGIIA?SFA?OLICKBC?@?IBCBD?VJ??]FM@KD?@EHCBIVGP@FCJDLAB@HENFLADDF?JFFADGN?"
+  },
+  {
+    "frame": 3990,
+    "date": "2026-07-23",
+    "distance_m": 684.9,
+    "time_s": 650,
+    "start_time": "2026-07-23 19:04:05",
+    "end_time": "2026-07-23 19:15:19",
+    "polyline": "slbcFbtbhVN?BBFAL@FC\\BhAC\\B?nBCNSWMGEAEIm@g@EGI?CEGL@DD@@FDDBPC@FH?JADIB?FKn@INC`@BDRAXKHDCLFCBGDJAPA@EAEICNWAEAGBCIEAACG?CDKG@@MDAGDGCEDKD?DJLCAGJ]CKDGCIDO?QQ?CEK@IEMCKIGACEI?GIG@CJMA?c@GYFK@IPIh@@FA"
+  },
+  {
+    "frame": 4020,
+    "date": "2026-07-23",
+    "distance_m": 277.8,
+    "time_s": 272,
+    "start_time": "2026-07-23 19:18:43",
+    "end_time": "2026-07-23 19:23:30",
+    "polyline": "_jbcF~|bhVO?ME]HGKIBG@GL?P@HN?DIFCBHFCFJJELFFCHBPHX@VFJEH_@DFANB@BA?i@ACG@GQQCS@m@J"
+  },
+  {
+    "frame": 4050,
+    "date": "2026-07-23",
+    "distance_m": 326.9,
+    "time_s": 357,
+    "start_time": "2026-07-23 19:29:09",
+    "end_time": "2026-07-23 19:35:06",
+    "polyline": "cjbcF|}bhVC@GGEBGCGDGCE@GCCDCGEACKC@CBIBCRAACD?NCHBBH?DBHKDABGFJD@BFF@@DDE?GH?BBD?NTCI@IlAZTC@OAmA_AFWDMF"
+  },
+  {
+    "frame": 4080,
+    "date": "2026-07-23",
+    "distance_m": 750.6,
+    "time_s": 743,
+    "start_time": "2026-07-23 19:38:07",
+    "end_time": "2026-07-23 19:52:45",
+    "polyline": "{fbcF~|bhVCBYAc@D[PEAGBKESDGGE@EFCA?IMKEFI?GBCP@RCDDFH?@BHI?EF@BGBDFABFHHBABBDEFB@CZHB?NHL@LHFCHDN@BABQCeABOAk@BuAKAEH?DC@ADg@Y]B@LCFDHF?DPKNEAEIEm@I?BNAJEDEEC?GOIA?FGAAS?KJCBEBMCOH@DNJABBD?B[?QDAB@FJAHGNBBFCD?JCH@LIH@JG@TH?BBCD?FCECBBBFAAN"
+  },
+  {
+    "frame": 4110,
+    "date": "2026-07-23",
+    "distance_m": 660.2,
+    "time_s": 688,
+    "start_time": "2026-07-23 19:54:09",
+    "end_time": "2026-07-23 20:05:57",
+    "polyline": "yfbcFbybhVEAGBCPQIOAGIGDH@?LFC?FGBI?CBKSIAKGE@ECC@@FCFKDCA@GCG@GMM?UDIJ?BBDKHAFFBPJGJ?@GPIH@EB@HCDp@OCLJBANE?DFBx@@BAN@\\ArAEb@CF_@CQIk@CCAABCGEAG@EAEFC?KMKAC@BFKDKICEE@CC?MCIBOJKHCJ?BDAN@BNEFBBCH@FALDPED@FED?LGH@DEFBDEDBPG"
+  },
+  {
+    "frame": 4140,
+    "date": "2026-07-23",
+    "distance_m": 624.8,
+    "time_s": 661,
+    "start_time": "2026-07-23 20:10:17",
+    "end_time": "2026-07-23 20:21:18",
+    "polyline": "{fbcFr}bhV@t@Cf@OAiAUEGEBICOH?CE?OIKMAPGBMMGACECA?SBMHIFCP?BRBBJMHABCPEJHH@FH\\EFEP@FCH@FCAcCICEBEAQ?IAIHE?CFKIG?ISKDGEOLAFEM?SKI@QDK\\ABCJEANEJB@HAVIFDBAJHJ@RCBGB?BLF@?NGBFBAP"
+  },
+  {
+    "frame": 4170,
+    "date": "2026-07-25",
+    "distance_m": 584.4,
+    "time_s": 493,
+    "start_time": "2026-07-25 14:30:50",
+    "end_time": "2026-07-25 14:39:03",
+    "polyline": "}fbcFlxbhVERFd@ADGCCDBDJ@CP@FADK?EBBDFB@DAPFlAGRICI@OMKAO@?HC?GDOQ?GGCG?AKEAQBCHIF?BHAGFO?IEKFEAG@GKI@AMCGDGCI?]@OFG@KJ?FOHGPFDAHDDJBEEE?IACICGKG@ICAIGCBGCK@MFUJOLJR??MDCAGP?FCBBAVB@F?FFJABHNCHDTCFBDGHBBA"
+  },
+  {
+    "frame": 4200,
+    "date": "2026-07-25",
+    "distance_m": 420.4,
+    "time_s": 320,
+    "start_time": "2026-07-25 19:46:15",
+    "end_time": "2026-07-25 19:51:35",
+    "polyline": "wjbcFntbhVDx@AB?PDRAFFNGJBXEV@JCN?FDB@JILFzAENAN?tAA[B}@CEAw@BK?QCQFc@FMG_@A{@AE?YDOEkA"
+  },
+  {
+    "frame": 4230,
+    "date": "2026-07-25",
+    "distance_m": 524.8,
+    "time_s": 431,
+    "start_time": "2026-07-25 19:52:17",
+    "end_time": "2026-07-25 19:59:28",
+    "polyline": "wjbcFntbhVAn@GXIz@CDCRGPCf@@P@@BAAHBNENFHATP|@Bh@Df@?KBIDaADI?KDGJa@By@AACNMPQDE?SQCODIEK?KBOFGHENAFCDHFBFX?ACk@EK@ICK?SOq@EaA"
+  },
+  {
+    "frame": 4260,
+    "date": "2026-07-28",
+    "distance_m": 944.1,
+    "time_s": 819,
+    "start_time": "2026-07-28 18:43:03",
+    "end_time": "2026-07-28 18:57:00",
+    "polyline": "{kbcFxvbhVINKHELIBO^CHE@CNKRCX@FIZEfABb@Tn@AHDB@JFDJPZ?BCC@B@DAHDDEF?NFj@ARFLELBZCBa@FYCM@a@CEI??OBA@EAOGIGGEGGAM@CGIA@IHIDa@EKCa@GGAGGAK@GGEAEBAFM@AFMF?TCFE@IAB@AFDD?DGFDVCHFHENHF?HJD?DHCJD?FB@D?FIBPDBAGD?C?BFFB?DB?@BC@B@AHDD?AL@?AD@DIB?LB@CCEDK@AFBBAAGBWAQ@IA]CQ@IAKDYAYBk@OIOYIACIWUMEG?IGCDIGM?]LMH"
+  },
+  {
+    "frame": 4290,
+    "date": "2026-07-28",
+    "distance_m": 469.5,
+    "time_s": 432,
+    "start_time": "2026-07-28 18:59:35",
+    "end_time": "2026-07-28 19:06:47",
+    "polyline": "olbcFz{bhVCDC??HIDAFQHOAQK?{@JADIHFFEB?DJFCBJD?BJJ??DA@@BAHBDJB@KJH?HJ@DNHDD?HFDC?GAMCCHIH@DAFDDABDFABJF@DFL?F_@BGF?CIEBAKFIAEIGMAMBCLIEIFGCG@HA?KBCCAE??DDDKBMAIWIADKAEEEC?G@GHA^I\\IF"
+  },
+  {
+    "frame": 4320,
+    "date": "2026-07-28",
+    "distance_m": 392.3,
+    "time_s": 393,
+    "start_time": "2026-07-28 19:09:46",
+    "end_time": "2026-07-28 19:16:19",
+    "polyline": "ambcFp{bhVGAEEE@AGMAGEID@l@B@DED@TQF?PIBFBEANXLBFBB@HD?DCFABOHILCR@H@FFB@BAD@DG?GJ@?ECGG@ECFEFBDIGEGB?OCG?IGGE@CAIJAHKLI?GIK?IFAEOIDWEI@IIAMJEf@GJCNEB"
+  },
+  {
+    "frame": 4350,
+    "date": "2026-07-28",
+    "distance_m": 448.0,
+    "time_s": 438,
+    "start_time": "2026-07-28 19:27:50",
+    "end_time": "2026-07-28 19:35:08",
+    "polyline": "}mbcFh{bhVNM?KFAAKHEH?AMFO?IHQHKFCF@PPANGHJLADDL?PDBFCFB@DFGPBDIBDG?@@LBLCNKF?BED@DrBCBICCFWUQGAEG?GEWGC@ADMGAPILFHKNCBGCC@CEIAEOECIg@IAEIAICEA@C?AEEACE"
+  },
+  {
+    "frame": 4380,
+    "date": "2026-07-28",
+    "distance_m": 747.2,
+    "time_s": 685,
+    "start_time": "2026-07-28 19:36:31",
+    "end_time": "2026-07-28 19:48:28",
+    "polyline": "ynbcF|zbhVBUGo@@WACHm@E[BOAUBGb@DtA?V@FCH@F?IL@\\AJQVG@IH?XGTPOH@DGJBLIL@DCH@@CLAJSJAAFC@D??DGCGDN@@DAj@@n@CD?v@I?ICQA?HJHFNCHEAGKKGEHEBE?EEE@AJI@ADEDCHSZCGE@KSCi@COCACBIE@PI?AGCAAMGICKKJ@LAJIFEJKBBDQHDc@AU@MAc@"
+  },
+  {
+    "frame": 4410,
+    "date": "2026-07-28",
+    "distance_m": 477.0,
+    "time_s": 418,
+    "start_time": "2026-07-28 19:50:23",
+    "end_time": "2026-07-28 19:57:21",
+    "polyline": "snbcFx|bhVTc@FEN]DGFADIJC@KJIAe@DkBBIVBDt@NRBLFJCp@RX`@XDFNJJPBf@ALEBGA@JMPQBSJu@?_@FKCO?QKOEACMEMOEO?C"
+  },
+  {
+    "frame": 4440,
+    "date": "2026-07-28",
+    "distance_m": 294.5,
+    "time_s": 272,
+    "start_time": "2026-07-28 20:01:37",
+    "end_time": "2026-07-28 20:06:43",
+    "polyline": "wlbcFp|bhVGCEF?MFMEIDCB?BFDE@LAD@AB@?CRABC@MFDDCHDBC@@TGDKFEH@?^HCJ@DELBCHOEI@?LBFCHB@DAFBBA?HEFGEG?KFWAOKQCGDCIC?E?ADICCEK@AFEIGBBI?AEA"
+  },
+  {
+    "frame": 4470,
+    "date": "2026-07-28",
+    "distance_m": 322.0,
+    "time_s": 322,
+    "start_time": "2026-07-28 20:07:52",
+    "end_time": "2026-07-28 20:13:14",
+    "polyline": "}lbcFj{bhVAMCIAEDGGEBA@B@ELE@GLLDJBAJYH?BCHFJ@FBNGJADEZEFEFB?JFD@DJB?LG?A@DPCNFBARKBAFGBCDSC]QIIIAEFWHQEKQG@GKEDKG?FAA"
+  },
+  {
+    "frame": 4500,
+    "date": "2026-07-28",
+    "distance_m": 594.2,
+    "time_s": 628,
+    "start_time": "2026-07-28 20:22:19",
+    "end_time": "2026-07-28 20:33:23",
+    "polyline": "{lbcFp{bhVBPFG@D@??@D@DG?C@@ACCB?EF?DUDE@ECG@A@@?NJ@LE?OJGDHIDGTGJAFEBCB@JDAJD?GFI@GD?@LDABMDCAI@AFAD@CLJ?JOD]BCN?JDARD@@LHDCNCFBHE^@JHBCBAHEA?@@XEPOXAHGCEJKGCQGI?UGGAIKOSSCFDD?@G@GG?FPf@AFIGAGMUAIMGCGK@GGC?CFEC?HKKEBCCDKCIBECIBIEEJADK"
+  },
+  {
+    "frame": 4530,
+    "date": "2026-07-29",
+    "distance_m": 463.8,
+    "time_s": 419,
+    "start_time": "2026-07-29 20:02:00",
+    "end_time": "2026-07-29 20:08:59",
+    "polyline": "wlbcFnwbhVC`@EHI@IACBHH@XCHBLAHD`@U\\PE@HB@DI@FHBDHDE?WN@LCN@@ED@FAJVL@@BF@J@DDREJDD?PGB[?iBB_@EISCILQ?EDE?GGEHKBEFo@@GDMBMCCSEGGS@C"
+  },
+  {
+    "frame": 4560,
+    "date": "2026-07-29",
+    "distance_m": 768.3,
+    "time_s": 721,
+    "start_time": "2026-07-29 20:10:51",
+    "end_time": "2026-07-29 20:23:11",
+    "polyline": "{lbcFlxbhVCB?FFAEBA@?A?HGPDNK@CCI?@BHFCTBHARD`@@BKNVEJH@ND?BEAIBKL?`@YB?HPGJDd@HHJDHT?FCBDAg@p@SNAFE@FFA@I@KGAHBHJET?FCRUDADOH??GLABYHSCQKM@MGU?GIEAEd@CLGF@DC@n@BH@?Bg@BGEQ?uAFs@GIQEa@TG?GHNMGGCHIBCHKFCFYBMJWCGBEFIMAEIA@SGG@@"
+  },
+  {
+    "frame": 4590,
+    "date": "2026-07-29",
+    "distance_m": 421.3,
+    "time_s": 398,
+    "start_time": "2026-07-29 20:31:31",
+    "end_time": "2026-07-29 20:38:27",
+    "polyline": "{lbcFlybhVYn@?X?NDJ?JZb@LI@CDND@BC@IDMDBHAP@FJFD@HD?GVBBZ@HDF?JOXKDIAUBe@CS@sAOAIDCC@IEAKFKCEFEIIDCHKFYCIDQ@EE?GEAGB?HEBEE?GI?"
+  },
+  {
+    "frame": 4620,
+    "date": "2026-07-29",
+    "distance_m": 526.7,
+    "time_s": 480,
+    "start_time": "2026-07-29 20:42:19",
+    "end_time": "2026-07-29 20:50:56",
+    "polyline": "ulbcFfzbhVC\\IDAFGAAF?AE@FL?DBHARBNAXAZML?JCHD@FAFBDTDCBMFDBJFH@UF]F@HADDP@L?BGDHAHFNBNHTFFDBP@HFNEFEDg@AGBWCw@BoBW@YQ_@RIRGGSACGG@AFM?QD?EE@@KCSEHIW"
+  },
+  {
+    "frame": 4650,
+    "date": "2026-07-29",
+    "distance_m": 933.8,
+    "time_s": 737,
+    "start_time": "2026-07-29 20:54:11",
+    "end_time": "2026-07-29 21:08:05",
+    "polyline": "wnbcFbybhVCc@Du@CM@QCO?OBCbA?TCn@D`@ADBVGX@FCBBFEDHCFD\\CZ@JGd@C?MMSEUPQHWGMAE@GCGJGBKX]RGGWEMIK?ANB`BE`A?b@AFBL@?HQJCFITKFNJEBDH?LDBAFFHCLBDABB@J^TDABEJIFGRKNMB?AfAE|@QBMCY@EC_A@WCu@Fg@GAEH]?QGO?S"
+  },
+  {
+    "frame": 4680,
+    "date": "2026-07-31",
+    "distance_m": 888.1,
+    "time_s": 783,
+    "start_time": "2026-07-31 19:38:43",
+    "end_time": "2026-07-31 19:51:46",
+    "polyline": "iibcF~tbhVAFC?@VMNERKJAJIFKVIHKZAF@JEN?PEFHFA?CF@AC^GNHBDL_@?QLMBQb@GBA@@d@J@?HRXDCFBFIHACGBGHADGHAAM@AHH?NH?DHF?BFIJOFAWCCAX@HLAH@\\IDDEB@@DALBDAFIJFJAHBDCFBJA@QCSD[?aAGAGF@KEKM@AJGB?HOGIGIACDBNFCFBENQEAMIOBUHGAK@APATILIDAAGFSICBGLABE?OBG@]DSCu@K?IHO@QLE?CkAGFD["
+  },
+  {
+    "frame": 4710,
+    "date": "2026-07-31",
+    "distance_m": 774.2,
+    "time_s": 730,
+    "start_time": "2026-07-31 19:54:44",
+    "end_time": "2026-07-31 20:06:54",
+    "polyline": "_ibcFtvbhV@D@GEE@?NGJAFEFGNCBCCKDWICUDc@EWBGAMDEJAJE@AJGDCHSNJDZVBJ?NODEUGGCGICCHKHOBIFCHOJ?RMHAXF@@HL@FRD?RFBE@IPQFDLe@B@DDBNNBBDLDBDJ@ADG@KPMBCE?YEEC@ADBLE^FBDPWN@HAF@DLKJCDGHBNG@IFMFWH@?MDA@IDA@GTHHGD{@A_AE?IHEFM?EDGAO?AFIq@@GD?"
+  },
+  {
+    "frame": 4740,
+    "date": "2026-07-31",
+    "distance_m": 777.0,
+    "time_s": 773,
+    "start_time": "2026-07-31 20:10:13",
+    "end_time": "2026-07-31 20:23:06",
+    "polyline": "aibcFtvbhVRGLIF?JI?IJBBY?IAE[EEBK@o@EKDKLCJIPQHKPTJLLBFADI?OMGBIC?BG@Q?ABE?@HGCCJG@AFK?CPCFDJAJH@BHDD?PP@HDPIBGHBDMHE@OLFDLJ?NRBANJGPKDGAIYBTCHEDAHJL@HF?HGBILK@EEACJMD?HQJ?DEBIHCPDBLGF?DKH?FCFBD[DE@IFEP_@@EBCJ@HC@y@BC@QAe@AC?DACIHICOFYDEK?OCECKHG"
+  },
+  {
+    "frame": 4770,
+    "date": "2026-07-31",
+    "distance_m": 856.5,
+    "time_s": 845,
+    "start_time": "2026-07-31 20:25:50",
+    "end_time": "2026-07-31 20:39:55",
+    "polyline": "}hbcFpvbhVBI\\ED@HIDGFA@KA[GA[DeACI@EFG@EHGBCFGFJL?JSB[CUHGLS?GNHZD@?NDL?FBJJLJ@FCB@DEFB@BDCJ?JWJCT\\H\\D@HNMDK?CAI@II@Q?GCLMLAHGN@LBBATBBDOF@FQD@JEJ@BAb@JHS@GEI@KEOBCN?DEFFDCBb@ALEBCD@DGFELSX?FGLABJPRWRKLQDyA?mAAq@e@@SBKa@DIBA"
+  },
+  {
+    "frame": 4800,
+    "date": "2026-07-31",
+    "distance_m": 90.1,
+    "time_s": 99,
+    "start_time": "2026-07-31 20:43:55",
+    "end_time": "2026-07-31 20:45:34",
+    "polyline": "ynbcFrachV?\\T?FDBAHB@AAERBCGG?KOI?_@G"
+  },
+  {
+    "frame": 4830,
+    "date": "2026-07-31",
+    "distance_m": 414.5,
+    "time_s": 389,
+    "start_time": "2026-07-31 20:46:38",
+    "end_time": "2026-07-31 20:53:07",
+    "polyline": "ilbcF`_chVDIAYBWFMCE@GEI@AEAJUDALI@IJURSF]PMRc@BKCOBo@`@EP?BBAJ@TCT?b@BPABK?OJ]p@QTIB@JEDMHEHEAIFE?@NIBGHCROZCJ@@"
+  },
+  {
+    "frame": 4860,
+    "date": "2026-08-03",
+    "distance_m": 785.4,
+    "time_s": 629,
+    "start_time": "2026-08-03 17:11:09",
+    "end_time": "2026-08-03 17:22:28",
+    "polyline": "}fbcFnxbhV?@IUCAEDM?MNE@ELKDO?AD_@VQ@EHI?EDEAEGCBBBCAEDM@CHGD?BDFCFBHWCCCGACB@HGDBFN@BDHCJ?RA?HADCDI@CPNCBGDD?FJ@HFFMHG@GFD?AAGBA?GHGHBDADJF?FBDAFDDAEJUKE?MNKGAHFLAFDLCJ@DLHA?VF@BALBH?@RHN@PO@MDCAUDIEGB@@E?BGCCOKECGI?FEAIC?HCJB?ODDFADBASBG@{AKDGGKBECGHG?EJUXOAAOLKHALQREDEJBFIJE@S"
+  },
+  {
+    "frame": 4890,
+    "date": "2026-08-03",
+    "distance_m": 833.9,
+    "time_s": 728,
+    "start_time": "2026-08-03 17:26:43",
+    "end_time": "2026-08-03 17:39:08",
+    "polyline": "qfbcFrxbhVEI]KE@EJE?KHKAGFSEEBUBEGBGG?MGEKSCC@?FDH@LE@MGAKEABMIQEA?HIGEOECDTPZ?JHHDPDB?FEHDHALBJ@@AHBHD?@BFBPBTT?PERd@?DEEK@IIK?IEIC?MFAEEGE@EGC?GCGB?FE?AD@?G@EF@XGBCHKB?NEJ@HEFAFRTRLLBH?JQ?IDK?[JRF@BKb@IFIJHHEDBDADDDADGH@@DCC?ID@?CECEACDICMBGCMBEAAE?ECS@EJDN@FCHBDCBHDCDFB?@MAy@DkAAU"
+  },
+  {
+    "frame": 4920,
+    "date": "2026-08-03",
+    "distance_m": 844.9,
+    "time_s": 774,
+    "start_time": "2026-08-03 17:49:20",
+    "end_time": "2026-08-03 18:02:14",
+    "polyline": "yfbcFxxbhVEGCIMIMFE@IJKBADMDABAEGFOWGCAIGGKAEKEAKD@HCBDJCDKKEQ?MGUC?@?AACF@CEAAGOMCFJJB\\FJ@RHH?JDDC?AB?DDHCN?RFDF@BFJBDND?@E@@HGHFF@HFFNBRCHMBOAIB?o@QSKAILACGHAHCB?HWLGR@FETFBDNRNT@BCJW@a@BCBRNLBC@KH?HEFAHBLEL@DAPDFGLD@KKAEGEDI?ECOFGAAY@GH@d@@HBDG?UBGBm@C?KHGCK@EAIO@ANBXGDg@"
+  },
+  {
+    "frame": 4950,
+    "date": "2026-08-07",
+    "distance_m": 848.5,
+    "time_s": 881,
+    "start_time": "2026-08-07 19:10:20",
+    "end_time": "2026-08-07 19:25:01",
+    "polyline": "agbcFxwbhVBbAO?UJJD?JFANDHj@C\\?@KKIAQF[CAH@PBDF?HBJ?F@FCJ@BFC@QGUCQ?MHi@J@FCHQEE[BIECEDBVCLU\\K@S[I]ASL]PEDYJK`@BVEHP@HFBB^?BE@QBM?CACSFUAI[a@QE?WGg@Ck@WoAPZDADHHGDD?HGHFHBVFL@CAUJINBDFJ@BJED?@FDP@JLT@DGL?HGJ@DG"
+  },
+  {
+    "frame": 4980,
+    "date": "2026-08-07",
+    "distance_m": 843.0,
+    "time_s": 904,
+    "start_time": "2026-08-07 19:27:11",
+    "end_time": "2026-08-07 19:42:15",
+    "polyline": "{fbcF`ybhVCXHbACHQDHPAVBZg@SYi@EEOEK`@MFEHB@\\Bd@EBBCFMCe@@MBOGGDM@YACJOOCWGDEVI@GDQED_BZBNWPAJNDE@?ALED@JBB@NG@ILJJTBJEL]FE@EFI?EEEMJGGKCAKIAIIEM?SBSHAIOKMCYMU@ADHHBDLL@@JJNB?@KEI?[BGNA?HEHJTF?JEJLLBBTDJT?L@^@"
+  },
+  {
+    "frame": 5010,
+    "date": "2026-08-07",
+    "distance_m": 932.3,
+    "time_s": 926,
+    "start_time": "2026-08-07 19:43:30",
+    "end_time": "2026-08-07 20:00:21",
+    "polyline": "ufbcFdxbhVCh@BxACd@AFUGMOWQKLMX]VIJZ@ZFPCTLBCFBLECJWGI@KES?QEK?OH]AQEK@MHMAMJICG]?_@A@@CGFAE@}@Cs@F?HF@EJEDADBFAHHPDAH?JLADREVMB@JADO@OLBFJERBHAPGLIJEZg@ACC?GDCHGA?MEKGCAEGIBE?IIGCJCDCAQm@AMBUJYJGB[CQH_@NEHDBf@BFBCDa@NKLAXd@@HHZ@^HJPH"
+  },
+  {
+    "frame": 5040,
+    "date": "2026-08-07",
+    "distance_m": 612.5,
+    "time_s": 520,
+    "start_time": "2026-08-07 20:05:51",
+    "end_time": "2026-08-07 20:14:31",
+    "polyline": "kibcFltbhVLE`AEBf@CX@r@ANGEEI[MKQCIGI?MQg@u@Ge@?KBo@EM@AB@NAZD`@El@BbC@@DEJB@CEM@[CQ@MAWOGANBh@@t@D@NEF@DA?@A?RGLG@ELC?ENKB?BDD?BD?JGDCHM??S"
+  },
+  {
+    "frame": 5070,
+    "date": "2026-08-07",
+    "distance_m": 87.9,
+    "time_s": 84,
+    "start_time": "2026-08-07 20:16:15",
+    "end_time": "2026-08-07 20:17:39",
+    "polyline": "ejbcFh{bhVNCDB?IFGJBHL@F?JKJ?HI?GGKC?KEE@I"
+  },
+  {
+    "frame": 5100,
+    "date": "2026-08-07",
+    "distance_m": 171.7,
+    "time_s": 175,
+    "start_time": "2026-08-07 20:18:29",
+    "end_time": "2026-08-07 20:21:39",
+    "polyline": "wibcFd{bhVJGBBFIJADHJFD@JCHJILO@CNOHc@UQDCGK?ACIE@OB@FELFJGD@"
+  },
+  {
+    "frame": 5130,
+    "date": "2026-08-18",
+    "distance_m": 517.2,
+    "time_s": 530,
+    "start_time": "2026-08-18 19:52:48",
+    "end_time": "2026-08-18 20:01:38",
+    "polyline": "glbcFxxbhVB?DHDB@?DGD?FHHDRDXKHMRCLKH?VQ?h@EFBJBbA[IEEK@IGG@ECKBMEGVBBDCZABPBDBAAHGF@DCB?DYGEEMHSIG@EGEDEQJE?FB?NIBODIAIOHEE?EEE?@EDCIOO@LILEA?FGFG@SKIY@OJSRKJA@G"
+  },
+  {
+    "frame": 5160,
+    "date": "2026-08-18",
+    "distance_m": 615.0,
+    "time_s": 622,
+    "start_time": "2026-08-18 20:03:47",
+    "end_time": "2026-08-18 20:14:09",
+    "polyline": "qlbcFtwbhVTIJDBLHJVC@LHFDBDABHNCFBHID@LMNEBGHEArBGBMEKGG?CRGN?JB@LCH?HCDGF@Bt@ETEE[EGHc@@GAMGUCEO?IPI@FF@FCD@@AJc@BWCE]HGEEKGBAGKCEQGGI??JE@AFS@CECDO?GBMWCSCCD[DK?IFK^AD@FC@@"
+  },
+  {
+    "frame": 5190,
+    "date": "2026-08-18",
+    "distance_m": 675.7,
+    "time_s": 655,
+    "start_time": "2026-08-18 20:17:00",
+    "end_time": "2026-08-18 20:28:31",
+    "polyline": "smbcFpxbhVYc@DLPR@FEF[?Cc@Fe@CQ?e@b@JTGJHDLABPDJRL?FBFAHDNCVKD?ZSBG\\GAZBn@C\\B^CA?N_@EC@Hd@LNF?Dz@I@EAMBS?CBDDVFJ@BDA@GDGAGBKCOAGEYCIMAMBIJGHBDHR]?SIYYg@W?ODCAG@GGK?ADWQKQQE"
+  },
+  {
+    "frame": 5220,
+    "date": "2026-08-24",
+    "distance_m": 296.6,
+    "time_s": 280,
+    "start_time": "2026-08-24 19:25:40",
+    "end_time": "2026-08-24 19:30:37",
+    "polyline": "wkbcF`vbhVB@EADAFDHCHDFAJDBBFAHZ@RI^GHG\\OTONSh@KDIAGDIMKBDMEIABAAHG@GJ@HM@WCAAGBECKHCD@BGJD?w@EODG?ODI"
+  },
+  {
+    "frame": 5250,
+    "date": "2026-08-24",
+    "distance_m": 311.1,
+    "time_s": 326,
+    "start_time": "2026-08-24 19:32:43",
+    "end_time": "2026-08-24 19:38:09",
+    "polyline": "ajbcFlxbhVPBFDJJDNL??NJB@MDA@JENEBBVGB?HGDGC[BIHBJEJUFEDG@IJI@GCC?EIFKAIDEBKJBJWFADYJ?BFEFE@?SHABGCG@ECK@GAIBIAO"
+  },
+  {
+    "frame": 5280,
+    "date": "2026-08-24",
+    "distance_m": 469.9,
+    "time_s": 457,
+    "start_time": "2026-08-24 19:51:23",
+    "end_time": "2026-08-24 20:00:38",
+    "polyline": "oibcFdybhVH?BB?LHA@DAVGHBHEHJBNPZH@FAJ?NIAAMKISG?VEJ@DO?IMGAGK@@AEKCGU?@KAECKDGCCHK@DFFBBB@RE@OAEIFEGG?MCIC?AHMFI?CEG?EQBKFI@INIF@EFDDLIBGPGF?DCB@DC@GD@FLEBIGEHDHRQJCBMRQ@C"
+  },
+  {
+    "frame": 5310,
+    "date": "2026-08-24",
+    "distance_m": 594.8,
+    "time_s": 579,
+    "start_time": "2026-08-24 20:02:07",
+    "end_time": "2026-08-24 20:11:46",
+    "polyline": "mgbcFvwbhVDMFIDA@l@Cd@@P?@MCE@@ZDZCF@N]FE?EI?CDGBQ@SEMAAGJE@IAI?AbA]h@E?CJIF@HIJG?GK@GLU\\a@DODECWA_@CEC@?JKBABE?CJCBGBI@CDGOA@GAGUC_@FI@UNKBFHC@BPGRYDC@GHMFA@IJIBKFGH?DELBJFF\\CT"
+  },
+  {
+    "frame": 5340,
+    "date": "2026-08-24",
+    "distance_m": 439.6,
+    "time_s": 419,
+    "start_time": "2026-08-24 20:13:50",
+    "end_time": "2026-08-24 20:20:49",
+    "polyline": "ajbcFhtbhVATELE@@REN@PE^U`AMZALCF@DED@HKF?JIDCHIFAh@GCAECTCBACGEAHEFGMCD?_@DE@IHYFIN_@CGFSBMJ]LO?MFMAG@EGE?MGUDOEM@k@XCb@BFBDEHA"
+  },
+  {
+    "frame": 5370,
+    "date": "2026-09-03",
+    "distance_m": 547.8,
+    "time_s": 477,
+    "start_time": "2026-09-03 19:11:48",
+    "end_time": "2026-09-03 19:19:45",
+    "polyline": "ombcFftbhV_@ACB?NCZD\\Gr@@Z?`B@FCZBJDF@NJJV@FG?CFMN@BA?EEI@C@YISBIFCHB@DDCJHBHDBBPD?DFDAFLFDBFLJB?DCEGFACEDAEEKAAIIGGM@ISWEKGACKGCOAIGE?KESAAIBKAO@ICM?KEUEEEYGKBIDc@"
+  },
+  {
+    "frame": 5400,
+    "date": "2026-09-03",
+    "distance_m": 291.7,
+    "time_s": 309,
+    "start_time": "2026-09-03 19:23:14",
+    "end_time": "2026-09-03 19:28:49",
+    "polyline": "unbcFd|bhVAH@NDC@GH@BLDDAJB@P?BIHIRCALBHDBJ@FADIH?FM?G@ADJD@@EPCCAFBDAFE@GWAAC?IW?E@GHAGECE@CAE?AAI@GA?IIEG?CGG?GGMBIP?LABOD"
+  },
+  {
+    "frame": 5430,
+    "date": "2026-09-03",
+    "distance_m": 700.2,
+    "time_s": 593,
+    "start_time": "2026-09-03 19:30:36",
+    "end_time": "2026-09-03 19:40:54",
+    "polyline": "ynbcFp|bhV@NCp@B^AP@FCx@?TRDPA@@L@|B?p@DP?Dg@AEBQCu@F_ACu@BY?sB?]EY@YCSc@CG@YAw@@KCa@?ACI@IAo@@CTB|@Ep@?dA@`@C^"
+  },
+  {
+    "frame": 5460,
+    "date": "2026-09-03",
+    "distance_m": 711.9,
+    "time_s": 612,
+    "start_time": "2026-09-03 19:42:13",
+    "end_time": "2026-09-03 19:52:25",
+    "polyline": "unbcFb}bhVBK?@B?GBE\\?n@A?APBF?J@HCd@Bd@n@CJBLCd@?RDFA@@DEBBL@BC@@PA\\DT?@GBA?OFY?]CM@MA_@BYAOF_@EuA@k@AK@i@CY?u@CCQ@ECCDGCa@?I@ADGEI?a@AGBUEY@k@CIBAXCDBdACv@D`AA\\DB?P"
+  },
+  {
+    "frame": 5490,
+    "date": "2026-09-03",
+    "distance_m": 389.5,
+    "time_s": 372,
+    "start_time": "2026-09-03 19:54:21",
+    "end_time": "2026-09-03 20:01:59",
+    "polyline": "_mbcF|}bhVMf@@d@Rl@PTH?RFTCBMRg@FBBFD?BLFD@FDFFXLAJIFOCQ?UBMHECI?KC?HEBKCC[KS@OBGEMDGDKOIBEGEMMIEGCBQI[TCDAR"
+  },
+  {
+    "frame": 5520,
+    "date": "2026-09-07",
+    "distance_m": 613.0,
+    "time_s": 603,
+    "start_time": "2026-09-07 19:26:23",
+    "end_time": "2026-09-07 19:36:26",
+    "polyline": "ajbcFf|bhVGUEBC??E?JB@?CBA?H@AILCLSJO\\CAESEG?MFA@@GBQ@KLGAEQGACMGBE`@?XB\\BD@HFR?HGHAB@B@ELKZ^HBJFR@TE@CGSEACUCEQI@GAMHM@IP@\\JDKNJHLDRHJAJJ^DFCDF@DJJ]AKHg@FKDi@Es@ACK@MAOD]?WBG["
+  },
+  {
+    "frame": 5550,
+    "date": "2026-09-07",
+    "distance_m": 591.5,
+    "time_s": 614,
+    "start_time": "2026-09-07 19:37:04",
+    "end_time": "2026-09-07 19:47:18",
+    "polyline": "}ibcFp{bhVCQEEDI?KCCIAEH?BHCDB?FG@AHQFANE?CF@?KJE?IG@OKBCAEDKOCA?MI@AA?QIDAKE?G`AFv@DDFRBBBJFBHND@DF^BJICIBGIM@IAEIIDWFEDBDAFDF?LBHK?GFHBJDD?JFFP`AFLFDFA?MHM@MNUAwBC?KFGAG@KEO?EBOCQD"
+  },
+  {
+    "frame": 5580,
+    "date": "2026-09-07",
+    "distance_m": 538.3,
+    "time_s": 563,
+    "start_time": "2026-09-07 19:52:54",
+    "end_time": "2026-09-07 20:03:04",
+    "polyline": "}ibcF~{bhV@@CEA@MJ?F?CE@IQIAGLCEG??FC@ABCEAAABGCKMGMAOCCFDBa@DBLCB@DJAFF@AD@FFE?KVINHBCDOL?AIE@@GPc@AQHa@BC@IFI?KFQKr@?REHAXGVAXEF@LD@BA?GPAJ@HGDBJ?HIB?@zAAXAF@TM?AJCBGGE@Yi@AKGGEKIAIKAGE@?B"
+  },
+  {
+    "frame": 5610,
+    "date": "2026-09-08",
+    "distance_m": 444.1,
+    "time_s": 526,
+    "start_time": "2026-09-08 17:24:59",
+    "end_time": "2026-09-08 17:33:45",
+    "polyline": "wkbcFpzbhVGAAG@AIACDCEQB@JC@AC?FCB@LFF?J@BHAFEB?AHB@ACB@?CH?B@BNBGHELOBB@HD?DD@EF?BC@D@CBD?GD@?GECGBE?CII?ABKGBGBB@EFH@OBCNXD@DJFCDPDD@FBBBFFFDPDABFDEL[@IAa@BOCO?q@IAGBGCE@GAADKAM@EBQ@EDCCC?KFCEMAADMDADBFC??DAGABBAEF"
+  },
+  {
+    "frame": 5640,
+    "date": "2026-09-08",
+    "distance_m": 669.0,
+    "time_s": 674,
+    "start_time": "2026-09-08 17:35:35",
+    "end_time": "2026-09-08 17:46:49",
+    "polyline": "ekbcFjzbhVDD?JFL?RDD?HEDDRCF@TA@AXCHBXCFBJCFDJ@XAP?LJA?KEa@D?@OF[AMBGAIBE?KCG@EEG@GCKDUDI?GDGEGG@?DACADACAGFIAGDCEEAUJMJB@D?VBB@EDA?OAGGGKAQ@CPAAAQBMCKDSAK?y@Hk@AKE@ICy@@a@CHNHD?HF@LCPWD@FEH@?V@JEJAf@FZ?FEL@HETG@FH@L"
+  },
+  {
+    "frame": 5670,
+    "date": "2026-09-08",
+    "distance_m": 1050.7,
+    "time_s": 1070,
+    "start_time": "2026-09-08 17:53:59",
+    "end_time": "2026-09-08 18:12:16",
+    "polyline": "qjbcF~ybhV@ED@AGDCHDFJNFCTBJCh@ICAEWG?GG@CCAEQUGEIOOICGK@GIK@OGI?GEC?D`BET@FPEDG@[RA@NPLRHHPJDL^PVJKBHHFBHDBATFlAD@BCJAH@@I@G@??IKUAWHMCGLABGIODC@IIKB?@KIE@GBA@CEIE@AAH}@CKDGCQBA@FDCBDFADICIDC?GEKBIGMC@CCAEDEGGBKBm@DY@EFA@MG??E@DBCCF@AAA?B@AMCGDQBBNK`@BJITOBKOG?UKK?UOGCGGE?EIOICGKAGGUCM@?p@Df@D?j@ZJ@d@^DLRRB@@A"
+  },
+  {
+    "frame": 5700,
+    "date": "2026-09-08",
+    "distance_m": 969.0,
+    "time_s": 1018,
+    "start_time": "2026-09-08 18:25:29",
+    "end_time": "2026-09-08 18:42:27",
+    "polyline": "{jbcFbzbhVC??DDFEL?LEB?JKN@NALCB?\\BLCNBLALD@@FCNBLEX@??^d@CBBHAVBLADBPCT@JY@[ECMHUBYEg@AG@EACE?IKg@E_@DM@Q@SCCJSJ}@BE?MHCDDB?NOB?XPD?HFD@FHL@B}@CE@[Gs@BQACEBEJKHMBEAX_@RI?YGDEHULORKAAOGI?IEGQBG?IJG?QDCHGKGAEBCLOES?A]I@?BCOE?CDKD?FDN@JEH@FCL@f@RLDVB??KBCDDP@DHDADDDCDFD?@BD@FFFC?BD?"
+  },
+  {
+    "frame": 5730,
+    "date": "2026-09-18",
+    "distance_m": 883.1,
+    "time_s": 790,
+    "start_time": "2026-09-18 17:49:46",
+    "end_time": "2026-09-18 18:03:16",
+    "polyline": "khbcFntbhV@BCHU\\AFIDEHE@EJGBILE\\IDGTGJ@DEFAJK?CGCBOKE@GFAQEB?LIHCVH`@JBNRHIJF?RCL@LAJB@@XDJ@`AGJ?B@FF@JG\\AX@HEJ@LCJIH@\\OBe@ICQ@EBS?ODSAw@DAQMg@?i@AMDKBMDE?GJCJ@@ETGF@VJJNj@TB?@CDuAASCAGDcAFEgAMIBOb@u@NED?FIHCAII?GE"
+  },
+  {
+    "frame": 5760,
+    "date": "2026-09-18",
+    "distance_m": 732.7,
+    "time_s": 726,
+    "start_time": "2026-09-18 18:04:24",
+    "end_time": "2026-09-18 18:17:25",
+    "polyline": "}fbcFptbhVEJSRMTMHCHEBEAELC@ALGFAJGD@DEDERMV@RELG?MECMCAA@EIEFIKIECDAFE@EMGCCBDVGBBJIL@ZBB?HHNJ?HBDADF@HD@BC?KDC@B@JH@Ch@BVCJ@NADBFD`@HJJ??AIU?MEEEIFYAIDu@?O@SBGJ@LIF@RGHBFCF@DCPFBFFBFL@A@eBACI?GDW?CEDKA[FUBOUWDKHGBMDEBKVQ@GCK"
+  },
+  {
+    "frame": 5790,
+    "date": "2026-09-18",
+    "distance_m": 669.4,
+    "time_s": 659,
+    "start_time": "2026-09-18 18:19:04",
+    "end_time": "2026-09-18 18:31:40",
+    "polyline": "yfbcFxtbhVQRS\\YV?HGBKZOV@FGHCTEHCVEH?DMG@@IAYOGDMIE@CGELCBOSI@ABF^K^BFAHBJ?HDF@FJNJBFEHBFHHFDMAGJ?Ad@E^@l@DJD?BEAOHuA@CJAJ[@OFAHF@C@KD?HDDABGD@JIJ@HCJ@FC@iAOKDICOHUQUBOIc@HODABIFGBKAO"
+  },
+  {
+    "frame": 5820,
+    "date": "2026-09-18",
+    "distance_m": 677.4,
+    "time_s": 617,
+    "start_time": "2026-09-18 18:49:46",
+    "end_time": "2026-09-18 19:00:19",
+    "polyline": "ufbcFnubhVKCAICCDMAEa@?AHKDIV]\\CLGF@NMXAJIDSCKKE?OGEKC@ADIEIUKIEHC\\IF?tABLVNNZF?@GF@DFDJEp@@JCTH~@@^V?MeA@a@AK@[DK@OT{@N?@DLDFC\\?\\GF?PEBu@?GOYA]T}@?O"
+  },
+  {
+    "frame": 5850,
+    "date": "2026-09-18",
+    "distance_m": 602.5,
+    "time_s": 539,
+    "start_time": "2026-09-18 19:04:27",
+    "end_time": "2026-09-18 19:13:26",
+    "polyline": "}fbcFpubhVIAGGCBCAUYOEu@@_ACCLa@IEHG@M^@`@Ej@B|@EnDF@f@XLBXBbANDCNBLCJ?FCT@PCF[Ec@?sBB[EiB@i@"
+  },
+  {
+    "frame": 5880,
+    "date": "2026-09-18",
+    "distance_m": 160.8,
+    "time_s": 172,
+    "start_time": "2026-09-18 19:17:27",
+    "end_time": "2026-09-18 19:20:19",
+    "polyline": "ykbcFn{bhV?BK?IJK?CFYD]NA|@PGPUJGDGFABIJIDMDC@K@AACH?"
+  },
+  {
+    "frame": 5910,
+    "date": "2026-09-18",
+    "distance_m": 24.1,
+    "time_s": 43,
+    "start_time": "2026-09-18 19:21:07",
+    "end_time": "2026-09-18 19:21:50",
+    "polyline": "clbcFj{bhVCAGD?HB@@C@B@EDC?C"
+  },
+  {
+    "frame": 5940,
+    "date": "2026-09-18",
+    "distance_m": 316.7,
+    "time_s": 402,
+    "start_time": "2026-09-18 19:22:42",
+    "end_time": "2026-09-18 19:29:24",
+    "polyline": "mkbcFj{bhVJH?DAAB?C@@DGCCDLF?HID?BH@?DGDBBDEBB?BEB?DFA@CBDFKHC?FFFAFDLHHLDHKFSHe@@]E_AGMCSIICCE@KHGJEXKAAGKK@JGIA@?DFDEBGAFJCDI?DDBHADC?EB"
+  },
+  {
+    "frame": 5970,
+    "date": "2026-09-20",
+    "distance_m": 444.9,
+    "time_s": 408,
+    "start_time": "2026-09-20 16:44:49",
+    "end_time": "2026-09-20 16:51:37",
+    "polyline": "}fbcFpvbhVECCJGFAHKHQ^Gd@D`@AHKGQBELAXJNNCBIDBCH@J?J@D?NDJ?JDD?HDNDB@FVLDA@a@EEMAGMGEAIEEAUGIBKCIBG^DJU?MGUM?GDG?ED?OBOAKFU@IFE@KFAPQBWAE"
+  },
+  {
+    "frame": 6000,
+    "date": "2026-09-20",
+    "distance_m": 240.3,
+    "time_s": 247,
+    "start_time": "2026-09-20 16:53:01",
+    "end_time": "2026-09-20 16:57:08",
+    "polyline": "}fbcF`zbhVa@LGAGBECI@KHMDIGABODCME?EJEV@HB@HVBSDDD?LDH?b@JFEJFDABDTBA}@?i@"
+  },
+  {
+    "frame": 6030,
+    "date": "2026-09-20",
+    "distance_m": 282.7,
+    "time_s": 282,
+    "start_time": "2026-09-20 16:57:39",
+    "end_time": "2026-09-20 17:02:21",
+    "polyline": "}fbcF`zbhVGAGDQ?GHKEE?a@HSH?AIFCEQACIK?Cb@BPC?@DCHBBB?LA@ETAB@@F\\AJFF@DDHIVJXD@k@BMAI@SCY"
+  },
+  {
+    "frame": 6060,
+    "date": "2026-09-20",
+    "distance_m": 455.0,
+    "time_s": 513,
+    "start_time": "2026-09-20 17:03:07",
+    "end_time": "2026-09-20 17:11:40",
+    "polyline": "}fbcF~ybhVUJQDAII?EIDCBKEIILCEGDKPAJI@GFG?ADIBAFMAMIG@QGCDDz@CN?RD@DCF?DGD?AE@EHBBCDDF@JNFE@GF@VNT`@DBD@DD@OCEDGEK[g@SGHCl@ZZJB]C]?_A"
+  },
+  {
+    "frame": 6090,
+    "date": "2026-09-20",
+    "distance_m": 429.5,
+    "time_s": 451,
+    "start_time": "2026-09-20 17:12:29",
+    "end_time": "2026-09-20 17:20:00",
+    "polyline": "{fbcFxxbhVICE@IAKBKEK@GPOAOBAJIDAHGB?JCFKIE??KEAMH?CCAU@EPCBAL@VL\\EPGLBHHBb@]XJ?Mf@Az@^XR@a@AG@s@OAEADGBFHABu@Aq@"
+  },
+  {
+    "frame": 6120,
+    "date": "2026-09-20",
+    "distance_m": 770.8,
+    "time_s": 744,
+    "start_time": "2026-09-20 17:20:40",
+    "end_time": "2026-09-20 17:34:10",
+    "polyline": "{fbcFxxbhV@S]CGBQAsABo@EKFs@E?h@BTFEB@LJ@JZLBGHAHIEe@PI@JIBBN@?EHBL@BHCAIDGBXFFH?DHCJO?AXGFC?CECYCBAj@HJABCACBGKBUCKBG?GGAEA@BICIH?CE?KJIBEJSEAjAD?FCFB\\?FBJCJBHCDBFAP?FBDE`@DDEHDFCJBDE?DBCR?JEBkAAaC"
+  },
+  {
+    "frame": 6150,
+    "date": "2026-09-20",
+    "distance_m": 642.4,
+    "time_s": 557,
+    "start_time": "2026-09-20 17:54:15",
+    "end_time": "2026-09-20 18:03:32",
+    "polyline": "qibcFrwbhVIUYCIBMEIIBLDBDJDBAHBDKB?LG@GECIMAKGI?@DGADBAFHBJL?FABG?EDEIUSYKCDBF?dAD?E?AD@x@BBFIFBHEHDDADCL@BB@JHEHPFADNHBBFT@VNF?BNDBBF@GBHBGBFAMDB@IOQMGAM_@I_@[AIIEMQ?IEEDEJJRCFBHAXTL?@GM[EQGKFIDU?g@"
+  },
+  {
+    "frame": 6180,
+    "date": "2026-09-21",
+    "distance_m": 769.7,
+    "time_s": 723,
+    "start_time": "2026-09-21 17:31:39",
+    "end_time": "2026-09-21 17:44:00",
+    "polyline": "ynbcF|xbhVRDLAFB^ALB|@?PBN@LCTBDAFD?A@@LCDu@Ek@CAGBE?CCE?GI[AGEEBAI?e@AAaDA?nCEv@Bf@Ar@CDAZD~ABBTGF@FACLBD?F@BH@LKKEP]HJ@ZHF?MBC@INGFE?MBGGGAKCA@LM?K[?HGBSKAEM@ECKBAHMDEAKK"
+  },
+  {
+    "frame": 6210,
+    "date": "2026-09-21",
+    "distance_m": 909.1,
+    "time_s": 909,
+    "start_time": "2026-09-21 17:45:08",
+    "end_time": "2026-09-21 18:00:34",
+    "polyline": "ynbcF``chV?bAD@l@IJPD@FCECHOH@DL@?DYFEAKO@GOCA?HE@GIKAGDALC@ECOYKGE?EADmC?Bj@Dp@Ev@@D@B?z@DXCFqBCu@IACEKBOE?BFF?DGDKCDHAHG?KGMSEACGIC?KCEBEHCLJHKHA@EC?CCDEJ@DBBHB@XGJECUS@m@@[A]BCA{BCBNAT?t@C`@Br@A|@"
+  },
+  {
+    "frame": 6240,
+    "date": "2026-09-21",
+    "distance_m": 973.4,
+    "time_s": 908,
+    "start_time": "2026-09-21 18:01:54",
+    "end_time": "2026-09-21 18:17:40",
+    "polyline": "wnbcFp{bhVRAv@Bn@GNBNAX@p@LJAF_@DcAEoAOAGCCBGEIRAHC@?HIFIMC@?BI[E?CBCACMEG?I@EHGBDHCF@?KFA~@DDGAQO@uA?SB_CE?rCCh@BdAEfA?bCBDHGH?FCRBBEFALKFB@JH@BIBABB@EFG?OKG?OCEIBEVEICQJS?ECAEPED?ZOGE?AFCAYa@SH"
+  },
+  {
+    "frame": 6270,
+    "date": "2026-09-21",
+    "distance_m": 876.4,
+    "time_s": 807,
+    "start_time": "2026-09-21 18:26:57",
+    "end_time": "2026-09-21 18:40:39",
+    "polyline": "mnbcFlcchV^@R_@BMEK?q@CSC?AB@NCACKFM?KFG?MECC@O^Gx@EH?JMd@EDCmBBaA?mBD?FFTB^NH?TFb@PPNf@VVFFAFBJ?@A@ED_EAAQ\\E@IYAWIMAICAKn@A@KA@IDKCI?_@ECBSAEy@@sBEAl@Bd@C|@@l@"
+  },
+  {
+    "frame": 6300,
+    "date": "2026-09-21",
+    "distance_m": 1001.3,
+    "time_s": 905,
+    "start_time": "2026-09-21 18:46:58",
+    "end_time": "2026-09-21 19:02:03",
+    "polyline": "aobcFrzbhVFKDVE|@?|@HBJJDJDD@FX\\^l@ZRVDNA~@BRCFmAAk@GFCHGB?JA@q@f@WDk@?a@KU[IEIQKi@@WDMAMDMT_@ZOP?NFXRNDJ?\\OBGPQFUBg@Ce@CMNR@?FEAqBAAM@IACBUCiA@^VF@^h@ICi@Yo@?a@N_@XQ\\MLAbA"
+  },
+  {
+    "frame": 6330,
+    "date": "2026-10-08",
+    "distance_m": 895.9,
+    "time_s": 806,
+    "start_time": "2026-10-08 18:23:09",
+    "end_time": "2026-10-08 18:36:35",
+    "polyline": "uibcFhtbhVzACAbAGI?IC?UQGQYEcAAW@QCa@@KCO?KBB`@@@?JB?@EAJEF@HCPC`@Bd@ABB\\AhAEjA?C@bAB@DHDB?DLDJNVNVFx@BLCJDBKPAFIFA@CG?MLICO@E?CIGAGIKAESG@EIAIGIAOKS?I?MFOAIJ_@FE?KTOFWDENYFe@ASDe@GEEMGCGUIGCIKAAEMCCEc@BHKPC"
+  },
+  {
+    "frame": 6360,
+    "date": "2026-10-08",
+    "distance_m": 669.7,
+    "time_s": 466,
+    "start_time": "2026-10-08 18:40:05",
+    "end_time": "2026-10-08 18:56:03",
+    "polyline": "ajbcFhtbhVf@AX@HFD?@FLNBNAJB`@G|@CD@ABPA@@A?@EJI@CJKBCHM?IJOAIFCEK?KGE@ECWDEDK@ECUFMJUl@OR?tAH^HL?PE@KIAE@]CiBFuACw@@MCe@Fa@CY@o@BEHADGFARBRERBDC~@@"
+  },
+  {
+    "frame": 6390,
+    "date": "2026-10-08",
+    "distance_m": 639.3,
+    "time_s": 510,
+    "start_time": "2026-10-08 18:57:14",
+    "end_time": "2026-10-08 19:06:06",
+    "polyline": "qibcFhtbhVj@?HPFXDD@BER?b@EL?PGJCLGF?NKLKFGJOBIHIEIFGAYHI?CBE@S^MNIZ@FGj@@VDNCFLj@MAKFQIBs@A_BD{@BBABEuA?{@@SBG?e@Ge@@WDCVBjCB"
+  },
+  {
+    "frame": 6420,
+    "date": "2026-10-08",
+    "distance_m": 516.8,
+    "time_s": 477,
+    "start_time": "2026-10-08 19:06:53",
+    "end_time": "2026-10-08 19:15:24",
+    "polyline": "mibcFvtbhVEFI?CLIB@VAJDNIJ?PCNK@?]CEK@CXGRAPCBEA@IFIEEEHCNGD@LHNDBDFEHGFFFHAAIFAHY@QJHH?@BF?BRD?El@@^ERBJFCASHC?GIA@MHC@MHIEICLKBAA@@B{@HBDk@FCH?@CGC@IEEC?EDCYF]AIDKAIBGGCCI@IIC"
+  },
+  {
+    "frame": 6450,
+    "date": "2026-10-08",
+    "distance_m": 423.2,
+    "time_s": 393,
+    "start_time": "2026-10-08 19:16:53",
+    "end_time": "2026-10-08 19:23:26",
+    "polyline": "aibcFltbhVFJ@TYr@LVOVEXIDOf@?HB?DIJC@BO?GVBHE@EA@JG@CDCEBG@MLQASFQ@OMIAGG?EKE?EJSLES@EJ??GEEHWNIDDADKD?@@BHA@KDA@BCHEBDBDGF?FGHCDQAKBOAQFOHA@GF@DC"
+  },
+  {
+    "frame": 6480,
+    "date": "2026-10-08",
+    "distance_m": 632.8,
+    "time_s": 553,
+    "start_time": "2026-10-08 19:27:11",
+    "end_time": "2026-10-08 19:36:24",
+    "polyline": "{ibcFxwbhVBFH?RREJAVt@BLHALDJ@h@Gj@Al@CPBPALBHAN@JCLBRKBQGO@KEi@EIEKFKBKNo@?k@CMQBc@Ay@@a@LA@E?GJ@@MB?PFJRF@@@C?FFXFPADINEBOHCDOCQBKEIBOG[DOBCEGIACGEC?KDCGEHQCEBBHGD@"
+  },
+  {
+    "frame": 6510,
+    "date": "2026-10-09",
+    "distance_m": 502.7,
+    "time_s": 456,
+    "start_time": "2026-10-09 16:38:42",
+    "end_time": "2026-10-09 16:46:18",
+    "polyline": "oibcF~ybhV@?E?IDCCE?IWDI?KHCBKD@BDBAB@DJ?HHPTAFEL@BCJABJ?`@Bf@AL?n@c@IGDa@CEBKCGBKAIDGCABB@@DKJa@BEHC?IIE@CFK?EIICGGICAC@_@BO?OFQIe@DQ?KXAPJBHFAHBFLPEF@HADFHCH@LM"
+  },
+  {
+    "frame": 6540,
+    "date": "2026-10-10",
+    "distance_m": 728.5,
+    "time_s": 614,
+    "start_time": "2026-10-10 14:30:14",
+    "end_time": "2026-10-10 14:41:30",
+    "polyline": "yhbcFftbhVAAG?EAQBcAAGBKAE@OCIBGCC@OAMB?TBL?LBJCvAJNIIBHC@AFBHAj@@`@GzA@J?tBVMN@JCB@d@Aj@Db@Cd@FFCZ@?c@DGGa@?y@Ei@HWBa@DUAi@Rk@GGMs@@ICQ?m@S?MB[C"
+  },
+  {
+    "frame": 6570,
+    "date": "2026-10-10",
+    "distance_m": 725.2,
+    "time_s": 216,
+    "start_time": "2026-10-10 14:43:29",
+    "end_time": "2026-10-10 14:48:10",
+    "polyline": "whbcFjtbhVS?SBs@Ge@BOCS?GAUBFz@EdABh@At@@HAv@Gn@DXCPBTAx@@LBDL?TGJ?RC^@b@CN@DCVDHAt@DBEB]BS?sCCG@_ACUB]ASBWC{@@c@?CIGUBc@EC@AFAA@BDA?DDE"
+  }
+]

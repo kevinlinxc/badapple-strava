@@ -5,6 +5,7 @@ from pathlib import Path
 
 
 def main():
+    # the csv is gitignored because it has some activities near my house, so only the bad apple walks go into the json
     csv_path = Path("strava_data/activities-2026-10-10.csv")
     output_path = Path("strava_data/bad_apple_activities.json")
 

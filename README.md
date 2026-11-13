@@ -29,8 +29,8 @@ the contours are not always proper (they don't always outline the correct shape,
 4. [`4_contour_editor.py`](src/4_contour_editor.py) is a simple Sreamlit webui I used to curate the contours chosen for each frame by adjusting the opencv
 contour detection parameters manually. I was optimizing foro minimum distance, ensuring I was capturing the main subjects of every frame while ignoring the small specks. Output was curated json with xy coordinates of all the points along the contours.
 5. [`5_json_to_gpx.py`](src/5_json_to_gpx.py) uses the json and the parameters from step 2 to convert the json to a gpx file. I imported these into Gaia GPS and walked them while tracking on Strava.
-6. [`6_strava_scraper.py`](src/6_strava_scraper.py) scrapes the Strava API to get the data for the walks, including the polyline, which encodes the GPS data of the walk. I stored this all into a CSV file. Uses the [strava-client](https://github.com/GiovanniGiacometti/strava-client) package which I contributed to but also cloned locally to tune a bit.
-7. [`7_parse_csv_to_json.py`](src/7_parse_csv_to_json.py) converts the csv into a JSON to use in the polyline renderer.
+6. [`6_strava_scraper.py`](src/6_strava_scraper.py) scrapes the Strava API to get the data for the walks, including the polyline, which encodes the GPS data of the walk. I stored this all into a CSV file, which is gitignored because it has some activities near my house. Uses the [strava-client](https://github.com/GiovanniGiacometti/strava-client) package which I contributed to but also cloned locally to tune a bit.
+7. [`7_parse_csv_to_json.py`](src/7_parse_csv_to_json.py) converts the csv into a JSON to use in the polyline renderer, keeping only the Bad Apple walks.
 8. [`8_censor_strava_screenshots.py`](src/8_censor_strava_screenshots.py) helps me censor screenshots I took of all my Strava activities so I didn't have to doxx myself in my content until the end
 9. [`9_screenshot_montage.py`](src/9_screenshot_montage.py) makes a montage of screenshots appearing in a collage style
 10. [`10_screenshot_reel_vid.py`](src/10_screenshot_reel_vid.py) makes a reel of screenshots passing by like a film reel
@@ -41,3 +41,10 @@ contour detection parameters manually. I was optimizing foro minimum distance, e
 
 [polyline_renderer/](polyline_renderer/) is a nextjs app I made to visualize the polylines/other strava data from step 7, to make content with it. It also produces the final video that combines the polylines, the original bad apple video, distance/time data, and the screenshots of my Strava activities.
 
+## How to run stuff
+
+For the python scripts, install [uv](https://docs.astral.sh/uv/getting-started/installation/), run `uv sync`, then run `uv run src/<script_name>.py`. 
+
+Some scripts also need [ffmpeg](https://ffmpeg.org/) (9, 10, 12, 14), [Tesseract](https://github.com/tesseract-ocr/tesseract) (8, 13) and Chrome (2, 3), plus credentials in a `.env` copied from [`.env.example`](.env.example).
+
+For the polyline renderer, install [nodejs](https://nodejs.org/en/download/), change directory to `polyline_renderer`, and run `npm install` and `npm run dev` to run the app locally.
