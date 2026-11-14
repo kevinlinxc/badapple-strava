@@ -270,6 +270,9 @@ type Scene = {
   screenshot: (i: number) => ImageBitmap | undefined;
   opacity: number;
   blend: string;
+  trailWidth: number;
+  // Draw the line growing with a head dot, or the whole polyline at once
+  showTrail: boolean;
   metric: Metric;
   scratch: HTMLCanvasElement;
   sans: string;
@@ -559,7 +562,7 @@ function drawMap(ctx: CanvasRenderingContext2D, scene: Scene, map: Rect, item: I
 
   const { points, cumulative } = item;
   if (points.length > 0) {
-    const target = cumulative[cumulative.length - 1] * progress;
+    const target = cumulative[cumulative.length - 1] * (scene.showTrail ? progress : 1);
     let head = toPx(points[0]);
     ctx.beginPath();
     ctx.moveTo(head[0], head[1]);
@@ -575,19 +578,21 @@ function drawMap(ctx: CanvasRenderingContext2D, scene: Scene, map: Rect, item: I
       head = next;
       ctx.lineTo(head[0], head[1]);
     }
-    ctx.lineWidth = 6;
+    ctx.lineWidth = scene.trailWidth;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgb(255, 140, 0)";
+    ctx.strokeStyle = ORANGE;
     ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(head[0], head[1], 7, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffa000";
-    ctx.fill();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#fff";
-    ctx.stroke();
+    if (scene.showTrail) {
+      ctx.beginPath();
+      ctx.arc(head[0], head[1], scene.trailWidth / 2 + 4, 0, Math.PI * 2);
+      ctx.fillStyle = ORANGE;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#fff";
+      ctx.stroke();
+    }
   }
   ctx.restore();
 }
@@ -715,6 +720,8 @@ export default function FinalMode({
   const [labels, setLabels] = usePersistedState("final.labels", false);
   const [opacity, setOpacity] = usePersistedState("final.opacity", 0.5);
   const [blend, setBlend] = usePersistedState("final.blend", "normal");
+  const [trailWidth, setTrailWidth] = usePersistedState("final.trailWidth", 6);
+  const [showTrail, setShowTrail] = usePersistedState("final.showTrail", true);
   const [metric, setMetric] = usePersistedState<Metric>("final.metric", "steps");
   const [orientation, setOrientation] = usePersistedState<Orientation>("final.orientation", "landscape");
   const layout = LAYOUTS[orientation] ?? LAYOUTS.landscape;
@@ -759,8 +766,8 @@ export default function FinalMode({
   playingRef.current = playing;
   const exportingRef = useRef(false);
   const cancelRef = useRef(false);
-  const settingsRef = useRef({ opacity, blend, metric });
-  settingsRef.current = { opacity, blend, metric };
+  const settingsRef = useRef({ opacity, blend, trailWidth, showTrail, metric });
+  settingsRef.current = { opacity, blend, trailWidth, showTrail, metric };
   const layoutRef = useRef(layout);
   layoutRef.current = layout;
   const timelineRef = useRef(timeline);
@@ -1200,6 +1207,16 @@ export default function FinalMode({
                   options={MAP_THEMES.map((t) => ({ value: t.id, label: t.label }))}
                 />
                 <ToggleRow label="Labels" checked={labels} onChange={setLabels} />
+                <ToggleRow label="Animate trail" checked={showTrail} onChange={setShowTrail} />
+                <SliderRow
+                  label="Trail width"
+                  display={`${trailWidth}px`}
+                  min={1}
+                  max={20}
+                  step={1}
+                  value={trailWidth}
+                  onChange={setTrailWidth}
+                />
               </Section>
 
               <Section title="Video">

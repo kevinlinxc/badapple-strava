@@ -107,6 +107,7 @@ export const MAP_THEMES = [
   { id: "versatiles-colorful", label: "Versatiles Colorful", url: "https://tiles.versatiles.org/assets/styles/colorful/style.json" },
   { id: "versatiles-neutrino", label: "Versatiles Neutrino", url: "https://tiles.versatiles.org/assets/styles/neutrino/style.json" },
   { id: "versatiles-eclipse", label: "Versatiles Eclipse", url: "https://tiles.versatiles.org/assets/styles/eclipse/style.json" },
+  { id: "strava-dark", label: "Strava Dark", url: "/map-styles/strava-dark.json" },
 ];
 
 export function setLabelVisibility(map: maplibregl.Map, visible: boolean) {
