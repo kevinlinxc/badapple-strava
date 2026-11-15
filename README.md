@@ -4,6 +4,7 @@ Making Bad Apple using Strava activities.
 
 <img src="preview.jpg" alt="Frame 300" width="400">
 
+Final video: [https://www.youtube.com/watch?v=HxdQawDIlnU&](https://www.youtube.com/watch?v=HxdQawDIlnU&)
 
 ## How it works
 The core technical challenge is to convert the video frames into something I can use to know where to walk.
